@@ -278,9 +278,9 @@ mcp__pixellab__get_character(character_id="CHARACTER_ID")
 
 ### Phase 3: Individual Games
 - [ ] Quick Draw (drawing sync, guess input)
-- [ ] Act It Out (prompt display, guess voting)
+- [x] Act It Out (prompt display, guess voting) - implemented as `charades`
 - [ ] Fibbage (answer submission, voting)
-- [ ] Word Bomb (word validation, elimination)
+- [x] Word Bomb (word validation, elimination)
 - [ ] Who Said It? (anonymous answers, attribution voting)
 - [ ] Trivia Showdown (question display, answer selection)
 
@@ -330,7 +330,7 @@ res://
 │   │   └── player_lobby.tscn
 │   ├── games/
 │   │   ├── quick_draw/
-│   │   ├── act_it_out/
+│   │   ├── charades/            # Act It Out game
 │   │   ├── fibbage/
 │   │   ├── word_bomb/
 │   │   ├── who_said_it/
@@ -352,7 +352,7 @@ res://
 │   ├── games/
 │   │   ├── base_game.gd      # Abstract base class
 │   │   ├── quick_draw.gd
-│   │   ├── act_it_out.gd
+│   │   ├── charades.gd       # Act It Out game
 │   │   ├── fibbage.gd
 │   │   ├── word_bomb.gd
 │   │   ├── who_said_it.gd
@@ -383,7 +383,7 @@ res://
 |-------|--------|-------|
 | Phase 1: Foundation | Complete | Lobby, networking done |
 | Phase 2: Game Framework | Complete | Base game class created |
-| Phase 3: Individual Games | In Progress | Word Bomb complete |
+| Phase 3: Individual Games | In Progress | Word Bomb, Act It Out (Charades) complete |
 | Phase 4: Polish & Assets | In Progress | 5/8 character sprites integrated |
 | Phase 5: Testing | Not Started | |
 
@@ -405,6 +405,10 @@ res://
 - [x] Base game class
 - [x] Word Bomb game (complete with timer, lives, validation)
 - [x] Letter combinations data (easy/medium/hard)
+- [x] Act It Out (Charades) game (complete with actor/guesser roles, 60s timer, scoring)
+- [x] Charades prompts data (movies_tv, actions categories)
+- [x] Charades turn preparation phase (actor presses "Start My Turn" before seeing prompt)
+- [x] Charades result screens (shows correct answer, who guessed, points awarded to all players)
 - [x] Character selection click area fix (mouse_filter on child controls)
 - [x] Game state sync for non-host players (word_bomb_init message)
 - [x] Fixed player scene transition bug (message_received signal not emitting for handled messages)
@@ -421,8 +425,10 @@ res://
 ### Next Steps
 1. Complete remaining character downloads when PixelLab finishes
 2. Build Quick Draw game (drawing sync)
-3. Build Act It Out game (charades)
-4. Add sound effects and polish
+3. Build Fibbage game (bluffing/voting)
+4. Build Who Said It? game (anonymous answers)
+5. Build Trivia Showdown game (multiple choice)
+6. Add sound effects and polish
 
 ### Character Assets Status
 | Character | Status | Sprite Path |
@@ -456,4 +462,4 @@ res://
 
 ---
 
-*Last Updated: 2026-01-21 (Fixed player scene transition bug)*
+*Last Updated: 2026-01-21 (Enhanced Charades with turn preparation and result screens)*

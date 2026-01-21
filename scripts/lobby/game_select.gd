@@ -13,7 +13,7 @@ const GAMES = [
 		"color": Color(0.9, 0.6, 0.2)
 	},
 	{
-		"id": "act_it_out",
+		"id": "charades",
 		"name": "Act It Out",
 		"description": "Classic charades! Act out the prompt without speaking.",
 		"icon": "🎭",
