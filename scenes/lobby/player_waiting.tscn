@@ -1,0 +1,75 @@
+[gd_scene load_steps=2 format=3 uid="uid://player_waiting"]
+
+[ext_resource type="Script" path="res://scripts/lobby/player_waiting.gd" id="1_waiting"]
+
+[node name="PlayerWaiting" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_waiting")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.12, 0.12, 0.18, 1)
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Title" type="Label" parent="VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "You're In!"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Waiting for host to start the game..."
+horizontal_alignment = 1
+
+[node name="PlayerInfo" type="VBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="VBox/PlayerInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Playing as: ???"
+horizontal_alignment = 1
+
+[node name="CharacterPreview" type="ColorRect" parent="VBox/PlayerInfo"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+color = Color(1, 1, 1, 1)
+
+[node name="PlayersInLobby" type="Label" parent="VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "Players in lobby: 1"
+horizontal_alignment = 1
+
+[node name="LeaveButton" type="Button" parent="VBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Leave Game"

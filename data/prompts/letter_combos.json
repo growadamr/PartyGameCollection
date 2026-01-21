@@ -1,0 +1,14 @@
+{
+  "easy": [
+	"TH", "IN", "AN", "ER", "ON", "AT", "EN", "ED", "IT", "ES",
+	"OR", "TE", "OF", "TO", "ND", "IS", "AL", "AR", "ST", "LE"
+  ],
+  "medium": [
+	"ING", "THE", "AND", "TIO", "ENT", "FOR", "HER", "WAS", "ARE", "HIS",
+	"OUT", "ALL", "HAV", "NOT", "BUT", "YOU", "WIT", "THI", "PRO", "COM"
+  ],
+  "hard": [
+	"TION", "IGHT", "OUGH", "OUND", "OULD", "MENT", "NESS", "ALLY", "THER", "RING",
+	"IGHT", "ENCE", "ANCE", "IOUS", "LESS", "ABLE", "IBLE", "WARD", "SHIP", "HOOD"
+  ]
+}

@@ -1,0 +1,112 @@
+[gd_scene load_steps=2 format=3 uid="uid://join_lobby"]
+
+[ext_resource type="Script" path="res://scripts/lobby/join_lobby.gd" id="1_join"]
+
+[node name="JoinLobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_join")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.12, 0.12, 0.18, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = -40.0
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="BackButton" type="Button" parent="ScrollContainer/VBox"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "← Back"
+
+[node name="Title" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Join a Game"
+horizontal_alignment = 1
+
+[node name="ConnectionSection" type="VBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="IPLabel" type="Label" parent="ScrollContainer/VBox/ConnectionSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Enter Host IP Address"
+
+[node name="IPInput" type="LineEdit" parent="ScrollContainer/VBox/ConnectionSection"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+placeholder_text = "192.168.1.xxx"
+alignment = 1
+
+[node name="NameSection" type="VBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="ScrollContainer/VBox/NameSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Your Name"
+
+[node name="NameInput" type="LineEdit" parent="ScrollContainer/VBox/NameSection"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Your name..."
+max_length = 20
+alignment = 1
+
+[node name="CharacterSection" type="VBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="CharLabel" type="Label" parent="ScrollContainer/VBox/CharacterSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Choose Your Character"
+
+[node name="CharacterGrid" type="GridContainer" parent="ScrollContainer/VBox/CharacterSection"]
+layout_mode = 2
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 15
+columns = 4
+
+[node name="StatusLabel" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = ""
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="ScrollContainer/VBox"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="JoinButton" type="Button" parent="ScrollContainer/VBox"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Join Game"

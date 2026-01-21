@@ -1,0 +1,117 @@
+[gd_scene load_steps=2 format=3 uid="uid://waiting_lobby"]
+
+[ext_resource type="Script" path="res://scripts/lobby/waiting_lobby.gd" id="1_waiting"]
+
+[node name="WaitingLobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_waiting")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.12, 0.12, 0.18, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = -40.0
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="Header" type="HBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="ScrollContainer/VBox/Header"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "← Leave"
+
+[node name="Spacer" type="Control" parent="ScrollContainer/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SessionCode" type="Label" parent="ScrollContainer/VBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "Code: -------"
+
+[node name="Title" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Waiting for Players"
+horizontal_alignment = 1
+
+[node name="QRSection" type="VBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="QRLabel" type="Label" parent="ScrollContainer/VBox/QRSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Scan to join:"
+horizontal_alignment = 1
+
+[node name="QRPlaceholder" type="ColorRect" parent="ScrollContainer/VBox/QRSection"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+color = Color(1, 1, 1, 1)
+
+[node name="QRPlaceholderText" type="Label" parent="ScrollContainer/VBox/QRSection/QRPlaceholder"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -20.0
+offset_right = 50.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "QR Code"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayersSection" type="VBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PlayersLabel" type="Label" parent="ScrollContainer/VBox/PlayersSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Players (1/8)"
+
+[node name="PlayerList" type="VBoxContainer" parent="ScrollContainer/VBox/PlayersSection"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Spacer" type="Control" parent="ScrollContainer/VBox"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="ScrollContainer/VBox"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Start Game (Need 2+ players)"
