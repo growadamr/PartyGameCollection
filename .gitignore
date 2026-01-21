@@ -33,3 +33,8 @@ mono_crash.*.json
 *.swp
 *.swo
 *~
+
+# Design files
+*.paint
+*.psd
+*.sketch
