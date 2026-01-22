@@ -9,7 +9,7 @@ const GAMES = [
 		"name": "Quick Draw",
 		"description": "Draw and guess! One player draws, others guess the word.",
 		"icon": "✏️",
-		"min_players": 3,
+		"min_players": 2,
 		"color": Color(0.9, 0.6, 0.2)
 	},
 	{
