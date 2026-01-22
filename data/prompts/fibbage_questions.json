@@ -1,0 +1,264 @@
+{
+  "questions": [
+    {
+      "text": "The world's largest _____ weighs over 500 pounds.",
+      "answer": "potato",
+      "category": "food"
+    },
+    {
+      "text": "In 1932, Australia declared war on _____.",
+      "answer": "emus",
+      "category": "history"
+    },
+    {
+      "text": "The official state sport of Maryland is _____.",
+      "answer": "jousting",
+      "category": "sports"
+    },
+    {
+      "text": "In Switzerland, it's illegal to own just one _____.",
+      "answer": "guinea pig",
+      "category": "animals"
+    },
+    {
+      "text": "The inventor of the Pringles can is buried in a _____.",
+      "answer": "Pringles can",
+      "category": "people"
+    },
+    {
+      "text": "Cows have best friends and get stressed when they're _____.",
+      "answer": "separated",
+      "category": "animals"
+    },
+    {
+      "text": "The shortest war in history lasted only _____ minutes.",
+      "answer": "38",
+      "category": "history"
+    },
+    {
+      "text": "A group of flamingos is called a _____.",
+      "answer": "flamboyance",
+      "category": "animals"
+    },
+    {
+      "text": "Honey never _____.",
+      "answer": "expires",
+      "category": "food"
+    },
+    {
+      "text": "The unicorn is the national animal of _____.",
+      "answer": "Scotland",
+      "category": "geography"
+    },
+    {
+      "text": "Octopuses have _____ hearts.",
+      "answer": "three",
+      "category": "animals"
+    },
+    {
+      "text": "The first oranges weren't _____.",
+      "answer": "orange",
+      "category": "food"
+    },
+    {
+      "text": "Bananas are technically _____.",
+      "answer": "berries",
+      "category": "food"
+    },
+    {
+      "text": "The Eiffel Tower can grow by 6 inches in summer due to _____.",
+      "answer": "heat expansion",
+      "category": "science"
+    },
+    {
+      "text": "Ancient Romans used crushed _____ as toothpaste.",
+      "answer": "mouse brains",
+      "category": "history"
+    },
+    {
+      "text": "A jiffy is an actual unit of time equal to _____ of a second.",
+      "answer": "1/100th",
+      "category": "science"
+    },
+    {
+      "text": "The inventor of the frisbee was turned into a _____ after he died.",
+      "answer": "frisbee",
+      "category": "people"
+    },
+    {
+      "text": "Crows can recognize and remember human _____.",
+      "answer": "faces",
+      "category": "animals"
+    },
+    {
+      "text": "The original name for the search engine Google was _____.",
+      "answer": "Backrub",
+      "category": "technology"
+    },
+    {
+      "text": "In Japan, there's a hotel staffed entirely by _____.",
+      "answer": "robots",
+      "category": "technology"
+    },
+    {
+      "text": "The longest hiccuping spree lasted _____ years.",
+      "answer": "68",
+      "category": "people"
+    },
+    {
+      "text": "Astronauts cannot _____ in space.",
+      "answer": "cry",
+      "category": "science"
+    },
+    {
+      "text": "The name for the dot over the letters 'i' and 'j' is a _____.",
+      "answer": "tittle",
+      "category": "language"
+    },
+    {
+      "text": "A cloud weighs approximately _____ pounds.",
+      "answer": "1.1 million",
+      "category": "science"
+    },
+    {
+      "text": "The fear of long words is called _____.",
+      "answer": "hippopotomonstrosesquippedaliophobia",
+      "category": "language"
+    },
+    {
+      "text": "Nintendo was founded in _____, originally selling playing cards.",
+      "answer": "1889",
+      "category": "technology"
+    },
+    {
+      "text": "A snail can sleep for _____ years.",
+      "answer": "three",
+      "category": "animals"
+    },
+    {
+      "text": "The moon is slowly _____ away from Earth.",
+      "answer": "drifting",
+      "category": "science"
+    },
+    {
+      "text": "Dolphins sleep with one _____ open.",
+      "answer": "eye",
+      "category": "animals"
+    },
+    {
+      "text": "The first computer virus was created in _____.",
+      "answer": "1983",
+      "category": "technology"
+    },
+    {
+      "text": "The Twitter bird's official name is _____.",
+      "answer": "Larry",
+      "category": "technology"
+    },
+    {
+      "text": "A group of owls is called a _____.",
+      "answer": "parliament",
+      "category": "animals"
+    },
+    {
+      "text": "The longest English word without a vowel is _____.",
+      "answer": "rhythms",
+      "category": "language"
+    },
+    {
+      "text": "Peanuts are one of the ingredients in _____.",
+      "answer": "dynamite",
+      "category": "science"
+    },
+    {
+      "text": "The electric chair was invented by a _____.",
+      "answer": "dentist",
+      "category": "people"
+    },
+    {
+      "text": "Elephants are the only animals that can't _____.",
+      "answer": "jump",
+      "category": "animals"
+    },
+    {
+      "text": "Venus is the only planet that spins _____.",
+      "answer": "clockwise",
+      "category": "science"
+    },
+    {
+      "text": "A pizza was once delivered to the _____.",
+      "answer": "International Space Station",
+      "category": "food"
+    },
+    {
+      "text": "In 1923, a jockey won a race despite being _____.",
+      "answer": "dead",
+      "category": "sports"
+    },
+    {
+      "text": "The original color of Coca-Cola was _____.",
+      "answer": "green",
+      "category": "food"
+    },
+    {
+      "text": "The hashtag symbol is technically called an _____.",
+      "answer": "octothorpe",
+      "category": "language"
+    },
+    {
+      "text": "In Kentucky, it's illegal to remarry the same person _____ times.",
+      "answer": "four",
+      "category": "laws"
+    },
+    {
+      "text": "The average person walks the equivalent of _____ times around the world in their lifetime.",
+      "answer": "five",
+      "category": "people"
+    },
+    {
+      "text": "A bolt of lightning is _____ times hotter than the sun's surface.",
+      "answer": "five",
+      "category": "science"
+    },
+    {
+      "text": "Oxford University is older than the _____ Empire.",
+      "answer": "Aztec",
+      "category": "history"
+    },
+    {
+      "text": "The shortest complete sentence in English is _____.",
+      "answer": "Go",
+      "category": "language"
+    },
+    {
+      "text": "A baby octopus is about the size of a _____.",
+      "answer": "flea",
+      "category": "animals"
+    },
+    {
+      "text": "The youngest Pope was only _____ years old.",
+      "answer": "11",
+      "category": "history"
+    },
+    {
+      "text": "There are more _____ than people in the world.",
+      "answer": "chickens",
+      "category": "animals"
+    },
+    {
+      "text": "M&M stands for _____ and Mars.",
+      "answer": "Mars",
+      "category": "food"
+    },
+    {
+      "text": "The first webcam watched a _____.",
+      "answer": "coffee pot",
+      "category": "technology"
+    },
+    {
+      "text": "A crocodile cannot stick out its _____.",
+      "answer": "tongue",
+      "category": "animals"
+    }
+  ]
+}

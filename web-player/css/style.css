@@ -501,6 +501,48 @@ textarea::placeholder {
     color: var(--text-primary);
 }
 
+/* Fibbage - Vote Buttons (Vertical) */
+.vote-buttons-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.btn-vote-answer {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 2px solid var(--accent-primary);
+    padding: 14px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: left;
+    width: 100%;
+}
+
+.btn-vote-answer:hover:not(:disabled) {
+    background: var(--accent-primary);
+}
+
+.btn-vote-answer:disabled {
+    border-color: var(--text-secondary);
+    opacity: 0.5;
+}
+
+/* Fibbage - Reveal Truth */
+.reveal-truth {
+    border-color: var(--accent-success);
+    color: var(--accent-success);
+}
+
+.result-wrong {
+    background: rgba(248, 113, 113, 0.15);
+    color: var(--accent-error);
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-align: center;
+}
+
 /* Utility */
 .hidden {
     display: none !important;

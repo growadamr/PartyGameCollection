@@ -300,6 +300,13 @@ class PartyGameApp {
                 }
                 break;
 
+            case 'fibbage':
+                this.showScreen('fibbage');
+                if (window.fibbageGame) {
+                    fibbageGame.init(this);
+                }
+                break;
+
             default:
                 console.warn('Unknown game:', gameId);
         }

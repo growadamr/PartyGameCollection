@@ -86,14 +86,14 @@ fibbage_vote        - Vote for an answer
 {
   "questions": [
     {
-      "text": "The world's largest _____ weighs over 500 pounds.",
-      "answer": "potato",
-      "category": "food"
+	  "text": "The world's largest _____ weighs over 500 pounds.",
+	  "answer": "potato",
+	  "category": "food"
     },
     {
-      "text": "In 1932, Australia declared war on _____.",
-      "answer": "emus",
-      "category": "history"
+	  "text": "In 1932, Australia declared war on _____.",
+	  "answer": "emus",
+	  "category": "history"
     }
   ]
 }
