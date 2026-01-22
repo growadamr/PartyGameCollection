@@ -187,14 +187,15 @@ func _start_writing_phase() -> void:
 
 	var data = {
 		"type": "fibbage_question",
-		"question": current_question.text,
+		"question": current_question.get("text", ""),
 		"category": current_question.get("category", ""),
 		"round": current_round,
 		"total_rounds": total_rounds,
 		"time_limit": WRITING_TIME
 	}
 	NetworkManager.broadcast(data)
-	_apply_question(data)
+	# Host just shows UI directly - don't call _apply_question which would overwrite current_question
+	_show_writing_ui()
 
 
 func _start_voting_phase() -> void:
