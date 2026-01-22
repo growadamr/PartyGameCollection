@@ -12,7 +12,7 @@ Adding an Imposter-style social deduction game to the existing party game collec
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Core Game Foundation** - Role assignment, discussion phase, and integration
+- [x] **Phase 1: Core Game Foundation** - Role assignment, discussion phase, and integration ✓
 - [ ] **Phase 2: Voting & Elimination** - Real-time voting with consensus detection and reveals
 - [ ] **Phase 3: Imposter Guess & Round End** - Word guessing and win condition tracking
 
@@ -31,9 +31,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Compile word list from existing game data
-- [ ] 01-02-PLAN.md — Godot game controller, scene, and menu integration
-- [ ] 01-03-PLAN.md — Web player handler and HTML screen
+- [x] 01-01-PLAN.md — Compile word list from existing game data
+- [x] 01-02-PLAN.md — Godot game controller, scene, and menu integration
+- [x] 01-03-PLAN.md — Web player handler and HTML screen
 
 ### Phase 2: Voting & Elimination
 **Goal**: Players can vote for suspects, see consensus warnings, and witness reveals
@@ -74,7 +74,7 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Core Game Foundation | 0/3 | Planned | - |
+| 1. Core Game Foundation | 3/3 | Complete ✓ | 2026-01-22 |
 | 2. Voting & Elimination | 0/0 | Not started | - |
 | 3. Imposter Guess & Round End | 0/0 | Not started | - |
 
