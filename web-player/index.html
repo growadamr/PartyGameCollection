@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Party Games</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Connection Screen -->
+        <div id="screen-connect" class="screen active">
+            <h1>Party Games</h1>
+            <div class="card">
+                <p class="status" id="connection-status">Connecting to host...</p>
+                <div id="manual-connect" class="hidden">
+                    <input type="text" id="host-ip" placeholder="Host IP (e.g., 192.168.1.5)">
+                    <input type="number" id="host-port" placeholder="Port" value="8080">
+                    <button id="btn-connect" class="btn-primary">Connect</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Join Screen -->
+        <div id="screen-join" class="screen">
+            <h1>Join Game</h1>
+            <div class="card">
+                <input type="text" id="player-name" placeholder="Your Name" maxlength="12">
+                <div id="character-grid" class="character-grid">
+                    <!-- Characters populated by JS -->
+                </div>
+                <button id="btn-join" class="btn-primary" disabled>Join</button>
+            </div>
+        </div>
+
+        <!-- Waiting Screen -->
+        <div id="screen-waiting" class="screen">
+            <h1>Waiting for Host</h1>
+            <div class="card">
+                <p class="player-name" id="display-name"></p>
+                <div class="character-preview" id="display-character"></div>
+                <p class="status">Waiting for the game to start...</p>
+                <div id="players-list" class="players-list"></div>
+            </div>
+        </div>
+
+        <!-- Game: Charades -->
+        <div id="screen-charades" class="screen">
+            <div class="game-header">
+                <span class="game-title">Charades</span>
+                <span class="timer" id="charades-timer">60</span>
+            </div>
+
+            <div id="charades-actor-view" class="game-content hidden">
+                <p class="role-label">You're Acting!</p>
+                <div class="prompt-card" id="charades-prompt">???</div>
+                <button id="btn-start-turn" class="btn-primary">Start My Turn</button>
+                <button id="btn-skip" class="btn-secondary hidden">Skip</button>
+            </div>
+
+            <div id="charades-guesser-view" class="game-content hidden">
+                <p class="role-label">Guess what <span id="charades-actor-name">???</span> is acting!</p>
+                <div class="prompt-card">???</div>
+                <input type="text" id="charades-guess" placeholder="Type your guess...">
+                <button id="btn-guess" class="btn-primary">Guess</button>
+            </div>
+
+            <div id="charades-result-view" class="game-content hidden">
+                <div class="result-card" id="charades-result"></div>
+            </div>
+        </div>
+
+        <!-- Game: Word Bomb -->
+        <div id="screen-word-bomb" class="screen">
+            <div class="game-header">
+                <span class="game-title">Word Bomb</span>
+                <span class="timer" id="wordbomb-timer">10</span>
+            </div>
+
+            <div class="game-content">
+                <div class="lives" id="wordbomb-lives"></div>
+                <div class="prompt-card large" id="wordbomb-letters">PH</div>
+                <input type="text" id="wordbomb-input" placeholder="Type a word..." autocomplete="off">
+                <button id="btn-submit-word" class="btn-primary">Submit</button>
+                <p class="feedback" id="wordbomb-feedback"></p>
+            </div>
+        </div>
+
+        <!-- Game: Quick Draw -->
+        <div id="screen-quick-draw" class="screen">
+            <div class="game-header">
+                <span class="game-title">Quick Draw</span>
+                <span class="timer" id="quickdraw-timer">60</span>
+            </div>
+
+            <div id="quickdraw-drawer-view" class="game-content hidden">
+                <p class="role-label">Draw this:</p>
+                <div class="prompt-card" id="quickdraw-prompt">???</div>
+                <canvas id="drawing-canvas" width="300" height="300"></canvas>
+                <div class="drawing-tools">
+                    <button id="btn-clear" class="btn-secondary">Clear</button>
+                    <input type="color" id="brush-color" value="#ffffff">
+                    <input type="range" id="brush-size" min="2" max="20" value="5">
+                </div>
+            </div>
+
+            <div id="quickdraw-guesser-view" class="game-content hidden">
+                <p class="role-label">Guess what <span id="quickdraw-drawer-name">???</span> is drawing!</p>
+                <div class="drawing-display" id="quickdraw-canvas-display"></div>
+                <input type="text" id="quickdraw-guess" placeholder="Type your guess...">
+                <button id="btn-quickdraw-guess" class="btn-primary">Guess</button>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="screen-game-over" class="screen">
+            <h1>Game Over!</h1>
+            <div class="card">
+                <div class="winner" id="winner-display"></div>
+                <div class="final-scores" id="final-scores"></div>
+                <p class="status">Returning to lobby...</p>
+            </div>
+        </div>
+
+        <!-- Disconnected Screen -->
+        <div id="screen-disconnected" class="screen">
+            <h1>Disconnected</h1>
+            <div class="card">
+                <p class="status">Lost connection to host</p>
+                <button id="btn-reconnect" class="btn-primary">Try Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/websocket.js"></script>
+    <script src="js/games/charades.js"></script>
+    <script src="js/games/wordbomb.js"></script>
+    <script src="js/games/quickdraw.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
