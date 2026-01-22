@@ -32,6 +32,11 @@ func _ready() -> void:
 	_load_words()
 	call_deferred("_initialize_game")
 
+func _input(event: InputEvent) -> void:
+	if GameManager.is_host and event is InputEventKey and event.pressed:
+		if event.keycode == KEY_V and current_state == State.DISCUSSION:
+			start_voting()
+
 func _load_words() -> Array:
 	var file = FileAccess.open("res://data/prompts/imposter_words.json", FileAccess.READ)
 	if file:
@@ -117,6 +122,9 @@ func _on_message_received(_peer_id: int, data: Dictionary) -> void:
 			if GameManager.is_host:
 				var voter_id = "peer_%d" % _peer_id
 				_process_vote(voter_id, data.get("target_id", ""))
+		"start_voting":
+			if GameManager.is_host:
+				start_voting()
 		"voting_started":
 			_apply_voting_started(data)
 		"vote_update":
