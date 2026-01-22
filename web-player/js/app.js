@@ -293,6 +293,13 @@ class PartyGameApp {
                 }
                 break;
 
+            case 'who_said_it':
+                this.showScreen('who-said-it');
+                if (window.whoSaidItGame) {
+                    whoSaidItGame.init(this);
+                }
+                break;
+
             default:
                 console.warn('Unknown game:', gameId);
         }

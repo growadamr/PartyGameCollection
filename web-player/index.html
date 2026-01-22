@@ -114,6 +114,53 @@
             </div>
         </div>
 
+        <!-- Game: Who Said It -->
+        <div id="screen-who-said-it" class="screen">
+            <div class="game-header">
+                <span class="game-title">Who Said It?</span>
+                <span class="timer" id="whosaid-timer">60</span>
+            </div>
+
+            <div id="whosaid-writing-view" class="game-content hidden">
+                <div class="prompt-card" id="whosaid-prompt">???</div>
+                <p class="role-label">Type your answer (keep it secret!):</p>
+                <textarea id="whosaid-answer" placeholder="Your answer..." rows="3"></textarea>
+                <button id="btn-submit-answer" class="btn-primary">Submit Answer</button>
+                <p class="status" id="whosaid-answers-status">0 answers received</p>
+            </div>
+
+            <div id="whosaid-voting-view" class="game-content hidden">
+                <p class="role-label">Who wrote this?</p>
+                <div class="prompt-card" id="whosaid-answer-display">"..."</div>
+                <div class="vote-buttons" id="whosaid-vote-buttons"></div>
+                <p class="status" id="whosaid-votes-status">0 votes</p>
+            </div>
+
+            <div id="whosaid-author-view" class="game-content hidden">
+                <p class="role-label">This is YOUR answer!</p>
+                <div class="prompt-card" id="whosaid-your-answer">"..."</div>
+                <p class="status">Wait and see who guesses correctly...</p>
+            </div>
+
+            <div id="whosaid-reveal-view" class="game-content hidden">
+                <div class="prompt-card" id="whosaid-reveal-answer">"..."</div>
+                <p class="reveal-author" id="whosaid-reveal-author">Written by: ???</p>
+                <div class="reveal-results" id="whosaid-reveal-results"></div>
+            </div>
+
+            <div id="whosaid-ready-view" class="game-content hidden">
+                <h2 id="whosaid-ready-title">Ready to Start?</h2>
+                <div class="players-ready-grid" id="whosaid-players-ready"></div>
+                <button id="btn-ready" class="btn-primary btn-large">Ready!</button>
+                <p class="status" id="whosaid-ready-status">0/4 ready</p>
+            </div>
+
+            <div id="whosaid-round-end-view" class="game-content hidden">
+                <h2 id="whosaid-round-complete">Round Complete!</h2>
+                <p class="status">Next round starting soon...</p>
+            </div>
+        </div>
+
         <!-- Game Over Screen -->
         <div id="screen-game-over" class="screen">
             <h1>Game Over!</h1>
@@ -138,6 +185,7 @@
     <script src="js/games/charades.js"></script>
     <script src="js/games/wordbomb.js"></script>
     <script src="js/games/quickdraw.js"></script>
+    <script src="js/games/whosaidit.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

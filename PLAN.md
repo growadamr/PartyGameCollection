@@ -291,7 +291,7 @@ mcp__pixellab__get_character(character_id="CHARACTER_ID")
 - [x] Act It Out (prompt display, guess voting) - implemented as `charades`
 - [ ] Fibbage (answer submission, voting)
 - [x] Word Bomb (word validation, elimination)
-- [ ] Who Said It? (anonymous answers, attribution voting)
+- [x] Who Said It? (anonymous answers, attribution voting)
 - [ ] Trivia Showdown (question display, answer selection)
 
 ### Phase 4: Polish & Assets
@@ -404,7 +404,7 @@ res://
 |-------|--------|-------|
 | Phase 1: Foundation | Complete | Lobby, networking done |
 | Phase 2: Game Framework | Complete | Base game class created |
-| Phase 3: Individual Games | In Progress | Word Bomb, Quick Draw, Act It Out (Charades) complete |
+| Phase 3: Individual Games | In Progress | Word Bomb, Quick Draw, Act It Out (Charades), Who Said It complete |
 | Phase 4: Polish & Assets | In Progress | 5/8 character sprites integrated |
 | Phase 5: Testing | Not Started | |
 
@@ -445,6 +445,9 @@ res://
 - [x] Quick Draw simplified scoring (1 point system)
 - [x] Quick Draw min players reduced to 2
 - [x] Web player interface (HTML/CSS/JS for browser-based players)
+- [x] Who Said It game (anonymous answers, voting, reveals, scoring)
+- [x] Who Said It prompts data (62 prompts across 5 categories: hypothetical, personal, opinions, creative, wouldyourather)
+- [x] Who Said It web player interface
 
 ### In Progress
 - [ ] Cross-device multiplayer testing (iPhone + macOS)
@@ -453,9 +456,8 @@ res://
 ### Next Steps
 1. Complete remaining character downloads when PixelLab finishes
 2. Build Fibbage game (bluffing/voting)
-3. Build Who Said It? game (anonymous answers)
-4. Build Trivia Showdown game (multiple choice)
-5. Add sound effects and polish
+3. Build Trivia Showdown game (multiple choice)
+4. Add sound effects and polish
 
 ### Character Assets Status
 | Character | Status | Sprite Path |
@@ -489,4 +491,4 @@ res://
 
 ---
 
-*Last Updated: 2026-01-22 (Quick Draw simplified and multiplayer bugs fixed, web player added)*
+*Last Updated: 2026-01-22 (Who Said It game implemented with web player support)*

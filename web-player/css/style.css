@@ -362,6 +362,145 @@ input::placeholder {
     border-radius: 8px;
 }
 
+/* Who Said It - Textarea */
+textarea {
+    background: var(--bg-secondary);
+    border: 2px solid transparent;
+    border-radius: var(--border-radius);
+    padding: 16px;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    width: 100%;
+    resize: none;
+    font-family: inherit;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+textarea::placeholder {
+    color: var(--text-secondary);
+}
+
+/* Who Said It - Vote Buttons */
+.vote-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+}
+
+.btn-vote {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 2px solid var(--accent-primary);
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.btn-vote:hover:not(:disabled) {
+    background: var(--accent-primary);
+}
+
+.btn-vote:disabled {
+    border-color: var(--text-secondary);
+    opacity: 0.5;
+}
+
+/* Who Said It - Reveal */
+.reveal-author {
+    font-size: 1.3rem;
+    color: var(--accent-success);
+    text-align: center;
+    margin: 12px 0;
+}
+
+.reveal-results {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.result-correct {
+    background: rgba(74, 222, 128, 0.15);
+    color: var(--accent-success);
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.result-fooled {
+    background: rgba(251, 191, 36, 0.15);
+    color: var(--accent-warning);
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Who Said It - Ready View */
+.btn-large {
+    padding: 20px 40px;
+    font-size: 1.3rem;
+}
+
+.players-ready-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.player-ready-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.player-ready-indicator.ready {
+    opacity: 1;
+}
+
+.player-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 3px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.player-ready-indicator.ready .player-avatar {
+    border-color: var(--accent-success);
+}
+
+.player-avatar .checkmark {
+    font-size: 1.5rem;
+    color: white;
+    text-shadow: 0 0 4px rgba(0,0,0,0.5);
+}
+
+.player-ready-indicator .player-name {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.player-ready-indicator.ready .player-name {
+    color: var(--text-primary);
+}
+
 /* Utility */
 .hidden {
     display: none !important;
