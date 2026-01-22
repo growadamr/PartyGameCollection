@@ -64,8 +64,10 @@ A mobile party game collection where one player hosts a session, others join via
 - **How it works:** One player draws on their phone, others guess on their devices
 - **Host display:** Shows the drawing in real-time
 - **Player roles:** Drawer sees the word, guessers type answers
-- **Scoring:** Points for correct guesses (faster = more points), drawer gets points when someone guesses correctly
-- **Prompts needed:** Word bank (easy, medium, hard categories)
+- **Round flow:** Drawer sees "Start Drawing!" prompt, presses to begin, round ends when first person guesses correctly
+- **Scoring:** 1 point for correct guess, 1 point for drawer if someone guesses correctly
+- **Min players:** 2
+- **Prompts needed:** Word bank (easy, medium, hard categories - 150 words)
 
 ### 2. **Act It Out** (Charades)
 - **How it works:** One player acts out a prompt (physically, away from screens), others guess
@@ -168,7 +170,7 @@ var session = {
 
 | Game | Correct Guess | Speed Bonus | Special |
 |------|--------------|-------------|---------|
-| Quick Draw | 100 pts | +50 max | Drawer: 25 pts per guess |
+| Quick Draw | 1 pt | None | Drawer: 1 pt if guessed |
 | Act It Out | 100 pts | +50 max | Actor: 25 pts per guess |
 | Fibbage | 200 pts | None | 100 pts per fooled player |
 | Word Bomb | Survival | None | Winner: 100 pts |
@@ -316,6 +318,17 @@ res://
 ├── project.godot
 ├── PLAN.md
 │
+├── web-player/               # Browser-based player interface
+│   ├── index.html
+│   ├── css/style.css
+│   └── js/
+│       ├── app.js
+│       ├── websocket.js
+│       └── games/
+│           ├── charades.js
+│           ├── quickdraw.js
+│           └── wordbomb.js
+│
 ├── assets/
 │   ├── characters/           # PixelLab generated
 │   │   ├── red_knight/
@@ -426,6 +439,12 @@ res://
 - [x] 8 PixelLab character avatars generated (chibi style, 64px)
 - [x] Downloaded 5 completed character sprites (Red Knight, Blue Wizard, Green Ranger, Purple Rogue, Pink Princess)
 - [x] Character selection UI shows sprites with color fallback for pending characters
+- [x] Quick Draw simplified (reduced from 835 to ~580 lines)
+- [x] Quick Draw drawer ready prompt ("Start Drawing!" button)
+- [x] Quick Draw multiplayer fixes (UI updates, notifications to all guessers)
+- [x] Quick Draw simplified scoring (1 point system)
+- [x] Quick Draw min players reduced to 2
+- [x] Web player interface (HTML/CSS/JS for browser-based players)
 
 ### In Progress
 - [ ] Cross-device multiplayer testing (iPhone + macOS)
@@ -470,4 +489,4 @@ res://
 
 ---
 
-*Last Updated: 2026-01-21 (Quick Draw and Charades games implemented)*
+*Last Updated: 2026-01-22 (Quick Draw simplified and multiplayer bugs fixed, web player added)*
