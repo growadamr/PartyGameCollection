@@ -293,6 +293,13 @@ class PartyGameApp {
                 }
                 break;
 
+            case 'imposter':
+                this.showScreen('imposter');
+                if (window.imposterGame) {
+                    imposterGame.init(this);
+                }
+                break;
+
             default:
                 console.warn('Unknown game:', gameId);
         }
