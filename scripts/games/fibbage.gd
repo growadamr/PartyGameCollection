@@ -215,9 +215,10 @@ func _start_voting_phase() -> void:
 		answer_id += 1
 
 	# Add the real answer
+	var real_answer_text = current_question.get("answer", "unknown")
 	all_answers.append({
 		"id": answer_id,
-		"text": current_question.answer,
+		"text": real_answer_text,
 		"is_real": true,
 		"author_id": ""
 	})
@@ -227,15 +228,23 @@ func _start_voting_phase() -> void:
 
 	# Reassign IDs after shuffle
 	for i in range(all_answers.size()):
-		all_answers[i].id = i
+		all_answers[i]["id"] = i
 
 	player_votes.clear()
 	has_voted = false
 
+	# Build answers array for broadcast (without is_real and author_id)
+	var answers_for_broadcast: Array = []
+	for answer in all_answers:
+		answers_for_broadcast.append({
+			"id": answer.get("id", 0),
+			"text": answer.get("text", "")
+		})
+
 	var data = {
 		"type": "fibbage_vote_start",
-		"question": current_question.text,
-		"answers": all_answers.map(func(a): return {"id": a.id, "text": a.text}),
+		"question": current_question.get("text", ""),
+		"answers": answers_for_broadcast,
 		"time_limit": VOTING_TIME
 	}
 	NetworkManager.broadcast(data)
@@ -250,13 +259,6 @@ func _reveal_answer() -> void:
 	var correct_guessers: Array = []
 	var fooled_by: Dictionary = {}  # {author_id: [list of fooled player ids]}
 
-	# Find the real answer id (used for debugging/logging if needed)
-	var _real_answer_id = -1
-	for answer in all_answers:
-		if answer.is_real:
-			_real_answer_id = answer.id
-			break
-
 	# Process votes
 	for voter_id in player_votes:
 		var voted_for_id = player_votes[voter_id]
@@ -264,22 +266,22 @@ func _reveal_answer() -> void:
 		# Find which answer they voted for
 		var voted_answer = null
 		for answer in all_answers:
-			if answer.id == voted_for_id:
+			if answer.get("id", -1) == voted_for_id:
 				voted_answer = answer
 				break
 
 		if voted_answer == null:
 			continue
 
-		if voted_answer.is_real:
+		if voted_answer.get("is_real", false):
 			# Correct guess
 			correct_guessers.append(voter_id)
 			points_awarded[voter_id] = points_awarded.get(voter_id, 0) + POINTS_CORRECT
 			player_scores[voter_id] = player_scores.get(voter_id, 0) + POINTS_CORRECT
 		else:
 			# Fooled by someone's fake answer
-			var author_id = voted_answer.author_id
-			if author_id != voter_id:  # Can't fool yourself
+			var author_id = voted_answer.get("author_id", "")
+			if author_id != "" and author_id != voter_id:  # Can't fool yourself
 				if author_id not in fooled_by:
 					fooled_by[author_id] = []
 				fooled_by[author_id].append(voter_id)
@@ -288,8 +290,8 @@ func _reveal_answer() -> void:
 
 	var data = {
 		"type": "fibbage_reveal",
-		"question": current_question.text,
-		"real_answer": current_question.answer,
+		"question": current_question.get("text", ""),
+		"real_answer": current_question.get("answer", ""),
 		"all_answers": all_answers,
 		"votes": player_votes.duplicate(),
 		"correct_guessers": correct_guessers,
@@ -393,15 +395,13 @@ func _show_voting_ui(answers: Array) -> void:
 	# Create vote buttons for each answer
 	for answer in answers:
 		var btn = Button.new()
-		btn.text = answer.text
+		btn.text = answer.get("text", "???")
 		btn.custom_minimum_size = Vector2(280, 50)
 		btn.add_theme_font_size_override("font_size", 16)
-		btn.pressed.connect(_on_vote_button_pressed.bind(answer.id))
+		btn.pressed.connect(_on_vote_button_pressed.bind(answer.get("id", 0)))
 		vote_buttons.add_child(btn)
 
 	votes_status.text = "0/%d votes" % player_order.size()
-
-	_start_timer(VOTING_TIME)
 
 
 func _show_reveal_ui(real_answer: String, correct: Array, fooled_by: Dictionary, _points: Dictionary) -> void:
