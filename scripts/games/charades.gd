@@ -39,7 +39,8 @@ func _ready() -> void:
 	NetworkManager.message_received.connect(_on_message_received)
 
 	_load_prompts()
-	_initialize_game()
+	# Defer initialization to ensure UI is fully ready
+	call_deferred("_initialize_game")
 
 func _on_input_focus() -> void:
 	if DisplayServer.has_feature(DisplayServer.FEATURE_VIRTUAL_KEYBOARD):
@@ -304,10 +305,12 @@ func _apply_wrong_guess(data: Dictionary) -> void:
 	feedback_label.add_theme_color_override("font_color", Color(1, 0.6, 0.2, 1))
 
 func _broadcast_result(correct: bool, guesser_id: String, guess: String) -> void:
+	var actor_id = player_order[current_player_index]
 	var data = {
 		"type": "charades_result",
 		"correct": correct,
 		"guesser_id": guesser_id,
+		"actor_id": actor_id,
 		"prompt": current_prompt,
 		"scores": player_scores,
 		"guess": guess
@@ -343,7 +346,7 @@ func _apply_result(data: Dictionary) -> void:
 	if correct:
 		var guesser_data = GameManager.players.get(guesser_id, {})
 		var guesser_name = guesser_data.get("name", "Unknown")
-		var actor_id = player_order[current_player_index]
+		var actor_id = data.get("actor_id", "")
 		var actor_data = GameManager.players.get(actor_id, {})
 		var actor_name = actor_data.get("name", "Unknown")
 
