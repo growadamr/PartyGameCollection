@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 1 of 3 (Core Game Foundation)
-Plan: 3 of 3 (Web Player Imposter Implementation)
+Plan: 2 of 3 (Imposter Game Implementation)
 Status: In progress
-Last activity: 2026-01-22 — Completed 01-03-PLAN.md (Web Player Imposter Implementation)
+Last activity: 2026-01-22 — Completed 01-02-PLAN.md (Imposter Game Implementation)
 
-Progress: [██████░░░░] 67%
+Progress: [████░░░░░░] 44%
 
 ## Performance Metrics
 
@@ -30,7 +30,7 @@ Progress: [██████░░░░] 67%
 | 01-core-game-foundation | 2 | 3min | 1.5min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (1min), 01-03 (2min)
+- Last 5 plans: 01-01 (1min), 01-02 (2min)
 - Trend: Consistent velocity
 
 *Updated after each plan completion*
@@ -49,6 +49,9 @@ Recent decisions affecting current work:
 - Scale imposters with player count (balance for different group sizes)
 - Compiled words from existing game data rather than creating new list (01-01)
 - Case-insensitive alphabetical sorting for consistent ordering (01-01)
+- Use send_to_client instead of broadcast for role data to prevent cheating (01-02)
+- Scale imposters: 1 for 4-5 players, 2 for 6-8 players (01-02)
+- Position Imposter after Charades in menu for thematic grouping (01-02)
 
 ### Pending Todos
 
@@ -60,6 +63,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-22 17:25:56 UTC
-Stopped at: Completed 01-03-PLAN.md (Web Player Imposter Implementation)
+Last session: 2026-01-22 18:26:05 UTC
+Stopped at: Completed 01-02-PLAN.md (Imposter Game Implementation)
 Resume file: None
