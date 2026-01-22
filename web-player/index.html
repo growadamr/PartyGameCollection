@@ -118,13 +118,60 @@
         <div id="screen-imposter" class="screen">
             <div class="game-header">
                 <span class="game-title">Imposter</span>
+                <span class="imposter-count" id="imposter-count-display">? imposters</span>
             </div>
 
-            <div class="game-content">
+            <!-- Role/Discussion View (existing, now wrapped) -->
+            <div id="imposter-role-view" class="game-content">
                 <p class="role-label" id="imposter-role-label">Your Role</p>
                 <div class="prompt-card large" id="imposter-word">???</div>
                 <p class="info-text" id="imposter-info">? imposters among you</p>
                 <p class="instruction" id="imposter-instruction">Waiting for game to start...</p>
+            </div>
+
+            <!-- Voting View -->
+            <div id="imposter-voting-view" class="game-content hidden">
+                <p class="vote-instruction">Tap a player to vote</p>
+                <div id="vote-player-list" class="vote-list">
+                    <!-- Dynamically populated with vote-option divs -->
+                </div>
+            </div>
+
+            <!-- Spectator View (eliminated players) -->
+            <div id="imposter-spectator-view" class="game-content hidden">
+                <p class="spectator-label">You've been eliminated</p>
+                <p class="spectator-word" id="spectator-word-display"></p>
+                <p class="spectator-instruction">Watch the votes unfold...</p>
+                <div id="spectator-vote-list" class="vote-list spectator">
+                    <!-- Dynamically populated, non-interactive -->
+                </div>
+            </div>
+
+            <!-- Consensus Warning View -->
+            <div id="imposter-consensus-view" class="game-content hidden">
+                <div class="consensus-warning">
+                    <p class="consensus-text">Consensus on</p>
+                    <p class="consensus-name" id="consensus-target-name">???</p>
+                    <div class="countdown-number" id="consensus-countdown">5</div>
+                    <p class="consensus-subtext">Vote changes can stop this!</p>
+                </div>
+            </div>
+
+            <!-- Revealing View -->
+            <div id="imposter-reveal-view" class="game-content hidden">
+                <div class="reveal-card">
+                    <p class="reveal-text">Revealing...</p>
+                    <p class="reveal-name" id="reveal-target-name">???</p>
+                </div>
+            </div>
+
+            <!-- Result View -->
+            <div id="imposter-result-view" class="game-content hidden">
+                <div class="result-card" id="result-card">
+                    <h2 class="result-name" id="result-player-name">Alex</h2>
+                    <p class="result-role" id="result-role-text">was an IMPOSTER!</p>
+                    <p class="result-remaining" id="result-remaining">1 imposter remaining</p>
+                </div>
             </div>
         </div>
 
