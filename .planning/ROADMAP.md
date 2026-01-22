@@ -28,10 +28,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Imposter players see "IMPOSTER" label instead of the word
   4. Imposter count scales correctly with player count (1 for 4-5, 2 for 6-8)
   5. All players can participate in free-form discussion phase
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] TBD during planning
+- [ ] 01-01-PLAN.md — Compile word list from existing game data
+- [ ] 01-02-PLAN.md — Godot game controller, scene, and menu integration
+- [ ] 01-03-PLAN.md — Web player handler and HTML screen
 
 ### Phase 2: Voting & Elimination
 **Goal**: Players can vote for suspects, see consensus warnings, and witness reveals
@@ -72,7 +74,7 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Core Game Foundation | 0/0 | Not started | - |
+| 1. Core Game Foundation | 0/3 | Planned | - |
 | 2. Voting & Elimination | 0/0 | Not started | - |
 | 3. Imposter Guess & Round End | 0/0 | Not started | - |
 
