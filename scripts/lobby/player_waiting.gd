@@ -23,7 +23,7 @@ func _update_display() -> void:
 
 	players_label.text = "Players in lobby: %d" % GameManager.players.size()
 
-func _on_player_changed(_arg) -> void:
+func _on_player_changed(_arg1, _arg2 = null) -> void:
 	_update_display()
 
 func _on_message_received(_peer_id: int, data: Dictionary) -> void:

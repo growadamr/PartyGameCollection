@@ -81,6 +81,14 @@ A mobile party game collection where one player hosts a session, others join via
 - **Scoring:** Points for guessing correctly, points when others pick your fake answer
 - **Prompts needed:** Trivia questions with fill-in-the-blank format
 
+### Charades Prompt Categories
+The charades game includes **799 prompts** across 5 categories:
+- **movies_tv** (161): Popular films and TV shows
+- **actions** (165): Physical activities and gestures
+- **animals** (162): Creatures from pets to wildlife
+- **occupations** (158): Jobs and professions
+- **objects** (153): Everyday items and household objects
+
 ### 4. **Word Bomb** (Word Association)
 - **How it works:** Given a letter combo (e.g., "PH"), players race to type a word containing it
 - **Host display:** Current letter combo, countdown timer, elimination tracker
@@ -406,7 +414,7 @@ res://
 - [x] Word Bomb game (complete with timer, lives, validation)
 - [x] Letter combinations data (easy/medium/hard)
 - [x] Act It Out (Charades) game (complete with actor/guesser roles, 60s timer, scoring)
-- [x] Charades prompts data (movies_tv, actions categories)
+- [x] Charades prompts data (799 prompts across 5 categories: movies_tv, actions, animals, occupations, objects)
 - [x] Charades turn preparation phase (actor presses "Start My Turn" before seeing prompt)
 - [x] Charades result screens (shows correct answer, who guessed, points awarded to all players)
 - [x] Character selection click area fix (mouse_filter on child controls)
@@ -462,4 +470,4 @@ res://
 
 ---
 
-*Last Updated: 2026-01-21 (Enhanced Charades with turn preparation and result screens)*
+*Last Updated: 2026-01-21 (Expanded Charades prompts to 799 across 5 categories)*
