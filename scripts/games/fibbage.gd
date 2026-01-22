@@ -250,11 +250,11 @@ func _reveal_answer() -> void:
 	var correct_guessers: Array = []
 	var fooled_by: Dictionary = {}  # {author_id: [list of fooled player ids]}
 
-	# Find the real answer id
-	var real_answer_id = -1
+	# Find the real answer id (used for debugging/logging if needed)
+	var _real_answer_id = -1
 	for answer in all_answers:
 		if answer.is_real:
-			real_answer_id = answer.id
+			_real_answer_id = answer.id
 			break
 
 	# Process votes
@@ -747,6 +747,7 @@ func _apply_vote_start(data: Dictionary) -> void:
 	has_voted = false
 	prompt_label.text = current_question.text
 	_show_voting_ui(answers)
+	_start_timer(data.get("time_limit", VOTING_TIME))
 
 
 func _handle_vote(data: Dictionary) -> void:
