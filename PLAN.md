@@ -285,7 +285,7 @@ mcp__pixellab__get_character(character_id="CHARACTER_ID")
 - [ ] Round transitions
 
 ### Phase 3: Individual Games
-- [ ] Quick Draw (drawing sync, guess input)
+- [x] Quick Draw (drawing sync, guess input)
 - [x] Act It Out (prompt display, guess voting) - implemented as `charades`
 - [ ] Fibbage (answer submission, voting)
 - [x] Word Bomb (word validation, elimination)
@@ -385,13 +385,13 @@ res://
 
 ## Progress Tracker
 
-### Current Status: Phase 4 - Character Assets Integrated
+### Current Status: Phase 3 - Individual Games
 
 | Phase | Status | Notes |
 |-------|--------|-------|
 | Phase 1: Foundation | Complete | Lobby, networking done |
 | Phase 2: Game Framework | Complete | Base game class created |
-| Phase 3: Individual Games | In Progress | Word Bomb, Act It Out (Charades) complete |
+| Phase 3: Individual Games | In Progress | Word Bomb, Quick Draw, Act It Out (Charades) complete |
 | Phase 4: Polish & Assets | In Progress | 5/8 character sprites integrated |
 | Phase 5: Testing | Not Started | |
 
@@ -413,6 +413,7 @@ res://
 - [x] Base game class
 - [x] Word Bomb game (complete with timer, lives, validation)
 - [x] Letter combinations data (easy/medium/hard)
+- [x] Quick Draw game (drawing sync, guess input, scoring)
 - [x] Act It Out (Charades) game (complete with actor/guesser roles, 60s timer, scoring)
 - [x] Charades prompts data (799 prompts across 5 categories: movies_tv, actions, animals, occupations, objects)
 - [x] Charades turn preparation phase (actor presses "Start My Turn" before seeing prompt)
@@ -432,11 +433,10 @@ res://
 
 ### Next Steps
 1. Complete remaining character downloads when PixelLab finishes
-2. Build Quick Draw game (drawing sync)
-3. Build Fibbage game (bluffing/voting)
-4. Build Who Said It? game (anonymous answers)
-5. Build Trivia Showdown game (multiple choice)
-6. Add sound effects and polish
+2. Build Fibbage game (bluffing/voting)
+3. Build Who Said It? game (anonymous answers)
+4. Build Trivia Showdown game (multiple choice)
+5. Add sound effects and polish
 
 ### Character Assets Status
 | Character | Status | Sprite Path |
@@ -470,4 +470,4 @@ res://
 
 ---
 
-*Last Updated: 2026-01-21 (Expanded Charades prompts to 799 across 5 categories)*
+*Last Updated: 2026-01-21 (Quick Draw and Charades games implemented)*
