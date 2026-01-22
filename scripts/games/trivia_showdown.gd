@@ -212,13 +212,16 @@ func _show_next_question() -> void:
 		"type": "trivia_question",
 		"question_num": current_question_num,
 		"total_questions": QUESTIONS_PER_ROUND,
+		"round": current_round,
+		"total_rounds": total_rounds,
 		"category": current_question.get("category", "General"),
 		"question": current_question.get("question", ""),
 		"answers": current_question.get("answers", []),
 		"time_limit": QUESTION_TIME
 	}
 	NetworkManager.broadcast(data)
-	_apply_question(data)
+	# Host already has full current_question with "correct" field, just show UI
+	_show_question_ui()
 
 
 func _calculate_points(time_taken: float) -> int:
@@ -723,6 +726,8 @@ func _apply_ready_status(data: Dictionary) -> void:
 func _apply_question(data: Dictionary) -> void:
 	current_phase = GamePhase.QUESTION
 	current_question_num = data.get("question_num", 1)
+	current_round = data.get("round", current_round)
+	total_rounds = data.get("total_rounds", total_rounds)
 	current_question = {
 		"category": data.get("category", "General"),
 		"question": data.get("question", ""),
