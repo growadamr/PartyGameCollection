@@ -1,0 +1,390 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --bg-card: #252540;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --accent-primary: #6c63ff;
+    --accent-secondary: #ff6b6b;
+    --accent-success: #4ade80;
+    --accent-warning: #fbbf24;
+    --border-radius: 12px;
+}
+
+html, body {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow: hidden;
+}
+
+#app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Screen Management */
+.screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* Typography */
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.status {
+    color: var(--text-secondary);
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* Cards */
+.card {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Buttons */
+button {
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 16px 24px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s, opacity 0.1s;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--accent-primary);
+    color: white;
+}
+
+.btn-secondary {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 2px solid var(--text-secondary);
+}
+
+/* Inputs */
+input[type="text"],
+input[type="number"] {
+    background: var(--bg-secondary);
+    border: 2px solid transparent;
+    border-radius: var(--border-radius);
+    padding: 16px;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    width: 100%;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+input::placeholder {
+    color: var(--text-secondary);
+}
+
+/* Character Selection */
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.character-option {
+    aspect-ratio: 1;
+    border-radius: 12px;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: transform 0.1s, border-color 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.character-option:hover {
+    transform: scale(1.05);
+}
+
+.character-option.selected {
+    border-color: var(--accent-primary);
+}
+
+.character-option.taken {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.character-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    margin: 0 auto;
+}
+
+/* Players List */
+.players-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.player-chip {
+    background: var(--bg-secondary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.player-chip .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+/* Game Header */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+.game-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.timer {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent-warning);
+    min-width: 60px;
+    text-align: center;
+}
+
+.timer.warning {
+    color: var(--accent-secondary);
+    animation: pulse 0.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Game Content */
+.game-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.game-content.hidden {
+    display: none;
+}
+
+.role-label {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.prompt-card {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 32px;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    color: var(--accent-success);
+}
+
+.prompt-card.large {
+    font-size: 3rem;
+    padding: 48px;
+}
+
+/* Lives Display */
+.lives {
+    display: flex;
+    gap: 8px;
+    font-size: 1.5rem;
+}
+
+.life {
+    opacity: 1;
+}
+
+.life.lost {
+    opacity: 0.2;
+}
+
+/* Feedback */
+.feedback {
+    text-align: center;
+    font-size: 1rem;
+    min-height: 24px;
+}
+
+.feedback.success {
+    color: var(--accent-success);
+}
+
+.feedback.error {
+    color: var(--accent-secondary);
+}
+
+/* Drawing Canvas */
+#drawing-canvas {
+    background: #1a1a1a;
+    border-radius: var(--border-radius);
+    touch-action: none;
+    cursor: crosshair;
+}
+
+.drawing-tools {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.drawing-display {
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 1;
+    background: #1a1a1a;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Results */
+.result-card {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    text-align: center;
+    width: 100%;
+}
+
+.result-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.result-card .answer {
+    font-size: 2rem;
+    color: var(--accent-success);
+    margin: 16px 0;
+}
+
+/* Winner Display */
+.winner {
+    text-align: center;
+    padding: 20px;
+}
+
+.winner h2 {
+    font-size: 1.5rem;
+    color: var(--accent-warning);
+}
+
+.winner .name {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.final-scores {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.score-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+}
+
+/* Utility */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive */
+@media (max-height: 600px) {
+    .screen {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .card {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .prompt-card {
+        padding: 20px;
+        font-size: 1.5rem;
+    }
+}
