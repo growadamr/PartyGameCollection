@@ -300,6 +300,13 @@ class PartyGameApp {
                 }
                 break;
 
+            case 'trivia_showdown':
+                this.showScreen('trivia');
+                if (window.triviaGame) {
+                    triviaGame.init(this);
+                }
+                break;
+
             default:
                 console.warn('Unknown game:', gameId);
         }
