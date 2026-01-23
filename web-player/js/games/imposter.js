@@ -268,6 +268,113 @@ class ImposterGame {
         this.tallies = data.tallies || {};
         this.updateVoteCounts();
     }
+
+    // Consensus handlers
+    handleConsensusWarning(data) {
+        this.consensusTarget = data.target_id;
+        this.countdown = data.countdown || 5;
+
+        this.showView('imposter-consensus-screen');
+
+        const targetName = this.players.find(p => p.id === this.consensusTarget)?.name || 'Unknown';
+        const targetLabel = document.getElementById('consensus-target');
+        if (targetLabel) {
+            targetLabel.textContent = targetName;
+        }
+
+        const countdownEl = document.getElementById('consensus-countdown');
+        if (countdownEl) {
+            countdownEl.textContent = this.countdown;
+        }
+    }
+
+    handleConsensusCountdown(data) {
+        this.countdown = data.countdown;
+
+        const countdownEl = document.getElementById('consensus-countdown');
+        if (countdownEl) {
+            countdownEl.textContent = this.countdown;
+        }
+    }
+
+    handleConsensusCancelled() {
+        this.consensusTarget = null;
+        this.countdown = 5;
+
+        // Return to appropriate view
+        if (this.isEliminated) {
+            this.showSpectatorView();
+        } else {
+            this.showVotingView();
+        }
+    }
+
+    // Reveal handlers
+    handleRevealStart(data) {
+        this.showView('imposter-reveal-screen');
+    }
+
+    handleRevealResult(data) {
+        const eliminatedId = data.eliminated_id;
+        const wasImposter = data.was_imposter;
+        const eliminatedName = this.players.find(p => p.id === eliminatedId)?.name || 'Unknown';
+
+        this.showView('imposter-result-screen');
+
+        const nameEl = document.getElementById('result-player-name');
+        const outcomeEl = document.getElementById('result-outcome');
+        const resultScreen = document.getElementById('imposter-result-screen');
+
+        if (nameEl) {
+            nameEl.textContent = eliminatedName;
+        }
+
+        if (outcomeEl && resultScreen) {
+            if (wasImposter) {
+                outcomeEl.textContent = 'was the IMPOSTER!';
+                outcomeEl.className = 'result-outcome imposter';
+                resultScreen.className = 'imposter-result-screen imposter';
+            } else {
+                outcomeEl.textContent = 'was INNOCENT';
+                outcomeEl.className = 'result-outcome innocent';
+                resultScreen.className = 'imposter-result-screen innocent';
+            }
+        }
+
+        // Mark player as eliminated if it was me
+        if (eliminatedId === this.myPlayerId) {
+            this.isEliminated = true;
+        }
+
+        // Update player list
+        const player = this.players.find(p => p.id === eliminatedId);
+        if (player) {
+            player.eliminated = true;
+        }
+    }
+
+    handleVotingResumed(data) {
+        this.currentState = 'voting';
+        this.votes = data.votes || {};
+        this.tallies = data.tallies || {};
+        this.myVote = null;
+
+        if (this.isEliminated) {
+            this.showSpectatorView();
+        } else {
+            this.showVotingView();
+        }
+    }
+
+    handleWordRevealed(data) {
+        this.secretWord = data.word;
+
+        // Update spectator view to show word
+        const wordEl = document.getElementById('spectator-word');
+        if (wordEl) {
+            wordEl.textContent = `The word was: ${this.secretWord}`;
+        }
+    }
 }
 
 // Global instance
