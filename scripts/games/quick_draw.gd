@@ -9,8 +9,10 @@ extends Control
 @onready var drawing_canvas: Control = $VBox/CanvasSection/DrawingCanvas
 @onready var tools_section: HBoxContainer = $VBox/ToolsSection
 @onready var guess_section: VBoxContainer = $VBox/GuessSection
+@onready var hint_label: Label = $VBox/GuessSection/HintLabel
 @onready var guess_input: LineEdit = $VBox/GuessSection/GuessInput
-@onready var submit_guess_button: Button = $VBox/GuessSection/SubmitGuessButton
+@onready var submit_guess_button: Button = $VBox/GuessSection/GuessButtons/SubmitGuessButton
+@onready var hint_button: Button = $VBox/GuessSection/GuessButtons/HintButton
 @onready var feedback_label: Label = $VBox/FeedbackLabel
 @onready var players_status: HBoxContainer = $VBox/PlayersStatus
 
@@ -46,6 +48,8 @@ var drawer_id: String = ""
 var current_word: String = ""
 var time_remaining: int = ROUND_TIME
 var correct_guessers: Array = []
+var hints_used: int = 0  # For future hints feature - reduces max points
+var max_guesser_points: int = 0  # Track highest points for drawer scoring
 
 # Drawing
 var is_drawing: bool = false
@@ -111,6 +115,8 @@ func _start_round() -> void:
 	current_round += 1
 	drawer_id = player_order[(current_round - 1) % player_order.size()]
 	correct_guessers.clear()
+	hints_used = 0
+	max_guesser_points = 0
 	_clear_all_strokes()
 
 	# Pick word
@@ -213,6 +219,8 @@ func _show_guesser_ui(drawer_name: String) -> void:
 	guess_section.visible = true
 	guess_input.text = ""
 	guess_input.editable = true
+	hint_label.text = ""
+	hint_button.visible = false  # Hints are now automatic
 	feedback_label.text = drawer_name + " is drawing..."
 	tick_timer.start()
 	round_timer.wait_time = ROUND_TIME
@@ -229,6 +237,15 @@ func _on_tick() -> void:
 	else:
 		timer_label.add_theme_color_override("font_color", Color(1, 0.8, 0.2))
 
+	# Auto-hints at time thresholds (host only broadcasts)
+	if GameManager.is_host:
+		if time_remaining == 45 and hints_used < 1:
+			_process_hint()
+		elif time_remaining == 30 and hints_used < 2:
+			_process_hint()
+		elif time_remaining == 15 and hints_used < 3:
+			_process_hint()
+
 func _on_round_end() -> void:
 	if not GameManager.is_host:
 		return
@@ -236,9 +253,9 @@ func _on_round_end() -> void:
 	tick_timer.stop()
 	state = State.ROUND_END
 
-	# 1 point for drawer if someone guessed correctly
-	if correct_guessers.size() > 0:
-		GameManager.update_score(drawer_id, 1)
+	# Drawer gets points equal to highest guesser's score
+	if max_guesser_points > 0:
+		GameManager.update_score(drawer_id, max_guesser_points)
 
 	var scores = {}
 	for pid in GameManager.players:
@@ -421,6 +438,20 @@ func _submit_guess() -> void:
 	else:
 		NetworkManager.send_to_server({"type": "qd_guess", "guess": guess})
 
+func _calculate_points() -> int:
+	# Tiered scoring: 3 pts (first 20s), 2 pts (20-40s), 1 pt (40-60s)
+	# Each hint reduces max by 1 (minimum 0 points)
+	var base_points: int
+	if time_remaining > 40:
+		base_points = 3
+	elif time_remaining > 20:
+		base_points = 2
+	else:
+		base_points = 1
+
+	# Reduce by hints used, minimum 0 points
+	return max(0, base_points - hints_used)
+
 func _check_guess(player_id: String, guess: String) -> void:
 	if player_id in correct_guessers:
 		return
@@ -428,33 +459,94 @@ func _check_guess(player_id: String, guess: String) -> void:
 	if guess == current_word.to_lower():
 		correct_guessers.append(player_id)
 
-		# 1 point for correct guess
-		GameManager.update_score(player_id, 1)
+		# Calculate speed-based points (reduced by hints)
+		var points = _calculate_points()
+		GameManager.update_score(player_id, points)
+
+		# Track highest points for drawer scoring
+		if points > max_guesser_points:
+			max_guesser_points = points
 
 		var pname = GameManager.players.get(player_id, {}).get("name", "?")
+		var new_score = GameManager.players.get(player_id, {}).get("score", 0)
 
 		# Broadcast to all clients
 		NetworkManager.broadcast({
 			"type": "qd_correct",
 			"player": player_id,
 			"name": pname,
-			"points": 1
+			"points": points,
+			"score": new_score
 		})
 
 		# Also apply locally on host (host doesn't receive its own broadcast)
-		_apply_correct_guess(player_id, pname, 1)
+		_apply_correct_guess(player_id, pname, points)
 
-		# End round immediately when someone guesses correctly
-		round_timer.stop()
-		_on_round_end()
+		# Check if everyone (except drawer) has guessed
+		var guessers_count = GameManager.players.size() - 1  # Exclude drawer
+		if correct_guessers.size() >= guessers_count:
+			round_timer.stop()
+			_on_round_end()
 
 func _apply_correct_guess(player_id: String, pname: String, pts: int) -> void:
 	if player_id == GameManager.local_player_id:
-		feedback_label.text = "Correct! +%d" % pts
+		if pts == 0:
+			feedback_label.text = "Congratulations, you have earned a participation trophy!"
+		else:
+			feedback_label.text = "Correct! +%d" % pts
 		guess_section.visible = false
 	else:
-		feedback_label.text = "%s got it! +%d" % [pname, pts]
+		if pts == 0:
+			feedback_label.text = "%s earned a participation trophy!" % pname
+		else:
+			feedback_label.text = "%s got it! +%d" % [pname, pts]
 	_update_display()
+
+# ===== HINTS =====
+
+const MAX_HINTS = 3
+
+func _get_hint_text(hint_number: int) -> String:
+	match hint_number:
+		1:
+			# 2nd letter
+			if current_word.length() >= 2:
+				return "2nd letter: %s" % current_word[1].to_upper()
+			else:
+				return "2nd letter: %s" % current_word[0].to_upper()
+		2:
+			# Letter count
+			return "%d letters" % current_word.length()
+		3:
+			# First letter
+			return "Starts with: %s" % current_word[0].to_upper()
+		_:
+			return ""
+
+func _process_hint() -> void:
+	if hints_used >= MAX_HINTS:
+		return
+
+	hints_used += 1
+	var hint_text = _get_hint_text(hints_used)
+	var hints_remaining = MAX_HINTS - hints_used
+
+	NetworkManager.broadcast({
+		"type": "qd_hint",
+		"hint_number": hints_used,
+		"hint_text": hint_text,
+		"hints_remaining": hints_remaining
+	})
+
+	# Apply locally on host
+	_apply_hint(hint_text, hints_remaining)
+
+func _apply_hint(hint_text: String, _hints_remaining: int) -> void:
+	# Update hint display (hints are now automatic at 45s, 30s, 15s)
+	if hint_label.text.is_empty():
+		hint_label.text = hint_text
+	else:
+		hint_label.text += "  |  " + hint_text
 
 # ===== NETWORK =====
 
@@ -473,6 +565,8 @@ func _on_network_message(_peer: int, data: Dictionary) -> void:
 			drawer_id = data.get("drawer", "")
 			state = State.READY
 			correct_guessers.clear()
+			hints_used = 0
+			max_guesser_points = 0
 			_clear_all_strokes()
 			_show_ready_ui(data.get("drawer_name", "Someone"))
 
@@ -517,10 +611,21 @@ func _on_network_message(_peer: int, data: Dictionary) -> void:
 				var pid = "peer_%d" % _peer
 				_check_guess(pid, data.get("guess", ""))
 
+		"qd_hint":
+			hints_used = data.get("hint_number", hints_used)
+			var hint_text = data.get("hint_text", "")
+			var hints_remaining = data.get("hints_remaining", 0)
+			_apply_hint(hint_text, hints_remaining)
+
 		"qd_correct":
 			var pid = data.get("player", "")
 			var pname = data.get("name", "?")
 			var pts = data.get("points", 0)
+			var new_score = data.get("score", 0)
+
+			# Update player's score immediately
+			if GameManager.players.has(pid):
+				GameManager.players[pid]["score"] = int(new_score)
 
 			# Only process if we haven't already (host processes locally in _check_guess)
 			if not pid in correct_guessers:
@@ -539,7 +644,7 @@ func _on_network_message(_peer: int, data: Dictionary) -> void:
 			var scores = data.get("scores", {})
 			for pid in scores:
 				if GameManager.players.has(pid):
-					GameManager.players[pid]["score"] = scores[pid]
+					GameManager.players[pid]["score"] = int(scores[pid])
 			_update_display()
 
 		"qd_game_over":
@@ -589,7 +694,7 @@ func _update_display() -> void:
 		name_lbl.add_theme_font_size_override("font_size", 10)
 
 		var score_lbl = Label.new()
-		score_lbl.text = str(p["score"])
+		score_lbl.text = str(int(p["score"]))
 		score_lbl.add_theme_font_size_override("font_size", 11)
 
 		vbox.add_child(char_display)
