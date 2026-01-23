@@ -13,7 +13,7 @@ Adding an Imposter-style social deduction game to the existing party game collec
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Core Game Foundation** - Role assignment, discussion phase, and integration ✓
-- [ ] **Phase 2: Voting & Elimination** - Real-time voting with consensus detection and reveals
+- [x] **Phase 2: Voting & Elimination** - Real-time voting with consensus detection and reveals ✓
 - [ ] **Phase 3: Imposter Guess & Round End** - Word guessing and win condition tracking
 
 ## Phase Details
@@ -53,7 +53,7 @@ Plans:
 - [x] 02-01-PLAN.md — Host-side voting state machine with consensus detection
 - [x] 02-02-PLAN.md — Web player voting UI (HTML + CSS)
 - [x] 02-03-PLAN.md — Web player voting handlers (JavaScript)
-- [ ] 02-04-PLAN.md — Gap closure: Fix JavaScript ID/class mismatches (VERIFICATION)
+- [x] 02-04-PLAN.md — Gap closure: Fix JavaScript ID/class mismatches (VERIFICATION)
 
 ### Phase 3: Imposter Guess & Round End
 **Goal**: Imposters can attempt word guesses and the game tracks round wins correctly
@@ -78,7 +78,7 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Core Game Foundation | 3/3 | Complete ✓ | 2026-01-22 |
-| 2. Voting & Elimination | 3/4 | Gap closure | - |
+| 2. Voting & Elimination | 4/4 | Complete ✓ | 2026-01-22 |
 | 3. Imposter Guess & Round End | 0/0 | Not started | - |
 
 ---
