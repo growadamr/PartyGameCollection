@@ -730,12 +730,12 @@ func _handle_answer(data: Dictionary) -> void:
 		var reject_data = {
 			"type": "fibbage_answer_rejected",
 			"player_id": player_id,
-			"reason": "Your lie is too close to the truth! Try a different answer."
+			"reason": "Too truthful! Try a different lie."
 		}
 		if player_id == GameManager.local_player_id:
 			_apply_answer_rejected(reject_data)
 		else:
-			NetworkManager.send_to_peer(int(player_id), reject_data)
+			NetworkManager.send_to_client(int(player_id), reject_data)
 		return
 
 	player_answers[player_id] = answer
@@ -761,13 +761,13 @@ func _apply_answer_status(data: Dictionary) -> void:
 	answers_status.text = "%d/%d lies submitted" % [received, needed]
 
 
-func _apply_answer_rejected(_data: Dictionary) -> void:
+func _apply_answer_rejected(data: Dictionary) -> void:
 	# Re-enable the input so player can try again
 	has_submitted_answer = false
 	submit_button.disabled = false
 	answer_input.editable = true
 	answer_input.text = ""
-	answers_status.text = "Too close to the truth! Try a different lie."
+	answers_status.text = data.get("reason", "Too truthful! Try a different lie.")
 	answers_status.add_theme_color_override("font_color", Color(1, 0.4, 0.4, 1))
 
 
