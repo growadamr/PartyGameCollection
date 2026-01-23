@@ -61,6 +61,10 @@ class FibbageGame {
             this.handleAnswerReceived(data);
         });
 
+        gameSocket.on('fibbage_answer_rejected', (data) => {
+            this.handleAnswerRejected(data);
+        });
+
         gameSocket.on('fibbage_vote_start', (data) => {
             this.handleVoteStart(data);
         });
@@ -137,6 +141,19 @@ class FibbageGame {
     handleAnswerReceived(data) {
         document.getElementById('fibbage-answers-status').textContent =
             `${data.answers_received}/${data.answers_needed} lies submitted`;
+    }
+
+    handleAnswerRejected(data) {
+        // Re-enable the input so player can try again
+        this.hasSubmittedAnswer = false;
+        const input = document.getElementById('fibbage-answer');
+        input.disabled = false;
+        input.value = '';
+        document.getElementById('btn-submit-lie').disabled = false;
+
+        const status = document.getElementById('fibbage-answers-status');
+        status.textContent = data.reason || 'Too close to the truth! Try a different lie.';
+        status.style.color = 'var(--accent-secondary)';
     }
 
     handleVoteStart(data) {

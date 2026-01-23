@@ -150,6 +150,7 @@ func _show_ready_ui(drawer_name: String) -> void:
 	guess_section.visible = false
 	start_section.visible = true
 
+	
 	round_label.text = "Round %d/%d" % [current_round, total_rounds]
 	timer_label.text = str(ROUND_TIME)
 

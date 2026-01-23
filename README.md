@@ -26,7 +26,10 @@ The host's device acts as the "game board" while player devices serve as persona
 
 - **Word Bomb**: Complete
 - **Act It Out (Charades)**: Complete with 799 prompts across 5 categories
-- Other games: In development
+- **Quick Draw**: Complete with drawer ready prompt and simplified scoring
+- **Who Said It?**: Complete with ready-up system and web player support
+- **Fibbage**: In development
+- **Trivia Showdown**: In development
 
 ## Requirements
 

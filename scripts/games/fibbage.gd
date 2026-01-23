@@ -622,6 +622,8 @@ func _on_message_received(_peer_id: int, data: Dictionary) -> void:
 		"fibbage_answer":
 			if GameManager.is_host:
 				_handle_answer(data)
+		"fibbage_answer_rejected":
+			_apply_answer_rejected(data)
 		"fibbage_answer_received":
 			_apply_answer_status(data)
 		"fibbage_vote_start":
@@ -719,6 +721,23 @@ func _handle_answer(data: Dictionary) -> void:
 	var player_id = data.get("player_id", "")
 	var answer = data.get("answer", "")
 
+	# Check if the answer matches the real answer (case-insensitive)
+	var real_answer = current_question.get("answer", "").strip_edges().to_lower()
+	var submitted = answer.strip_edges().to_lower()
+
+	if submitted == real_answer:
+		# Reject the answer - it matches the truth!
+		var reject_data = {
+			"type": "fibbage_answer_rejected",
+			"player_id": player_id,
+			"reason": "Your lie is too close to the truth! Try a different answer."
+		}
+		if player_id == GameManager.local_player_id:
+			_apply_answer_rejected(reject_data)
+		else:
+			NetworkManager.send_to_peer(int(player_id), reject_data)
+		return
+
 	player_answers[player_id] = answer
 
 	var status_data = {
@@ -740,6 +759,16 @@ func _apply_answer_status(data: Dictionary) -> void:
 	var received = data.get("answers_received", 0)
 	var needed = data.get("answers_needed", 0)
 	answers_status.text = "%d/%d lies submitted" % [received, needed]
+
+
+func _apply_answer_rejected(_data: Dictionary) -> void:
+	# Re-enable the input so player can try again
+	has_submitted_answer = false
+	submit_button.disabled = false
+	answer_input.editable = true
+	answer_input.text = ""
+	answers_status.text = "Too close to the truth! Try a different lie."
+	answers_status.add_theme_color_override("font_color", Color(1, 0.4, 0.4, 1))
 
 
 func _apply_vote_start(data: Dictionary) -> void:

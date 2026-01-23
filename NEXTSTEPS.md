@@ -54,7 +54,7 @@ Check if PixelLab finished generating:
 mcp__pixellab__list_characters
 ```
 
-If Yellow Bard, Orange Monk, or Teal Robot show ✅, get their download URLs:
+If Yellow Bard, Orange Monk, or Teal Robot show completed, get their download URLs:
 
 ```bash
 mcp__pixellab__get_character(character_id="a76fc607-79ac-477a-a9d7-16c24ff48f6e")  # Yellow Bard
@@ -116,61 +116,67 @@ AudioManager.play_sfx("button_click")
 
 ---
 
-## 5. Build Quick Draw Game (Medium Effort)
+## 5. Build Fibbage Game (Medium Effort)
 
-**New files to create:**
-- `scenes/games/quick_draw/quick_draw.tscn`
-- `scripts/games/quick_draw.gd`
-- `data/prompts/quick_draw_words.json`
+**Core flow:**
+1. Show obscure trivia question with blank: "The world's largest ____ is in Japan"
+2. Each player submits a fake answer
+3. All answers (including real one) shown shuffled
+4. Players vote for what they think is real
+5. Points: 200 for correct, 100 for each player fooled by your fake
 
-**Drawing canvas approach:**
-```gdscript
-# quick_draw.gd - Drawing canvas basics
-extends "res://scripts/games/base_game.gd"
+**Files needed:**
+- `scenes/games/fibbage/fibbage.tscn`
+- `scripts/games/fibbage.gd`
+- `data/prompts/fibbage_questions.json`
+- `web-player/js/games/fibbage.js`
 
-var drawing_canvas: Control
-var current_strokes: Array = []
-var is_drawing: bool = false
-var last_point: Vector2
-
-func _ready():
-    super._ready()
-    drawing_canvas = $DrawingCanvas
-    drawing_canvas.gui_input.connect(_on_canvas_input)
-
-func _on_canvas_input(event: InputEvent):
-    if event is InputEventMouseButton:
-        if event.pressed:
-            is_drawing = true
-            last_point = event.position
-            current_strokes.append([last_point])
-        else:
-            is_drawing = false
-            _send_stroke_to_host()
-    elif event is InputEventMouseMotion and is_drawing:
-        var point = event.position
-        current_strokes[-1].append(point)
-        last_point = point
-        queue_redraw()
-
-func _draw():
-    for stroke in current_strokes:
-        for i in range(1, stroke.size()):
-            draw_line(stroke[i-1], stroke[i], Color.BLACK, 3.0)
-```
-
-**Word list structure** (`data/prompts/quick_draw_words.json`):
+**Question format:**
 ```json
 {
-    "easy": ["cat", "house", "sun", "tree", "car", "ball", "fish", "star"],
-    "medium": ["bicycle", "guitar", "elephant", "pizza", "rainbow", "rocket"],
-    "hard": ["astronaut", "submarine", "dinosaur", "helicopter", "waterfall"]
+	"questions": [
+        {
+			"text": "The world's largest _____ weighs over 500 pounds",
+            "answer": "potato",
+            "category": "food"
+        }
+    ]
 }
 ```
 
 ---
 
-## 6. Improve Player List in Waiting Lobby
+## 6. Build Trivia Showdown Game (Medium Effort)
+
+**Core flow:**
+1. Display multiple choice question (4 options)
+2. All players select an answer
+3. Points based on correctness and speed
+4. After all rounds, highest score wins
+
+**Files needed:**
+- `scenes/games/trivia/trivia.tscn`
+- `scripts/games/trivia.gd`
+- `data/prompts/trivia_questions.json`
+- `web-player/js/games/trivia.js`
+
+**Question format:**
+```json
+{
+    "questions": [
+        {
+            "question": "What is the capital of France?",
+            "options": ["London", "Paris", "Berlin", "Madrid"],
+            "correct": 1,
+            "category": "geography"
+        }
+    ]
+}
+```
+
+---
+
+## 7. Improve Player List in Waiting Lobby
 
 **File:** `scripts/lobby/waiting_lobby.gd` (lines 108-150)
 
@@ -203,7 +209,7 @@ func _create_player_card(player_id: String, player: Dictionary) -> Control:
 
 ---
 
-## 7. Add Reconnection Handling
+## 8. Add Reconnection Handling
 
 **File:** `scripts/autoload/network_manager.gd`
 
@@ -227,35 +233,6 @@ func _on_connection_lost():
 
 ---
 
-## 8. Create Fibbage Game (Medium Effort)
-
-**Core flow:**
-1. Show obscure trivia question with blank: "The world's largest ____ is in Japan"
-2. Each player submits a fake answer
-3. All answers (including real one) shown shuffled
-4. Players vote for what they think is real
-5. Points: 200 for correct, 100 for each player fooled by your fake
-
-**Files needed:**
-- `scenes/games/fibbage/fibbage.tscn`
-- `scripts/games/fibbage.gd`
-- `data/prompts/fibbage_questions.json`
-
-**Question format:**
-```json
-{
-	"questions": [
-        {
-			"text": "The world's largest _____ weighs over 500 pounds",
-            "answer": "potato",
-            "category": "food"
-        }
-    ]
-}
-```
-
----
-
 ## File Locations Quick Reference
 
 | Purpose | Path |
@@ -264,11 +241,26 @@ func _on_connection_lost():
 | Network Manager | `scripts/autoload/network_manager.gd` |
 | Character Sprites | `assets/characters/CHARACTER_NAME/*.png` |
 | Word Bomb Game | `scripts/games/word_bomb.gd` |
+| Quick Draw Game | `scripts/games/quick_draw.gd` |
+| Charades Game | `scripts/games/charades.gd` |
+| Who Said It Game | `scripts/games/who_said_it.gd` |
 | Base Game Class | `scripts/games/base_game.gd` |
 | Host Lobby | `scripts/lobby/host_lobby.gd` |
 | Join Lobby | `scripts/lobby/join_lobby.gd` |
 | Waiting Lobby | `scripts/lobby/waiting_lobby.gd` |
 | QR Generator | `scripts/utils/qr_generator.gd` |
+| Web Player | `web-player/` |
+
+---
+
+## Completed Games
+
+| Game | Status | Notes |
+|------|--------|-------|
+| Word Bomb | Complete | Timer, lives, letter combo validation |
+| Act It Out (Charades) | Complete | 799 prompts, actor/guesser roles |
+| Quick Draw | Complete | Drawing sync, simplified scoring |
+| Who Said It? | Complete | Ready-up system, web player support |
 
 ---
 
