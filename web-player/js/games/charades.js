@@ -148,18 +148,18 @@ class CharadesGame {
     }
 
     handleSkipped(data) {
-        this.stopTimer();
-        this.hideAllViews();
+        // Timer continues running - no reset
 
-        const resultView = document.getElementById('charades-result-view');
-        const resultCard = document.getElementById('charades-result');
-        resultView.classList.remove('hidden');
-
-        resultCard.innerHTML = `
-            <h2>Skipped!</h2>
-            <div class="answer">${data.prompt}</div>
-            <p>No points awarded.</p>
-        `;
+        if (this.isActor) {
+            // Actor sees the new prompt
+            document.getElementById('charades-prompt').textContent = data.prompt;
+        } else {
+            // Guesser sees feedback that phrase was skipped
+            const actorName = document.getElementById('charades-actor-name');
+            if (actorName) {
+                actorName.textContent = this.app.getPlayerName(this.actorId) + ' - New phrase!';
+            }
+        }
     }
 
     handleTimeout(data) {

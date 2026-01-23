@@ -73,6 +73,7 @@ A mobile party game collection where one player hosts a session, others join via
 - **How it works:** One player acts out a prompt (physically, away from screens), others guess
 - **Host display:** Timer, current actor's name, guess input
 - **Player roles:** Actor sees prompt on their device (hidden from others), guessers submit guesses
+- **Skip feature:** Actor can skip difficult prompts to get a new phrase; timer continues running
 - **Scoring:** Points for correct guesses, actor earns points when guessed
 - **Prompts needed:** Actions, movies, celebrities, objects, phrases
 
@@ -433,6 +434,7 @@ res://
 - [x] Charades prompts data (799 prompts across 5 categories: movies_tv, actions, animals, occupations, objects)
 - [x] Charades turn preparation phase (actor presses "Start My Turn" before seeing prompt)
 - [x] Charades result screens (shows correct answer, who guessed, points awarded to all players)
+- [x] Charades skip gives new phrase (timer continues, actor can skip difficult prompts without ending turn)
 - [x] Character selection click area fix (mouse_filter on child controls)
 - [x] Game state sync for non-host players (word_bomb_init message)
 - [x] Fixed player scene transition bug (message_received signal not emitting for handled messages)
@@ -505,4 +507,4 @@ res://
 
 ---
 
-*Last Updated: 2026-01-23 (Fibbage rejects duplicate lies between players)*
+*Last Updated: 2026-01-23 (Charades skip gives new phrase instead of ending turn)*
