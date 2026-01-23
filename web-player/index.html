@@ -161,7 +161,7 @@
             </div>
         </div>
 
-        <!-- Game: Fibbage -->
+<!-- Game: Fibbage -->
         <div id="screen-fibbage" class="screen">
             <div class="game-header">
                 <span class="game-title">Fibbage</span>
@@ -201,6 +201,48 @@
             </div>
         </div>
 
+        <!-- Game: Trivia Showdown -->
+        <div id="screen-trivia" class="screen">
+            <div class="game-header">
+                <span class="game-title">Trivia Showdown</span>
+                <span class="timer" id="trivia-timer">15</span>
+            </div>
+
+            <div id="trivia-ready-view" class="game-content hidden">
+                <h2 id="trivia-ready-title">Ready to Start?</h2>
+                <div class="players-ready-grid" id="trivia-players-ready"></div>
+                <button id="btn-trivia-ready" class="btn-primary btn-large">Ready!</button>
+                <p class="status" id="trivia-ready-status">0/4 ready</p>
+            </div>
+
+            <div id="trivia-question-view" class="game-content hidden">
+                <div class="trivia-question-header">
+                    <span class="category" id="trivia-category">Science</span>
+                    <span class="question-num" id="trivia-question-num">Question 1/10</span>
+                </div>
+                <div class="prompt-card" id="trivia-question-text">???</div>
+                <div class="trivia-answers" id="trivia-answer-buttons"></div>
+                <p class="status" id="trivia-answer-status">0 answered</p>
+            </div>
+
+            <div id="trivia-result-view" class="game-content hidden">
+                <h2 id="trivia-result-label" class="result-correct">Correct!</h2>
+                <p class="points-earned" id="trivia-points-label">+150 points</p>
+                <p class="correct-answer" id="trivia-correct-answer">Answer: Au</p>
+            </div>
+
+            <div id="trivia-leaderboard-view" class="game-content hidden">
+                <h2 id="trivia-leaderboard-title">Leaderboard</h2>
+                <div class="leaderboard-list" id="trivia-leaderboard-list"></div>
+            </div>
+
+            <div id="trivia-round-end-view" class="game-content hidden">
+                <h2 id="trivia-round-complete">Round Complete!</h2>
+                <p class="round-winner" id="trivia-round-winner">Winner: ???</p>
+                <p class="status">Next round starting soon...</p>
+            </div>
+        </div>
+
         <!-- Game Over Screen -->
         <div id="screen-game-over" class="screen">
             <h1>Game Over!</h1>
@@ -227,6 +269,7 @@
     <script src="js/games/quickdraw.js"></script>
     <script src="js/games/whosaidit.js"></script>
     <script src="js/games/fibbage.js"></script>
+    <script src="js/games/trivia.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

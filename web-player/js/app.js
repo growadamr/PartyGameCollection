@@ -300,10 +300,17 @@ class PartyGameApp {
                 }
                 break;
 
-            case 'fibbage':
+case 'fibbage':
                 this.showScreen('fibbage');
                 if (window.fibbageGame) {
                     fibbageGame.init(this);
+                }
+                break;
+
+            case 'trivia_showdown':
+                this.showScreen('trivia');
+                if (window.triviaGame) {
+                    triviaGame.init(this);
                 }
                 break;
 

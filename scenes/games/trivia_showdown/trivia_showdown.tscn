@@ -1,0 +1,185 @@
+[gd_scene load_steps=2 format=3 uid="uid://trivia_showdown"]
+
+[ext_resource type="Script" path="res://scripts/games/trivia_showdown.gd" id="1_trivia"]
+
+[node name="TriviaShowdown" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_trivia")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.08, 0.1, 0.14, 1)
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 50.0
+offset_right = -30.0
+offset_bottom = -30.0
+theme_override_constants/separation = 15
+
+[node name="Header" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="VBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Trivia Showdown"
+
+[node name="Spacer" type="Control" parent="VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PhaseLabel" type="Label" parent="VBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.5, 0.8, 0.4, 1)
+text = "QUESTION"
+
+[node name="Spacer2" type="Control" parent="VBox/Header"]
+layout_mode = 2
+custom_minimum_size = Vector2(15, 0)
+
+[node name="RoundLabel" type="Label" parent="VBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Round 1/3"
+
+[node name="Spacer3" type="Control" parent="VBox/Header"]
+layout_mode = 2
+custom_minimum_size = Vector2(15, 0)
+
+[node name="TimerLabel" type="Label" parent="VBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+text = "15s"
+
+[node name="QuestionSection" type="PanelContainer" parent="VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 100)
+
+[node name="VBox" type="VBoxContainer" parent="VBox/QuestionSection"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CategoryLabel" type="Label" parent="VBox/QuestionSection/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.6, 0.8, 1, 1)
+text = "Science"
+horizontal_alignment = 1
+
+[node name="QuestionLabel" type="Label" parent="VBox/QuestionSection/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "What is the chemical symbol for gold?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="AnswersSection" type="VBoxContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="AnswerButtons" type="GridContainer" parent="VBox/AnswersSection"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 1
+
+[node name="AnswersStatus" type="Label" parent="VBox/AnswersSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "0/4 answered"
+horizontal_alignment = 1
+
+[node name="ResultSection" type="VBoxContainer" parent="VBox"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="ResultLabel" type="Label" parent="VBox/ResultSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_color = Color(0.4, 1, 0.4, 1)
+text = "Correct!"
+horizontal_alignment = 1
+
+[node name="PointsLabel" type="Label" parent="VBox/ResultSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+text = "+150 points"
+horizontal_alignment = 1
+
+[node name="CorrectAnswerLabel" type="Label" parent="VBox/ResultSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Answer: Au"
+horizontal_alignment = 1
+
+[node name="LeaderboardSection" type="VBoxContainer" parent="VBox"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="LeaderboardTitle" type="Label" parent="VBox/LeaderboardSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+text = "Leaderboard"
+horizontal_alignment = 1
+
+[node name="LeaderboardList" type="VBoxContainer" parent="VBox/LeaderboardSection"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="ReadySection" type="VBoxContainer" parent="VBox"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="ReadyButton" type="Button" parent="VBox/ReadySection"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Ready!"
+
+[node name="ReadyStatus" type="Label" parent="VBox/ReadySection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "0/4 ready"
+horizontal_alignment = 1
+
+[node name="PlayersStatus" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 15
+
+[node name="PhaseTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="TickTimer" type="Timer" parent="."]
+wait_time = 1.0

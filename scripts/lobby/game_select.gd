@@ -45,7 +45,7 @@ const GAMES = [
 		"color": Color(0.5, 0.8, 0.4)
 	},
 	{
-		"id": "trivia",
+		"id": "trivia_showdown",
 		"name": "Trivia Showdown",
 		"description": "Test your knowledge! Fastest correct answer wins.",
 		"icon": "🧠",

@@ -292,7 +292,7 @@ mcp__pixellab__get_character(character_id="CHARACTER_ID")
 - [x] Fibbage (answer submission, voting)
 - [x] Word Bomb (word validation, elimination)
 - [x] Who Said It? (anonymous answers, attribution voting)
-- [ ] Trivia Showdown (question display, answer selection)
+- [x] Trivia Showdown (question display, answer selection, speed bonus scoring)
 
 ### Phase 4: Polish & Assets
 - [ ] Generate PixelLab assets
@@ -327,7 +327,9 @@ res://
 │       └── games/
 │           ├── charades.js
 │           ├── quickdraw.js
-│           └── wordbomb.js
+│           ├── wordbomb.js
+│           ├── whosaidit.js
+│           └── trivia.js
 │
 ├── assets/
 │   ├── characters/           # PixelLab generated
@@ -355,7 +357,7 @@ res://
 │   │   ├── fibbage/
 │   │   ├── word_bomb/
 │   │   ├── who_said_it/
-│   │   └── trivia/
+│   │   └── trivia_showdown/
 │   └── ui/
 │       ├── scoreboard.tscn
 │       ├── timer.tscn
@@ -404,7 +406,7 @@ res://
 |-------|--------|-------|
 | Phase 1: Foundation | Complete | Lobby, networking done |
 | Phase 2: Game Framework | Complete | Base game class created |
-| Phase 3: Individual Games | In Progress | Word Bomb, Quick Draw, Act It Out (Charades), Who Said It, Fibbage complete |
+| Phase 3: Individual Games | Complete | All 6 games complete |
 | Phase 4: Polish & Assets | In Progress | 5/8 character sprites integrated |
 | Phase 5: Testing | Not Started | |
 
@@ -452,6 +454,9 @@ res://
 - [x] Fibbage questions data (52 trivia questions with fill-in-the-blank format)
 - [x] Fibbage web player interface
 - [x] Fibbage duplicate answer detection (rejects lies matching the truth)
+- [x] Trivia Showdown game (multiple choice, speed bonus scoring, leaderboard)
+- [x] Trivia questions data (120 questions across 6 categories: Science, History, Geography, Entertainment, Sports, General)
+- [x] Trivia Showdown web player interface
 
 ### In Progress
 - [ ] Cross-device multiplayer testing (iPhone + macOS)
@@ -459,8 +464,8 @@ res://
 
 ### Next Steps
 1. Complete remaining character downloads when PixelLab finishes
-2. Build Trivia Showdown game (multiple choice)
-3. Add sound effects and polish
+2. Add sound effects and polish
+3. Cross-device multiplayer testing
 
 ### Character Assets Status
 | Character | Status | Sprite Path |
@@ -494,4 +499,4 @@ res://
 
 ---
 
-*Last Updated: 2026-01-22 (Fibbage game implemented with web player support, duplicate answer detection)*
+*Last Updated: 2026-01-22 (All 6 games complete: Word Bomb, Charades, Quick Draw, Who Said It, Fibbage, Trivia Showdown)*
