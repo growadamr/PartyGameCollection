@@ -163,6 +163,111 @@ class ImposterGame {
         // Could add additional UI updates when discussion starts
         // For now, role screen already shows discussion instructions
     }
+
+    // Voting handlers
+    handleVotingStarted(data) {
+        this.currentState = 'voting';
+        this.votes = data.votes || {};
+        this.tallies = data.tallies || {};
+        this.players = data.players || [];
+
+        if (this.isEliminated) {
+            this.showSpectatorView();
+        } else {
+            this.showVotingView();
+        }
+    }
+
+    showVotingView() {
+        this.showView('imposter-vote-screen');
+        this.renderVoteList('vote-player-list', true);
+        this.updateVoteHighlight();
+        this.updateVoteCounts();
+    }
+
+    showSpectatorView() {
+        this.showView('imposter-spectator-screen');
+        this.renderVoteList('spectator-player-list', false);
+        this.updateVoteCounts();
+    }
+
+    renderVoteList(containerId, interactive) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        container.innerHTML = '';
+
+        this.players.forEach(player => {
+            // Skip eliminated players in vote list
+            if (player.eliminated) return;
+
+            const div = document.createElement('div');
+            div.className = 'vote-option';
+            div.dataset.playerId = player.id;
+
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'player-name';
+            nameSpan.textContent = player.name;
+
+            const countSpan = document.createElement('span');
+            countSpan.className = 'vote-count';
+            countSpan.textContent = this.tallies[player.id] || 0;
+
+            div.appendChild(nameSpan);
+            div.appendChild(countSpan);
+
+            if (interactive) {
+                div.addEventListener('click', () => {
+                    this.castVote(player.id);
+                });
+            }
+
+            container.appendChild(div);
+        });
+    }
+
+    castVote(targetId) {
+        this.myVote = targetId;
+        gameSocket.send('vote_cast', { target_id: targetId });
+        this.updateVoteHighlight();
+    }
+
+    updateVoteHighlight() {
+        const container = document.getElementById('vote-player-list');
+        if (!container) return;
+
+        const options = container.querySelectorAll('.vote-option');
+        options.forEach(opt => {
+            if (opt.dataset.playerId === this.myVote) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    updateVoteCounts() {
+        // Update counts in both voting and spectator views
+        ['vote-player-list', 'spectator-player-list'].forEach(containerId => {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const options = container.querySelectorAll('.vote-option');
+            options.forEach(opt => {
+                const playerId = opt.dataset.playerId;
+                const countSpan = opt.querySelector('.vote-count');
+                if (countSpan) {
+                    countSpan.textContent = this.tallies[playerId] || 0;
+                }
+            });
+        });
+    }
+
+    handleVoteUpdate(data) {
+        this.votes = data.votes || {};
+        this.tallies = data.tallies || {};
+        this.updateVoteCounts();
+    }
 }
 
 // Global instance
