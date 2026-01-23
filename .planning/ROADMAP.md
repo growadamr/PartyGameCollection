@@ -47,12 +47,13 @@ Plans:
   5. Reveal shows whether accused was imposter or not
   6. Caught imposters are eliminated and removed from active play
   7. Wrong accusations allow the game to continue without penalty
-**Plans:** 3 plans
+**Plans:** 4 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Host-side voting state machine with consensus detection
-- [ ] 02-02-PLAN.md — Web player voting UI (HTML + CSS)
-- [ ] 02-03-PLAN.md — Web player voting handlers (JavaScript)
+- [x] 02-01-PLAN.md — Host-side voting state machine with consensus detection
+- [x] 02-02-PLAN.md — Web player voting UI (HTML + CSS)
+- [x] 02-03-PLAN.md — Web player voting handlers (JavaScript)
+- [ ] 02-04-PLAN.md — Gap closure: Fix JavaScript ID/class mismatches (VERIFICATION)
 
 ### Phase 3: Imposter Guess & Round End
 **Goal**: Imposters can attempt word guesses and the game tracks round wins correctly
@@ -77,9 +78,9 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Core Game Foundation | 3/3 | Complete ✓ | 2026-01-22 |
-| 2. Voting & Elimination | 0/3 | Planned | - |
+| 2. Voting & Elimination | 3/4 | Gap closure | - |
 | 3. Imposter Guess & Round End | 0/0 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-22*
+*Last updated: 2026-01-23*
