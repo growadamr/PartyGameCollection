@@ -454,6 +454,7 @@ res://
 - [x] Fibbage questions data (52 trivia questions with fill-in-the-blank format)
 - [x] Fibbage web player interface
 - [x] Fibbage duplicate answer detection (rejects lies matching the truth)
+- [x] Fibbage duplicate lie detection (rejects lies already submitted by other players)
 - [x] Trivia Showdown game (multiple choice, speed bonus scoring, leaderboard)
 - [x] Trivia questions data (120 questions across 6 categories: Science, History, Geography, Entertainment, Sports, General)
 - [x] Trivia Showdown web player interface
@@ -504,4 +505,4 @@ res://
 
 ---
 
-*Last Updated: 2026-01-23 (Character sprites now display in lobby and all games)*
+*Last Updated: 2026-01-23 (Fibbage rejects duplicate lies between players)*

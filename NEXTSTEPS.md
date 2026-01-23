@@ -6,7 +6,7 @@ Specific, actionable tasks you can work on right now.
 
 ## Current Status
 
-**5/6 games complete!** Only Fibbage remains.
+**All 6 games complete!**
 
 | Game | Status |
 |------|--------|
@@ -15,50 +15,11 @@ Specific, actionable tasks you can work on right now.
 | Quick Draw | Complete |
 | Who Said It? | Complete |
 | Trivia Showdown | Complete |
-| Fibbage | Not Started |
+| Fibbage | Complete |
 
 ---
 
-## 1. Build Fibbage Game (Last Game!)
-
-**Core flow:**
-1. Show obscure trivia question with blank: "The world's largest ____ is in Japan"
-2. Each player submits a fake answer
-3. All answers (including real one) shown shuffled
-4. Players vote for what they think is real
-5. Points: 200 for correct, 100 for each player fooled by your fake
-
-**Files needed:**
-- `scenes/games/fibbage/fibbage.tscn`
-- `scripts/games/fibbage.gd`
-- `data/prompts/fibbage_questions.json`
-- `web-player/js/games/fibbage.js`
-
-**Question format:**
-```json
-{
-    "questions": [
-        {
-            "text": "The world's largest _____ weighs over 500 pounds",
-            "answer": "potato",
-            "category": "food"
-        }
-    ]
-}
-```
-
-**Message protocol (similar to Who Said It):**
-- `fibbage_init` - Game setup
-- `fibbage_prompt` - Show question to players
-- `fibbage_submit` - Player submits fake answer
-- `fibbage_vote_start` - Show all answers for voting
-- `fibbage_vote` - Player votes
-- `fibbage_reveal` - Show correct answer + who fooled whom
-- `fibbage_end` - Game over
-
----
-
-## 2. Download Remaining 3 Characters (When Ready)
+## 1. Download Remaining 3 Characters (When Ready)
 
 Check if PixelLab finished generating:
 
@@ -84,7 +45,7 @@ And update `GameManager.CHARACTERS` to add the sprite paths.
 
 ---
 
-## 3. Add Sound Effects (Easy Win)
+## 2. Add Sound Effects (Easy Win)
 
 **Create folder:** `assets/audio/sfx/`
 
@@ -123,7 +84,7 @@ AudioManager="*res://scripts/autoload/audio_manager.gd"
 
 ---
 
-## 4. Add Reconnection Handling
+## 3. Add Reconnection Handling
 
 **File:** `scripts/autoload/network_manager.gd`
 
@@ -147,7 +108,7 @@ func _on_connection_lost():
 
 ---
 
-## 5. Cross-Device Testing
+## 4. Cross-Device Testing
 
 Test the following scenarios:
 - [ ] Host on iPhone, players on Android browsers
