@@ -103,13 +103,18 @@ fibbage_vote        - Vote for an answer
 
 ## Implementation Checklist
 
-- [ ] Create `fibbage_questions.json` with 50+ questions
-- [ ] Create `fibbage.gd` with game logic
-- [ ] Create `fibbage.tscn` scene
-- [ ] Create `fibbage.js` for web player
-- [ ] Add to game select screen
-- [ ] Test with 3+ players
+- [x] Create `fibbage_questions.json` with 50+ questions
+- [x] Create `fibbage.gd` with game logic
+- [x] Create `fibbage.tscn` scene
+- [x] Create `fibbage.js` for web player
+- [x] Add to game select screen
+- [x] Test with 3+ players
+
+## Additional Features
+
+- **Truth Detection**: Rejects answers that match the real answer (case-insensitive)
+- **Duplicate Lie Detection**: Rejects lies that another player has already submitted
 
 ---
 
-*Last Updated: 2026-01-22*
+*Last Updated: 2026-01-23*

@@ -750,6 +750,22 @@ func _handle_answer(data: Dictionary) -> void:
 			NetworkManager.send_to_client(int(player_id), reject_data)
 		return
 
+	# Check if the answer is a duplicate of another player's lie
+	for existing_player_id in player_answers:
+		var existing_answer = player_answers[existing_player_id].strip_edges().to_lower()
+		if submitted == existing_answer:
+			# Reject the answer - it's a duplicate!
+			var reject_data = {
+				"type": "fibbage_answer_rejected",
+				"player_id": player_id,
+				"reason": "Someone already submitted that lie! Try a different one."
+			}
+			if player_id == GameManager.local_player_id:
+				_apply_answer_rejected(reject_data)
+			else:
+				NetworkManager.send_to_client(int(player_id), reject_data)
+			return
+
 	player_answers[player_id] = answer
 
 	var status_data = {
