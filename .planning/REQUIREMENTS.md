@@ -21,17 +21,17 @@ Requirements for the Imposter game addition.
 
 ### Voting System
 
-- [ ] **VOTE-01**: Players can vote for any other player in real-time via their device
-- [ ] **VOTE-02**: Vote counts visible to all players as they update
-- [ ] **VOTE-03**: Players can change their vote at any time
-- [ ] **VOTE-04**: Consensus detected when all players except accused vote for same person
+- [x] **VOTE-01**: Players can vote for any other player in real-time via their device
+- [x] **VOTE-02**: Vote counts visible to all players as they update
+- [x] **VOTE-03**: Players can change their vote at any time
+- [x] **VOTE-04**: Consensus detected when all players except accused vote for same person
 
 ### Reveal & Elimination
 
-- [ ] **ELIM-01**: Warning countdown (3 seconds) before reveal when consensus reached
-- [ ] **ELIM-02**: Reveal shows if accused was imposter or not
-- [ ] **ELIM-03**: Caught imposters are eliminated from the round
-- [ ] **ELIM-04**: Wrong accusation - game continues without penalty
+- [x] **ELIM-01**: Warning countdown (3 seconds) before reveal when consensus reached
+- [x] **ELIM-02**: Reveal shows if accused was imposter or not
+- [x] **ELIM-03**: Caught imposters are eliminated from the round
+- [x] **ELIM-04**: Wrong accusation - game continues without penalty
 
 ### Imposter Guess
 
@@ -94,14 +94,14 @@ Deferred to future release.
 | SETUP-04 | Phase 1 | Complete |
 | DISC-01 | Phase 1 | Complete |
 | DISC-02 | Phase 1 | Complete |
-| VOTE-01 | Phase 2 | Pending |
-| VOTE-02 | Phase 2 | Pending |
-| VOTE-03 | Phase 2 | Pending |
-| VOTE-04 | Phase 2 | Pending |
-| ELIM-01 | Phase 2 | Pending |
-| ELIM-02 | Phase 2 | Pending |
-| ELIM-03 | Phase 2 | Pending |
-| ELIM-04 | Phase 2 | Pending |
+| VOTE-01 | Phase 2 | Complete |
+| VOTE-02 | Phase 2 | Complete |
+| VOTE-03 | Phase 2 | Complete |
+| VOTE-04 | Phase 2 | Complete |
+| ELIM-01 | Phase 2 | Complete |
+| ELIM-02 | Phase 2 | Complete |
+| ELIM-03 | Phase 2 | Complete |
+| ELIM-04 | Phase 2 | Complete |
 | GUESS-01 | Phase 3 | Pending |
 | GUESS-02 | Phase 3 | Pending |
 | GUESS-03 | Phase 3 | Pending |
@@ -122,4 +122,4 @@ Deferred to future release.
 
 ---
 *Requirements defined: 2026-01-22*
-*Last updated: 2026-01-22 after Phase 1 completion*
+*Last updated: 2026-01-23 after Phase 2 completion*
