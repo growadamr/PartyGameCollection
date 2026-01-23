@@ -137,7 +137,7 @@ Test the following scenarios:
 | Game | Status | Notes |
 |------|--------|-------|
 | Word Bomb | Complete | Timer, lives, letter combo validation |
-| Act It Out (Charades) | Complete | 799 prompts, actor/guesser roles |
+| Act It Out (Charades) | Complete | 799 prompts, skip gives new phrase |
 | Quick Draw | Complete | Drawing sync, simplified scoring |
 | Who Said It? | Complete | Ready-up system, web player support |
 | Fibbage | Complete | 52 questions, lie detection, fooled tracking |
