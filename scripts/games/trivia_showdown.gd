@@ -502,11 +502,23 @@ func _update_players_display() -> void:
 		char_container.custom_minimum_size = Vector2(40, 40)
 
 		var char_data = GameManager.get_character_data(player.character)
-		var color_rect = ColorRect.new()
-		color_rect.custom_minimum_size = Vector2(40, 40)
-		color_rect.size = Vector2(40, 40)
-		color_rect.color = char_data.color
-		char_container.add_child(color_rect)
+		var char_display: Control
+		var sprite_path = char_data.get("sprite")
+		if sprite_path and ResourceLoader.exists(sprite_path):
+			var texture_rect = TextureRect.new()
+			texture_rect.texture = load(sprite_path)
+			texture_rect.custom_minimum_size = Vector2(40, 40)
+			texture_rect.size = Vector2(40, 40)
+			texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			char_display = texture_rect
+		else:
+			var color_rect = ColorRect.new()
+			color_rect.custom_minimum_size = Vector2(40, 40)
+			color_rect.size = Vector2(40, 40)
+			color_rect.color = char_data.color
+			char_display = color_rect
+		char_container.add_child(char_display)
 
 		# Ready/Answered indicator
 		if (is_player_ready and current_phase == GamePhase.PRE_ROUND) or (has_player_answered and current_phase == GamePhase.QUESTION):
@@ -519,7 +531,7 @@ func _update_players_display() -> void:
 			check_label.set_anchors_preset(Control.PRESET_FULL_RECT)
 			check_label.size = Vector2(40, 40)
 			char_container.add_child(check_label)
-			color_rect.color = color_rect.color.lightened(0.3)
+			char_display.modulate = Color(1.3, 1.3, 1.3, 1.0)
 
 		container.add_child(char_container)
 

@@ -461,9 +461,20 @@ func _update_players_display() -> void:
 		vbox.add_theme_constant_override("separation", 5)
 
 		var char_data = GameManager.get_character_data(player["character"])
-		var color_rect = ColorRect.new()
-		color_rect.custom_minimum_size = Vector2(50, 50)
-		color_rect.color = char_data["color"]
+		var char_display: Control
+		var sprite_path = char_data.get("sprite")
+		if sprite_path and ResourceLoader.exists(sprite_path):
+			var texture_rect = TextureRect.new()
+			texture_rect.texture = load(sprite_path)
+			texture_rect.custom_minimum_size = Vector2(50, 50)
+			texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			char_display = texture_rect
+		else:
+			var color_rect = ColorRect.new()
+			color_rect.custom_minimum_size = Vector2(50, 50)
+			color_rect.color = char_data["color"]
+			char_display = color_rect
 
 		var name_label = Label.new()
 		name_label.text = player["name"]
@@ -476,7 +487,7 @@ func _update_players_display() -> void:
 		score_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		score_label.add_theme_color_override("font_color", Color(1, 0.8, 0.2, 1))
 
-		vbox.add_child(color_rect)
+		vbox.add_child(char_display)
 		vbox.add_child(name_label)
 		vbox.add_child(score_label)
 

@@ -559,18 +559,30 @@ func _update_display() -> void:
 		var p = GameManager.players[pid]
 		var vbox = VBoxContainer.new()
 
-		var rect = ColorRect.new()
-		rect.custom_minimum_size = Vector2(35, 35)
-		rect.color = GameManager.get_character_data(p["character"])["color"]
+		var char_data = GameManager.get_character_data(p["character"])
+		var char_display: Control
+		var sprite_path = char_data.get("sprite")
+		if sprite_path and ResourceLoader.exists(sprite_path):
+			var texture_rect = TextureRect.new()
+			texture_rect.texture = load(sprite_path)
+			texture_rect.custom_minimum_size = Vector2(35, 35)
+			texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			char_display = texture_rect
+		else:
+			var color_rect = ColorRect.new()
+			color_rect.custom_minimum_size = Vector2(35, 35)
+			color_rect.color = char_data["color"]
+			char_display = color_rect
 
 		if pid in correct_guessers:
 			var check = Label.new()
 			check.text = "OK"
 			check.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			rect.add_child(check)
+			char_display.add_child(check)
 
 		if pid == drawer_id:
-			rect.modulate = Color(1.3, 1.3, 1.3)
+			char_display.modulate = Color(1.3, 1.3, 1.3)
 
 		var name_lbl = Label.new()
 		name_lbl.text = p["name"]
@@ -580,7 +592,7 @@ func _update_display() -> void:
 		score_lbl.text = str(p["score"])
 		score_lbl.add_theme_font_size_override("font_size", 11)
 
-		vbox.add_child(rect)
+		vbox.add_child(char_display)
 		vbox.add_child(name_lbl)
 		vbox.add_child(score_lbl)
 		players_status.add_child(vbox)
