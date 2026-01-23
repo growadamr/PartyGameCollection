@@ -129,11 +129,22 @@ func _create_player_card(player_id: String, player: Dictionary) -> Control:
 	var hbox = HBoxContainer.new()
 	hbox.add_theme_constant_override("separation", 15)
 
-	# Character color indicator
+	# Character indicator - use sprite if available, otherwise color
 	var char_data = GameManager.get_character_data(player["character"])
-	var color_rect = ColorRect.new()
-	color_rect.custom_minimum_size = Vector2(40, 40)
-	color_rect.color = char_data["color"]
+	var char_display: Control
+	var sprite_path = char_data.get("sprite")
+	if sprite_path and ResourceLoader.exists(sprite_path):
+		var texture_rect = TextureRect.new()
+		texture_rect.texture = load(sprite_path)
+		texture_rect.custom_minimum_size = Vector2(40, 40)
+		texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		char_display = texture_rect
+	else:
+		var color_rect = ColorRect.new()
+		color_rect.custom_minimum_size = Vector2(40, 40)
+		color_rect.color = char_data["color"]
+		char_display = color_rect
 
 	# Player name
 	var name_label = Label.new()
@@ -147,11 +158,11 @@ func _create_player_card(player_id: String, player: Dictionary) -> Control:
 		host_badge.text = "HOST"
 		host_badge.add_theme_font_size_override("font_size", 14)
 		host_badge.add_theme_color_override("font_color", Color(1.0, 0.8, 0.2, 1.0))
-		hbox.add_child(color_rect)
+		hbox.add_child(char_display)
 		hbox.add_child(name_label)
 		hbox.add_child(host_badge)
 	else:
-		hbox.add_child(color_rect)
+		hbox.add_child(char_display)
 		hbox.add_child(name_label)
 
 	card.add_child(hbox)

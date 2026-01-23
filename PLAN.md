@@ -457,6 +457,8 @@ res://
 - [x] Trivia Showdown game (multiple choice, speed bonus scoring, leaderboard)
 - [x] Trivia questions data (120 questions across 6 categories: Science, History, Geography, Entertainment, Sports, General)
 - [x] Trivia Showdown web player interface
+- [x] Character sprites display in lobby (waiting_lobby, player_waiting screens)
+- [x] Character sprites display in all 6 games (replaced color blocks with actual sprites)
 
 ### In Progress
 - [ ] Cross-device multiplayer testing (iPhone + macOS)
@@ -497,6 +499,9 @@ res://
 - WebSocket connectivity across different networks (NAT traversal)
 - Reconnection handling for dropped connections
 
+### Known Issues
+- None currently
+
 ---
 
-*Last Updated: 2026-01-22 (All 6 games complete: Word Bomb, Charades, Quick Draw, Who Said It, Fibbage, Trivia Showdown)*
+*Last Updated: 2026-01-23 (Character sprites now display in lobby and all games)*
