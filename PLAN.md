@@ -500,7 +500,7 @@ res://
 - Reconnection handling for dropped connections
 
 ### Known Issues
-- **GitHub Actions `claude-review` check failing** (2026-01-23): The `anthropics/claude-code-action` is crashing during SDK initialization with "Claude Code process exited with code 1". This is an infrastructure issue with the action itself, not our code. PR #8 (`fix-character-images-in-lobby`) is blocked by this. Check https://github.com/anthropics/claude-code-action/issues for updates or try re-running the check later.
+- None currently
 
 ---
 
