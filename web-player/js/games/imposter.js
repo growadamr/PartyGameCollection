@@ -96,12 +96,12 @@ class ImposterGame {
 
     showView(viewId) {
         const views = [
-            'imposter-role-screen',
-            'imposter-vote-screen',
-            'imposter-spectator-screen',
-            'imposter-consensus-screen',
-            'imposter-reveal-screen',
-            'imposter-result-screen'
+            'imposter-role-view',
+            'imposter-voting-view',
+            'imposter-spectator-view',
+            'imposter-consensus-view',
+            'imposter-reveal-view',
+            'imposter-result-view'
         ];
 
         views.forEach(id => {
@@ -156,7 +156,7 @@ class ImposterGame {
             }
         }
 
-        this.showView('imposter-role-screen');
+        this.showView('imposter-role-view');
     }
 
     updateDiscussionUI() {
@@ -179,15 +179,15 @@ class ImposterGame {
     }
 
     showVotingView() {
-        this.showView('imposter-vote-screen');
+        this.showView('imposter-voting-view');
         this.renderVoteList('vote-player-list', true);
         this.updateVoteHighlight();
         this.updateVoteCounts();
     }
 
     showSpectatorView() {
-        this.showView('imposter-spectator-screen');
-        this.renderVoteList('spectator-player-list', false);
+        this.showView('imposter-spectator-view');
+        this.renderVoteList('spectator-vote-list', false);
         this.updateVoteCounts();
     }
 
@@ -239,16 +239,16 @@ class ImposterGame {
         const options = container.querySelectorAll('.vote-option');
         options.forEach(opt => {
             if (opt.dataset.playerId === this.myVote) {
-                opt.classList.add('selected');
+                opt.classList.add('my-vote');
             } else {
-                opt.classList.remove('selected');
+                opt.classList.remove('my-vote');
             }
         });
     }
 
     updateVoteCounts() {
         // Update counts in both voting and spectator views
-        ['vote-player-list', 'spectator-player-list'].forEach(containerId => {
+        ['vote-player-list', 'spectator-vote-list'].forEach(containerId => {
             const container = document.getElementById(containerId);
             if (!container) return;
 
@@ -274,10 +274,10 @@ class ImposterGame {
         this.consensusTarget = data.target_id;
         this.countdown = data.countdown || 5;
 
-        this.showView('imposter-consensus-screen');
+        this.showView('imposter-consensus-view');
 
         const targetName = this.players.find(p => p.id === this.consensusTarget)?.name || 'Unknown';
-        const targetLabel = document.getElementById('consensus-target');
+        const targetLabel = document.getElementById('consensus-target-name');
         if (targetLabel) {
             targetLabel.textContent = targetName;
         }
@@ -311,33 +311,33 @@ class ImposterGame {
 
     // Reveal handlers
     handleRevealStart(data) {
-        this.showView('imposter-reveal-screen');
+        this.showView('imposter-reveal-view');
     }
 
     handleRevealResult(data) {
-        const eliminatedId = data.eliminated_id;
-        const wasImposter = data.was_imposter;
+        const eliminatedId = data.target_id;
+        const wasImposter = data.is_imposter;
         const eliminatedName = this.players.find(p => p.id === eliminatedId)?.name || 'Unknown';
 
-        this.showView('imposter-result-screen');
+        this.showView('imposter-result-view');
 
         const nameEl = document.getElementById('result-player-name');
-        const outcomeEl = document.getElementById('result-outcome');
-        const resultScreen = document.getElementById('imposter-result-screen');
+        const outcomeEl = document.getElementById('result-role-text');
+        const resultCard = document.getElementById('result-card');
 
         if (nameEl) {
             nameEl.textContent = eliminatedName;
         }
 
-        if (outcomeEl && resultScreen) {
+        if (outcomeEl && resultCard) {
             if (wasImposter) {
                 outcomeEl.textContent = 'was the IMPOSTER!';
                 outcomeEl.className = 'result-outcome imposter';
-                resultScreen.className = 'imposter-result-screen imposter';
+                resultCard.className = 'result-card imposter';
             } else {
                 outcomeEl.textContent = 'was INNOCENT';
                 outcomeEl.className = 'result-outcome innocent';
-                resultScreen.className = 'imposter-result-screen innocent';
+                resultCard.className = 'result-card innocent';
             }
         }
 
@@ -370,7 +370,7 @@ class ImposterGame {
         this.secretWord = data.word;
 
         // Update spectator view to show word
-        const wordEl = document.getElementById('spectator-word');
+        const wordEl = document.getElementById('spectator-word-display');
         if (wordEl) {
             wordEl.textContent = `The word was: ${this.secretWord}`;
         }
