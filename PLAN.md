@@ -457,6 +457,8 @@ res://
 - [x] Trivia Showdown game (multiple choice, speed bonus scoring, leaderboard)
 - [x] Trivia questions data (120 questions across 6 categories: Science, History, Geography, Entertainment, Sports, General)
 - [x] Trivia Showdown web player interface
+- [x] Character sprites display in lobby (waiting_lobby, player_waiting screens)
+- [x] Character sprites display in all 6 games (replaced color blocks with actual sprites)
 
 ### In Progress
 - [ ] Cross-device multiplayer testing (iPhone + macOS)
@@ -497,6 +499,9 @@ res://
 - WebSocket connectivity across different networks (NAT traversal)
 - Reconnection handling for dropped connections
 
+### Known Issues
+- **GitHub Actions `claude-review` check failing** (2026-01-23): The `anthropics/claude-code-action` is crashing during SDK initialization with "Claude Code process exited with code 1". This is an infrastructure issue with the action itself, not our code. PR #8 (`fix-character-images-in-lobby`) is blocked by this. Check https://github.com/anthropics/claude-code-action/issues for updates or try re-running the check later.
+
 ---
 
-*Last Updated: 2026-01-22 (All 6 games complete: Word Bomb, Charades, Quick Draw, Who Said It, Fibbage, Trivia Showdown)*
+*Last Updated: 2026-01-23 (Character sprites now display in lobby and all games)*
