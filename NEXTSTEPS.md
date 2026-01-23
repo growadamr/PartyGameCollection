@@ -138,7 +138,7 @@ Test the following scenarios:
 |------|--------|-------|
 | Word Bomb | Complete | Timer, lives, letter combo validation |
 | Act It Out (Charades) | Complete | 799 prompts, skip gives new phrase |
-| Quick Draw | Complete | Drawing sync, simplified scoring |
+| Quick Draw | Complete | Speed-based scoring (3/2/1 pts), auto-hints at 45s/30s/15s |
 | Who Said It? | Complete | Ready-up system, web player support |
 | Fibbage | Complete | 52 questions, lie detection, fooled tracking |
 | Trivia Showdown | Complete | 120 questions, speed bonus scoring |
