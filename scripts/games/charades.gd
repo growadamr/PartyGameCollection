@@ -421,7 +421,24 @@ func _on_skip_pressed() -> void:
 			})
 
 func _skip_turn() -> void:
-	turn_timer.stop()
+	# Pick a new prompt instead of ending the turn
+	var categories = prompts.keys()
+	var category = categories[randi() % categories.size()]
+	var category_prompts = prompts[category]
+
+	# Find an unused prompt
+	var available = []
+	for p in category_prompts:
+		if p not in used_prompts:
+			available.append(p)
+
+	if available.is_empty():
+		# Reset if all prompts used
+		used_prompts.clear()
+		available = category_prompts
+
+	current_prompt = available[randi() % available.size()]
+	used_prompts.append(current_prompt)
 
 	var data = {
 		"type": "charades_skipped",
@@ -434,26 +451,20 @@ func _skip_turn() -> void:
 
 func _apply_skip(data: Dictionary) -> void:
 	var prompt = data.get("prompt", "")
+	current_prompt = prompt
 
-	turn_timer.stop()
+	# Timer continues running - no reset
 
-	# Hide all input controls
-	guess_input.visible = false
-	guess_button.visible = false
-	skip_button.visible = false
-	start_turn_button.visible = false
-	waiting_for_actor_label.visible = false
-
-	prompt_label.text = prompt
-	prompt_label.add_theme_color_override("font_color", Color(1, 0.6, 0.2, 1))
-	actor_name_label.text = "Skipped!"
-	actor_name_label.add_theme_color_override("font_color", Color(1, 0.6, 0.2, 1))
-	feedback_label.text = "No points awarded this round."
-	feedback_label.add_theme_color_override("font_color", Color(1, 0.6, 0.2, 1))
-
-	if GameManager.is_host:
-		await get_tree().create_timer(3.0).timeout
-		_next_turn()
+	if is_actor:
+		# Actor sees the new prompt
+		prompt_label.text = prompt
+		prompt_label.add_theme_color_override("font_color", Color(0.4, 1, 0.4, 1))
+		feedback_label.text = "New phrase! Act this out!"
+		feedback_label.add_theme_color_override("font_color", Color(0.4, 1, 0.4, 1))
+	else:
+		# Guessers still see ??? and can keep guessing
+		feedback_label.text = "They skipped - new phrase!"
+		feedback_label.add_theme_color_override("font_color", Color(1, 0.6, 0.2, 1))
 
 func _time_expired() -> void:
 	var data = {
