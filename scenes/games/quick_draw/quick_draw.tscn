@@ -126,6 +126,12 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0, 1)
 text = "Y"
 
+[node name="EraserButton" type="Button" parent="VBox/ToolsSection"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "E"
+
 [node name="Spacer" type="Control" parent="VBox/ToolsSection"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -149,6 +155,13 @@ theme_override_constants/separation = 8
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(0.6, 0.8, 1, 1)
+text = ""
+horizontal_alignment = 1
+
+[node name="WrongGuessLabel" type="Label" parent="VBox/GuessSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.5, 0.5, 1)
 text = ""
 horizontal_alignment = 1
 

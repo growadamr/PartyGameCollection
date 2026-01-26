@@ -35,12 +35,13 @@ class QuickDrawGame {
             gameSocket.send({ type: 'quick_draw_clear' });
         });
 
-        document.getElementById('brush-color')?.addEventListener('input', (e) => {
-            this.brushColor = e.target.value;
+        document.getElementById('btn-eraser')?.addEventListener('click', () => {
+            this.brushColor = '#1a1a1a';  // Canvas background color
+            document.getElementById('brush-color').value = '#1a1a1a';
         });
 
-        document.getElementById('brush-size')?.addEventListener('input', (e) => {
-            this.brushSize = parseInt(e.target.value);
+        document.getElementById('brush-color')?.addEventListener('input', (e) => {
+            this.brushColor = e.target.value;
         });
 
         // Guess input
@@ -107,7 +108,7 @@ class QuickDrawGame {
         });
 
         gameSocket.on('quick_draw_wrong', (data) => {
-            console.log(`${data.player_name} guessed: ${data.guess}`);
+            this.showWrongGuess(data.name || data.player_name, data.guess);
         });
 
         gameSocket.on('quick_draw_result', (data) => {
@@ -129,6 +130,7 @@ class QuickDrawGame {
         this.timeRemaining = data.time || 60;
 
         this.clearCanvas();
+        this.clearWrongGuess();
         this.hideAllViews();
 
         if (this.isDrawer) {
@@ -327,6 +329,21 @@ class QuickDrawGame {
     hideAllViews() {
         document.getElementById('quickdraw-drawer-view')?.classList.add('hidden');
         document.getElementById('quickdraw-guesser-view')?.classList.add('hidden');
+    }
+
+    showWrongGuess(playerName, guess) {
+        const wrongGuessEl = document.getElementById('quickdraw-wrong-guess');
+        if (wrongGuessEl) {
+            wrongGuessEl.textContent = `${playerName} guessed: ${guess}`;
+            wrongGuessEl.classList.remove('hidden');
+        }
+    }
+
+    clearWrongGuess() {
+        const wrongGuessEl = document.getElementById('quickdraw-wrong-guess');
+        if (wrongGuessEl) {
+            wrongGuessEl.textContent = '';
+        }
     }
 
     startTimer() {

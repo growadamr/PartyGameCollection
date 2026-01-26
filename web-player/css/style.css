@@ -287,6 +287,15 @@ input::placeholder {
     color: var(--accent-secondary);
 }
 
+/* Wrong Guess Display */
+.wrong-guess {
+    color: var(--accent-secondary);
+    font-size: 0.95rem;
+    text-align: center;
+    min-height: 20px;
+    opacity: 0.9;
+}
+
 /* Drawing Canvas */
 #drawing-canvas {
     background: #1a1a1a;
