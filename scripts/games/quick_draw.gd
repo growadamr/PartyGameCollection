@@ -10,6 +10,7 @@ extends Control
 @onready var tools_section: HBoxContainer = $VBox/ToolsSection
 @onready var guess_section: VBoxContainer = $VBox/GuessSection
 @onready var hint_label: Label = $VBox/GuessSection/HintLabel
+@onready var wrong_guess_label: Label = $VBox/GuessSection/WrongGuessLabel
 @onready var guess_input: LineEdit = $VBox/GuessSection/GuessInput
 @onready var submit_guess_button: Button = $VBox/GuessSection/GuessButtons/SubmitGuessButton
 @onready var hint_button: Button = $VBox/GuessSection/GuessButtons/HintButton
@@ -31,6 +32,7 @@ extends Control
 @onready var blue_button: Button = $VBox/ToolsSection/BlueButton
 @onready var green_button: Button = $VBox/ToolsSection/GreenButton
 @onready var yellow_button: Button = $VBox/ToolsSection/YellowButton
+@onready var eraser_button: Button = $VBox/ToolsSection/EraserButton
 @onready var undo_button: Button = $VBox/ToolsSection/UndoButton
 @onready var clear_button: Button = $VBox/ToolsSection/ClearButton
 
@@ -77,6 +79,7 @@ func _ready() -> void:
 	blue_button.pressed.connect(func(): current_color = COLORS["blue"])
 	green_button.pressed.connect(func(): current_color = COLORS["green"])
 	yellow_button.pressed.connect(func(): current_color = COLORS["yellow"])
+	eraser_button.pressed.connect(func(): current_color = Color.WHITE)
 	undo_button.pressed.connect(_undo_stroke)
 	clear_button.pressed.connect(_clear_canvas)
 
@@ -220,6 +223,7 @@ func _show_guesser_ui(drawer_name: String) -> void:
 	guess_input.text = ""
 	guess_input.editable = true
 	hint_label.text = ""
+	wrong_guess_label.text = ""
 	hint_button.visible = false  # Hints are now automatic
 	feedback_label.text = drawer_name + " is drawing..."
 	tick_timer.start()
@@ -456,6 +460,20 @@ func _check_guess(player_id: String, guess: String) -> void:
 	if player_id in correct_guessers:
 		return
 
+	var pname = GameManager.players.get(player_id, {}).get("name", "?")
+
+	if guess != current_word.to_lower():
+		# Wrong guess - broadcast to all players
+		NetworkManager.broadcast({
+			"type": "qd_wrong",
+			"player": player_id,
+			"name": pname,
+			"guess": guess
+		})
+		# Apply locally on host
+		_apply_wrong_guess(pname, guess)
+		return
+
 	if guess == current_word.to_lower():
 		correct_guessers.append(player_id)
 
@@ -467,7 +485,6 @@ func _check_guess(player_id: String, guess: String) -> void:
 		if points > max_guesser_points:
 			max_guesser_points = points
 
-		var pname = GameManager.players.get(player_id, {}).get("name", "?")
 		var new_score = GameManager.players.get(player_id, {}).get("score", 0)
 
 		# Broadcast to all clients
@@ -501,6 +518,10 @@ func _apply_correct_guess(player_id: String, pname: String, pts: int) -> void:
 		else:
 			feedback_label.text = "%s got it! +%d" % [pname, pts]
 	_update_display()
+
+func _apply_wrong_guess(pname: String, guess: String) -> void:
+	# Show wrong guess to all guessers (drawer doesn't see guess section)
+	wrong_guess_label.text = "%s guessed: %s" % [pname, guess]
 
 # ===== HINTS =====
 
@@ -610,6 +631,11 @@ func _on_network_message(_peer: int, data: Dictionary) -> void:
 			if GameManager.is_host:
 				var pid = "peer_%d" % _peer
 				_check_guess(pid, data.get("guess", ""))
+
+		"qd_wrong":
+			var pname = data.get("name", "?")
+			var guess = data.get("guess", "")
+			_apply_wrong_guess(pname, guess)
 
 		"qd_hint":
 			hints_used = data.get("hint_number", hints_used)
