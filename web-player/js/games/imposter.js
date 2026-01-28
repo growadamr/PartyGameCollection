@@ -73,6 +73,18 @@ class ImposterGame {
         gameSocket.on('word_revealed', (data) => {
             this.handleWordRevealed(data);
         });
+
+        gameSocket.on('guess_result', (data) => {
+            this.handleGuessResult(data);
+        });
+
+        gameSocket.on('round_end', (data) => {
+            this.handleRoundEnd(data);
+        });
+
+        gameSocket.on('round_restart', (data) => {
+            this.handleRoundRestart(data);
+        });
     }
 
     handleRoleAssignment(data) {
@@ -101,7 +113,8 @@ class ImposterGame {
             'imposter-spectator-view',
             'imposter-consensus-view',
             'imposter-reveal-view',
-            'imposter-result-view'
+            'imposter-result-view',
+            'imposter-round-end-view'
         ];
 
         views.forEach(id => {
@@ -114,6 +127,112 @@ class ImposterGame {
                 }
             }
         });
+    }
+
+    toggleGuessSection(show) {
+        const section = document.getElementById('imposter-guess-section');
+        if (section) {
+            if (show) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+            }
+        }
+    }
+
+    setupGuessInput() {
+        const btn = document.getElementById('imposter-guess-btn');
+        const input = document.getElementById('imposter-guess-input');
+        if (!btn || !input) return;
+
+        // Remove existing listeners by cloning button
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+
+        newBtn.addEventListener('click', () => {
+            this.submitGuess();
+        });
+
+        // Submit on Enter key
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                this.submitGuess();
+            }
+        });
+    }
+
+    submitGuess() {
+        const input = document.getElementById('imposter-guess-input');
+        if (!input) return;
+
+        const guess = input.value.trim();
+        if (guess === '') return;
+
+        gameSocket.send('word_guess', { guess: guess });
+        input.value = '';
+    }
+
+    handleGuessResult(data) {
+        if (!data.correct) {
+            const feedback = document.getElementById('guess-feedback');
+            if (feedback) {
+                feedback.textContent = 'Incorrect!';
+                feedback.classList.remove('hidden');
+                setTimeout(() => {
+                    feedback.classList.add('hidden');
+                }, 2000);
+            }
+        }
+    }
+
+    handleRoundEnd(data) {
+        this.currentState = 'round_end';
+        this.toggleGuessSection(false);
+        this.showView('imposter-round-end-view');
+
+        const winnerEl = document.getElementById('round-end-winner');
+        const wordEl = document.getElementById('round-end-word');
+        const namesEl = document.getElementById('round-end-imposter-names');
+        const card = document.getElementById('round-end-card');
+        const imposterScoreEl = document.getElementById('round-end-imposter-score');
+        const innocentScoreEl = document.getElementById('round-end-innocent-score');
+
+        if (winnerEl) {
+            winnerEl.textContent = data.winner === 'imposters' ? 'IMPOSTERS WIN!' : 'INNOCENTS WIN!';
+        }
+        if (wordEl) {
+            wordEl.textContent = 'The word was: ' + (data.word || '???');
+        }
+        if (namesEl && data.imposter_names) {
+            namesEl.textContent = data.imposter_names.join(', ');
+        }
+        if (card) {
+            card.className = data.winner === 'imposters'
+                ? 'round-end-card imposters-win'
+                : 'round-end-card innocents-win';
+        }
+        if (imposterScoreEl && data.scores) {
+            imposterScoreEl.textContent = 'Imposters: ' + (data.scores.imposters || 0);
+        }
+        if (innocentScoreEl && data.scores) {
+            innocentScoreEl.textContent = 'Innocents: ' + (data.scores.innocents || 0);
+        }
+    }
+
+    handleRoundRestart(data) {
+        this.currentState = '';
+        this.votes = {};
+        this.tallies = {};
+        this.myVote = null;
+        this.consensusTarget = null;
+        this.countdown = 5;
+        this.isEliminated = false;
+        this.toggleGuessSection(false);
+
+        const input = document.getElementById('imposter-guess-input');
+        if (input) input.value = '';
+        const feedback = document.getElementById('guess-feedback');
+        if (feedback) feedback.classList.add('hidden');
     }
 
     showRoleScreen() {
@@ -157,6 +276,8 @@ class ImposterGame {
         }
 
         this.showView('imposter-role-view');
+        this.toggleGuessSection(this.isImposter);
+        this.setupGuessInput();
     }
 
     updateDiscussionUI() {
@@ -183,12 +304,14 @@ class ImposterGame {
         this.renderVoteList('vote-player-list', true);
         this.updateVoteHighlight();
         this.updateVoteCounts();
+        this.toggleGuessSection(this.isImposter);
     }
 
     showSpectatorView() {
         this.showView('imposter-spectator-view');
         this.renderVoteList('spectator-vote-list', false);
         this.updateVoteCounts();
+        this.toggleGuessSection(false);
     }
 
     renderVoteList(containerId, interactive) {
@@ -286,6 +409,8 @@ class ImposterGame {
         if (countdownEl) {
             countdownEl.textContent = this.countdown;
         }
+
+        this.toggleGuessSection(this.isImposter && !this.isEliminated);
     }
 
     handleConsensusCountdown(data) {
@@ -312,6 +437,7 @@ class ImposterGame {
     // Reveal handlers
     handleRevealStart(data) {
         this.showView('imposter-reveal-view');
+        this.toggleGuessSection(false);
     }
 
     handleRevealResult(data) {
