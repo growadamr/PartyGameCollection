@@ -31,13 +31,14 @@ func _process(_delta: float) -> void:
 
 func start_server(port: int = DEFAULT_PORT) -> Error:
 	_server = TCPServer.new()
-	var err = _server.listen(port)
+	# Bind to all network interfaces ("*") to accept connections from other devices
+	var err = _server.listen(port, "*")
 	if err != OK:
 		push_error("Failed to start server on port %d: %s" % [port, error_string(err)])
 		return err
 
 	_is_server = true
-	print("Server started on port ", port)
+	print("Server started on port ", port, " (listening on all interfaces)")
 	return OK
 
 func stop_server() -> void:

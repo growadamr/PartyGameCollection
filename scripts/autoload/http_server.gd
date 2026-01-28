@@ -4,6 +4,8 @@ extends Node
 ## This allows the app to work completely offline on local WiFi
 
 const HTTP_PORT = 8000
+const WebFilesEmbedded = preload("res://scripts/autoload/web_files_embedded.gd")
+
 var _tcp_server: TCPServer
 var _clients: Array = []  # Array of connected TCP streams
 
@@ -11,6 +13,7 @@ var _clients: Array = []  # Array of connected TCP streams
 var _web_files: Dictionary = {}
 
 func _ready() -> void:
+	print("[HTTPServer] _ready() called")
 	_load_web_files()
 
 func _process(_delta: float) -> void:
@@ -20,6 +23,7 @@ func _process(_delta: float) -> void:
 	# Accept new connections
 	if _tcp_server.is_connection_available():
 		var client = _tcp_server.take_connection()
+		print("[HTTPServer] New client connection accepted")
 		_clients.append({
 			"stream": client,
 			"request": "",
@@ -60,14 +64,29 @@ func _process(_delta: float) -> void:
 		i += 1
 
 func start_server() -> Error:
+	print("[HTTPServer] start_server() called")
 	_tcp_server = TCPServer.new()
+	print("[HTTPServer] TCPServer object created")
+
 	# Bind to all network interfaces ("*") to accept connections from other devices
 	var err = _tcp_server.listen(HTTP_PORT, "*")
+	print("[HTTPServer] listen() returned: ", err, " (", error_string(err), ")")
+
 	if err != OK:
-		push_error("Failed to start HTTP server on port %d: %s" % [HTTP_PORT, error_string(err)])
+		push_error("[HTTPServer] Failed to start HTTP server on port %d: %s" % [HTTP_PORT, error_string(err)])
+		_tcp_server = null  # Clean up on failure
 		return err
 
-	print("HTTP server started on port ", HTTP_PORT, " (listening on all interfaces)")
+	# Verify server is actually listening
+	if _tcp_server.is_listening():
+		print("[HTTPServer] ✓ Server confirmed listening on port ", HTTP_PORT, " (all interfaces)")
+	else:
+		push_error("[HTTPServer] ✗ Server not listening despite OK status!")
+		_tcp_server.stop()
+		_tcp_server = null
+		return ERR_CANT_OPEN
+
+	print("[HTTPServer] Server started successfully on port ", HTTP_PORT)
 	return OK
 
 func stop_server() -> void:
@@ -80,51 +99,52 @@ func stop_server() -> void:
 	_clients.clear()
 
 func _load_web_files() -> void:
-	# Load all web-player files into memory
-	_web_files = {
-		"/": _load_file("res://web-player/index.html"),
-		"/index.html": _load_file("res://web-player/index.html"),
-		"/css/styles.css": _load_file("res://web-player/css/styles.css"),
-		"/js/app.js": _load_file("res://web-player/js/app.js"),
-		"/js/websocket.js": _load_file("res://web-player/js/websocket.js"),
-		"/js/games/charades.js": _load_file("res://web-player/js/games/charades.js"),
-		"/js/games/word_bomb.js": _load_file("res://web-player/js/games/word_bomb.js"),
-		"/js/games/quick_draw.js": _load_file("res://web-player/js/games/quick_draw.js"),
-		"/js/games/imposter.js": _load_file("res://web-player/js/games/imposter.js"),
-		"/js/games/who_said_it.js": _load_file("res://web-player/js/games/who_said_it.js"),
-		"/js/games/fibbage.js": _load_file("res://web-player/js/games/fibbage.js"),
-		"/js/games/trivia.js": _load_file("res://web-player/js/games/trivia.js"),
-	}
+	# Use embedded web files (guaranteed to be in export)
+	print("[HTTPServer] Loading embedded web files...")
 
-	print("Loaded ", _web_files.size(), " web files")
+	# Access the constant directly from the preloaded script
+	_web_files = WebFilesEmbedded.WEB_FILES.duplicate()
 
-func _load_file(path: String) -> String:
-	if FileAccess.file_exists(path):
-		var file = FileAccess.open(path, FileAccess.READ)
-		if file:
-			var content = file.get_as_text()
-			file.close()
-			return content
+	var loaded_count = 0
+	var total_size = 0
+	for path in _web_files:
+		var size = _web_files[path].length()
+		if size > 0:
+			loaded_count += 1
+			total_size += size
+		print("[HTTPServer]   ", path, " -> ", size, " bytes")
 
-	push_warning("Web file not found: ", path)
-	return ""
+	print("[HTTPServer] Loaded ", _web_files.size(), " embedded web files (", loaded_count, " with content, ", total_size, " total bytes)")
+
+	# Debug: print first 100 chars of index.html
+	if _web_files.has("/"):
+		var preview = _web_files["/"].substr(0, 100)
+		print("[HTTPServer] Index preview: ", preview)
+
+# No longer needed - using embedded files
+# func _load_file(path: String) -> String:
+#	...
 
 func _handle_request(stream: StreamPeerTCP, request: String) -> void:
 	# Parse the HTTP request
 	var lines = request.split("\r\n")
 	if lines.size() == 0:
+		print("[HTTPServer] Empty request received")
 		return
 
 	var request_line = lines[0]
 	var parts = request_line.split(" ")
 	if parts.size() < 2:
+		print("[HTTPServer] Invalid request line: ", request_line)
 		return
 
 	var method = parts[0]
 	var path = parts[1]
+	print("[HTTPServer] Request: ", method, " ", path)
 
 	# Only handle GET requests
 	if method != "GET":
+		print("[HTTPServer] Method not allowed: ", method)
 		_send_response(stream, 405, "text/plain", "Method Not Allowed")
 		return
 
@@ -132,8 +152,10 @@ func _handle_request(stream: StreamPeerTCP, request: String) -> void:
 	if _web_files.has(path):
 		var content = _web_files[path]
 		var content_type = _get_content_type(path)
+		print("[HTTPServer] Serving: ", path, " (", content.length(), " bytes, ", content_type, ")")
 		_send_response(stream, 200, content_type, content)
 	else:
+		print("[HTTPServer] File not found: ", path)
 		_send_response(stream, 404, "text/plain", "File Not Found: " + path)
 
 func _send_response(stream: StreamPeerTCP, status_code: int, content_type: String, body: String) -> void:
@@ -149,7 +171,8 @@ func _send_response(stream: StreamPeerTCP, status_code: int, content_type: Strin
 	stream.put_data(response.to_utf8_buffer())
 
 func _get_content_type(path: String) -> String:
-	if path.ends_with(".html"):
+	# Root path should be treated as HTML
+	if path == "/" or path == "/index.html" or path.ends_with(".html"):
 		return "text/html"
 	elif path.ends_with(".css"):
 		return "text/css"
