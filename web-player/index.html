@@ -173,6 +173,33 @@
                     <p class="result-remaining" id="result-remaining">1 imposter remaining</p>
                 </div>
             </div>
+
+            <!-- Guess input (imposters only, toggled by JS independently of views) -->
+            <div id="imposter-guess-section" class="guess-section hidden">
+                <p class="guess-label">Guess the word:</p>
+                <div class="guess-input-row">
+                    <input type="text" id="imposter-guess-input" class="guess-input" placeholder="Enter your guess..." autocomplete="off" />
+                    <button id="imposter-guess-btn" class="btn-guess">Guess</button>
+                </div>
+                <p id="guess-feedback" class="guess-feedback hidden"></p>
+            </div>
+
+            <!-- Round End View -->
+            <div id="imposter-round-end-view" class="game-content hidden">
+                <div id="round-end-card" class="round-end-card">
+                    <h2 id="round-end-winner" class="round-end-winner">IMPOSTERS WIN!</h2>
+                    <p id="round-end-word" class="round-end-word">The word was: ???</p>
+                    <div id="round-end-imposters" class="round-end-imposters">
+                        <p class="imposters-label">The imposters were:</p>
+                        <p id="round-end-imposter-names" class="imposter-names">???</p>
+                    </div>
+                    <div class="round-end-scores">
+                        <span id="round-end-imposter-score" class="team-score imposter-score">Imposters: 0</span>
+                        <span class="score-divider">|</span>
+                        <span id="round-end-innocent-score" class="team-score innocent-score">Innocents: 0</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Game Over Screen -->
