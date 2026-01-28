@@ -58,9 +58,12 @@ web-player/
     ├── websocket.js    # WebSocket connection handler
     ├── app.js          # Main application logic
     └── games/
-        ├── charades.js # Charades game UI
-        ├── wordbomb.js # Word Bomb game UI
-        └── quickdraw.js# Quick Draw game UI
+        ├── charades.js  # Charades game UI
+        ├── wordbomb.js  # Word Bomb game UI
+        ├── quickdraw.js # Quick Draw game UI
+        ├── whosaidit.js # Who Said It game UI
+        ├── fibbage.js   # Fibbage game UI
+        └── trivia.js    # Trivia Showdown game UI
 ```
 
 ## URL Parameters
@@ -75,6 +78,9 @@ web-player/
 - **Charades**: Actor sees prompt, guessers submit guesses
 - **Word Bomb**: Type words containing letter combinations
 - **Quick Draw**: Draw/guess with touch canvas support
+- **Who Said It?**: Write anonymous answers, guess who wrote each one
+- **Fibbage**: Submit lies, vote for the truth, fool other players
+- **Trivia Showdown**: Answer multiple choice questions with speed bonus
 
 ## Browser Support
 
@@ -94,6 +100,9 @@ The web player communicates with the Godot host using the same WebSocket message
 - `game_starting` - Host starts a game
 - `charades_*` - Charades game messages
 - `word_bomb_*` - Word Bomb game messages
-- `quick_draw_*` - Quick Draw game messages
+- `quickdraw_*` - Quick Draw game messages
+- `whosaid_*` - Who Said It game messages
+- `fibbage_*` - Fibbage game messages
+- `trivia_*` - Trivia Showdown game messages
 
 See the Godot `network_manager.gd` for the complete protocol.

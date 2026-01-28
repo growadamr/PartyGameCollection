@@ -297,6 +297,24 @@ class PartyGameApp {
                 this.showScreen('imposter');
                 if (window.imposterGame) {
                     imposterGame.init(this);
+            case 'who_said_it':
+                this.showScreen('who-said-it');
+                if (window.whoSaidItGame) {
+                    whoSaidItGame.init(this);
+                }
+                break;
+
+case 'fibbage':
+                this.showScreen('fibbage');
+                if (window.fibbageGame) {
+                    fibbageGame.init(this);
+                }
+                break;
+
+            case 'trivia_showdown':
+                this.showScreen('trivia');
+                if (window.triviaGame) {
+                    triviaGame.init(this);
                 }
                 break;
 

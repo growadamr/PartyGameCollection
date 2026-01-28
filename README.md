@@ -15,7 +15,7 @@ The host's device acts as the "game board" while player devices serve as persona
 
 | Game | Description | Players |
 |------|-------------|---------|
-| **Quick Draw** | Pictionary-style drawing and guessing | 3+ |
+| **Quick Draw** | Pictionary-style drawing and guessing | 2+ |
 | **Act It Out** | Classic charades - act without speaking | 3+ |
 | **Fibbage** | Bluff with fake answers to fool others | 3+ |
 | **Word Bomb** | Race to type words containing letter combos | 2+ |
@@ -24,9 +24,14 @@ The host's device acts as the "game board" while player devices serve as persona
 
 ## Current Status
 
-- **Word Bomb**: Complete
-- **Act It Out (Charades)**: Complete with 799 prompts across 5 categories
-- Other games: In development
+| Game | Status | Notes |
+|------|--------|-------|
+| **Word Bomb** | Complete | Timer, lives, word validation |
+| **Act It Out** | Complete | 799 prompts across 5 categories |
+| **Quick Draw** | Complete | Speed-based scoring, auto-hints, 2+ players |
+| **Who Said It?** | Complete | 62 prompts, anonymous answers, voting |
+| **Fibbage** | Complete | 52 questions, lie detection, fooled tracking |
+| **Trivia Showdown** | Complete | 120 questions, speed bonus scoring |
 
 ## Requirements
 

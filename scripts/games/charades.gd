@@ -263,12 +263,62 @@ func _submit_guess(guess: String) -> void:
 
 	guess_input.text = ""
 
+func _is_close_match(guess: String, answer: String) -> bool:
+	# Exact match
+	if guess == answer:
+		return true
+
+	# Calculate similarity using Levenshtein distance
+	var similarity = _calculate_similarity(guess, answer)
+
+	# Require 85% similarity for a match
+	return similarity >= 0.85
+
+func _calculate_similarity(s1: String, s2: String) -> float:
+	# Levenshtein distance-based similarity
+	var len1 = s1.length()
+	var len2 = s2.length()
+
+	if len1 == 0 and len2 == 0:
+		return 1.0
+	if len1 == 0 or len2 == 0:
+		return 0.0
+
+	# Create distance matrix
+	var matrix = []
+	for i in range(len1 + 1):
+		matrix.append([])
+		for j in range(len2 + 1):
+			matrix[i].append(0)
+
+	# Initialize first row and column
+	for i in range(len1 + 1):
+		matrix[i][0] = i
+	for j in range(len2 + 1):
+		matrix[0][j] = j
+
+	# Fill in the rest of the matrix
+	for i in range(1, len1 + 1):
+		for j in range(1, len2 + 1):
+			var cost = 0 if s1[i - 1] == s2[j - 1] else 1
+			matrix[i][j] = min(
+				matrix[i - 1][j] + 1,      # deletion
+				min(
+					matrix[i][j - 1] + 1,  # insertion
+					matrix[i - 1][j - 1] + cost  # substitution
+				)
+			)
+
+	var distance = matrix[len1][len2]
+	var max_len = max(len1, len2)
+	return 1.0 - (float(distance) / float(max_len))
+
 func _validate_guess(player_id: String, guess: String) -> void:
 	var guess_lower = guess.to_lower().strip_edges()
 	var prompt_lower = current_prompt.to_lower().strip_edges()
 
-	# Check if guess matches (fuzzy matching)
-	var is_correct = (guess_lower == prompt_lower) or (prompt_lower in guess_lower) or (guess_lower in prompt_lower)
+	# Check if guess matches - require high similarity (85%+) or exact match
+	var is_correct = _is_close_match(guess_lower, prompt_lower)
 
 	if is_correct:
 		turn_timer.stop()
@@ -371,7 +421,24 @@ func _on_skip_pressed() -> void:
 			})
 
 func _skip_turn() -> void:
-	turn_timer.stop()
+	# Pick a new prompt instead of ending the turn
+	var categories = prompts.keys()
+	var category = categories[randi() % categories.size()]
+	var category_prompts = prompts[category]
+
+	# Find an unused prompt
+	var available = []
+	for p in category_prompts:
+		if p not in used_prompts:
+			available.append(p)
+
+	if available.is_empty():
+		# Reset if all prompts used
+		used_prompts.clear()
+		available = category_prompts
+
+	current_prompt = available[randi() % available.size()]
+	used_prompts.append(current_prompt)
 
 	var data = {
 		"type": "charades_skipped",
@@ -384,26 +451,20 @@ func _skip_turn() -> void:
 
 func _apply_skip(data: Dictionary) -> void:
 	var prompt = data.get("prompt", "")
+	current_prompt = prompt
 
-	turn_timer.stop()
+	# Timer continues running - no reset
 
-	# Hide all input controls
-	guess_input.visible = false
-	guess_button.visible = false
-	skip_button.visible = false
-	start_turn_button.visible = false
-	waiting_for_actor_label.visible = false
-
-	prompt_label.text = prompt
-	prompt_label.add_theme_color_override("font_color", Color(1, 0.6, 0.2, 1))
-	actor_name_label.text = "Skipped!"
-	actor_name_label.add_theme_color_override("font_color", Color(1, 0.6, 0.2, 1))
-	feedback_label.text = "No points awarded this round."
-	feedback_label.add_theme_color_override("font_color", Color(1, 0.6, 0.2, 1))
-
-	if GameManager.is_host:
-		await get_tree().create_timer(3.0).timeout
-		_next_turn()
+	if is_actor:
+		# Actor sees the new prompt
+		prompt_label.text = prompt
+		prompt_label.add_theme_color_override("font_color", Color(0.4, 1, 0.4, 1))
+		feedback_label.text = "New phrase! Act this out!"
+		feedback_label.add_theme_color_override("font_color", Color(0.4, 1, 0.4, 1))
+	else:
+		# Guessers still see ??? and can keep guessing
+		feedback_label.text = "They skipped - new phrase!"
+		feedback_label.add_theme_color_override("font_color", Color(1, 0.6, 0.2, 1))
 
 func _time_expired() -> void:
 	var data = {
@@ -461,9 +522,20 @@ func _update_players_display() -> void:
 		vbox.add_theme_constant_override("separation", 5)
 
 		var char_data = GameManager.get_character_data(player["character"])
-		var color_rect = ColorRect.new()
-		color_rect.custom_minimum_size = Vector2(50, 50)
-		color_rect.color = char_data["color"]
+		var char_display: Control
+		var sprite_path = char_data.get("sprite")
+		if sprite_path and ResourceLoader.exists(sprite_path):
+			var texture_rect = TextureRect.new()
+			texture_rect.texture = load(sprite_path)
+			texture_rect.custom_minimum_size = Vector2(50, 50)
+			texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			char_display = texture_rect
+		else:
+			var color_rect = ColorRect.new()
+			color_rect.custom_minimum_size = Vector2(50, 50)
+			color_rect.color = char_data["color"]
+			char_display = color_rect
 
 		var name_label = Label.new()
 		name_label.text = player["name"]
@@ -476,7 +548,7 @@ func _update_players_display() -> void:
 		score_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		score_label.add_theme_color_override("font_color", Color(1, 0.8, 0.2, 1))
 
-		vbox.add_child(color_rect)
+		vbox.add_child(char_display)
 		vbox.add_child(name_label)
 		vbox.add_child(score_label)
 

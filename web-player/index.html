@@ -100,15 +100,16 @@
                 <div class="prompt-card" id="quickdraw-prompt">???</div>
                 <canvas id="drawing-canvas" width="300" height="300"></canvas>
                 <div class="drawing-tools">
+                    <button id="btn-eraser" class="btn-secondary">Eraser</button>
                     <button id="btn-clear" class="btn-secondary">Clear</button>
                     <input type="color" id="brush-color" value="#ffffff">
-                    <input type="range" id="brush-size" min="2" max="20" value="5">
                 </div>
             </div>
 
             <div id="quickdraw-guesser-view" class="game-content hidden">
                 <p class="role-label">Guess what <span id="quickdraw-drawer-name">???</span> is drawing!</p>
                 <div class="drawing-display" id="quickdraw-canvas-display"></div>
+                <p id="quickdraw-wrong-guess" class="wrong-guess"></p>
                 <input type="text" id="quickdraw-guess" placeholder="Type your guess...">
                 <button id="btn-quickdraw-guess" class="btn-primary">Guess</button>
             </div>
@@ -199,6 +200,132 @@
                         <span id="round-end-innocent-score" class="team-score innocent-score">Innocents: 0</span>
                     </div>
                 </div>
+        <!-- Game: Who Said It -->
+        <div id="screen-who-said-it" class="screen">
+            <div class="game-header">
+                <span class="game-title">Who Said It?</span>
+                <span class="timer" id="whosaid-timer">60</span>
+            </div>
+
+            <div id="whosaid-writing-view" class="game-content hidden">
+                <div class="prompt-card" id="whosaid-prompt">???</div>
+                <p class="role-label">Type your answer (keep it secret!):</p>
+                <textarea id="whosaid-answer" placeholder="Your answer..." rows="3"></textarea>
+                <button id="btn-submit-answer" class="btn-primary">Submit Answer</button>
+                <p class="status" id="whosaid-answers-status">0 answers received</p>
+            </div>
+
+            <div id="whosaid-voting-view" class="game-content hidden">
+                <p class="role-label">Who wrote this?</p>
+                <div class="prompt-card" id="whosaid-answer-display">"..."</div>
+                <div class="vote-buttons" id="whosaid-vote-buttons"></div>
+                <p class="status" id="whosaid-votes-status">0 votes</p>
+            </div>
+
+            <div id="whosaid-author-view" class="game-content hidden">
+                <p class="role-label">This is YOUR answer!</p>
+                <div class="prompt-card" id="whosaid-your-answer">"..."</div>
+                <p class="status">Wait and see who guesses correctly...</p>
+            </div>
+
+            <div id="whosaid-reveal-view" class="game-content hidden">
+                <div class="prompt-card" id="whosaid-reveal-answer">"..."</div>
+                <p class="reveal-author" id="whosaid-reveal-author">Written by: ???</p>
+                <div class="reveal-results" id="whosaid-reveal-results"></div>
+            </div>
+
+            <div id="whosaid-ready-view" class="game-content hidden">
+                <h2 id="whosaid-ready-title">Ready to Start?</h2>
+                <div class="players-ready-grid" id="whosaid-players-ready"></div>
+                <button id="btn-ready" class="btn-primary btn-large">Ready!</button>
+                <p class="status" id="whosaid-ready-status">0/4 ready</p>
+            </div>
+
+            <div id="whosaid-round-end-view" class="game-content hidden">
+                <h2 id="whosaid-round-complete">Round Complete!</h2>
+                <p class="status">Next round starting soon...</p>
+            </div>
+        </div>
+
+<!-- Game: Fibbage -->
+        <div id="screen-fibbage" class="screen">
+            <div class="game-header">
+                <span class="game-title">Fibbage</span>
+                <span class="timer" id="fibbage-timer">60</span>
+            </div>
+
+            <div id="fibbage-writing-view" class="game-content hidden">
+                <div class="prompt-card" id="fibbage-question">???</div>
+                <p class="role-label">Write a believable LIE to fill in the blank:</p>
+                <textarea id="fibbage-answer" placeholder="Your lie..." rows="2"></textarea>
+                <button id="btn-submit-lie" class="btn-primary">Submit Lie</button>
+                <p class="status" id="fibbage-answers-status">0 lies submitted</p>
+            </div>
+
+            <div id="fibbage-voting-view" class="game-content hidden">
+                <div class="prompt-card" id="fibbage-vote-question">???</div>
+                <p class="role-label">Which answer is the TRUTH?</p>
+                <div class="vote-buttons-vertical" id="fibbage-vote-buttons"></div>
+                <p class="status" id="fibbage-votes-status">0 votes</p>
+            </div>
+
+            <div id="fibbage-reveal-view" class="game-content hidden">
+                <div class="prompt-card reveal-truth" id="fibbage-reveal-answer">The truth: "..."</div>
+                <div class="reveal-results" id="fibbage-reveal-results"></div>
+            </div>
+
+            <div id="fibbage-ready-view" class="game-content hidden">
+                <h2 id="fibbage-ready-title">Ready to Lie?</h2>
+                <div class="players-ready-grid" id="fibbage-players-ready"></div>
+                <button id="btn-fibbage-ready" class="btn-primary btn-large">Ready!</button>
+                <p class="status" id="fibbage-ready-status">0/4 ready</p>
+            </div>
+
+            <div id="fibbage-round-end-view" class="game-content hidden">
+                <h2 id="fibbage-round-complete">Round Complete!</h2>
+                <p class="status">Next round starting soon...</p>
+            </div>
+        </div>
+
+        <!-- Game: Trivia Showdown -->
+        <div id="screen-trivia" class="screen">
+            <div class="game-header">
+                <span class="game-title">Trivia Showdown</span>
+                <span class="timer" id="trivia-timer">15</span>
+            </div>
+
+            <div id="trivia-ready-view" class="game-content hidden">
+                <h2 id="trivia-ready-title">Ready to Start?</h2>
+                <div class="players-ready-grid" id="trivia-players-ready"></div>
+                <button id="btn-trivia-ready" class="btn-primary btn-large">Ready!</button>
+                <p class="status" id="trivia-ready-status">0/4 ready</p>
+            </div>
+
+            <div id="trivia-question-view" class="game-content hidden">
+                <div class="trivia-question-header">
+                    <span class="category" id="trivia-category">Science</span>
+                    <span class="question-num" id="trivia-question-num">Question 1/10</span>
+                </div>
+                <div class="prompt-card" id="trivia-question-text">???</div>
+                <div class="trivia-answers" id="trivia-answer-buttons"></div>
+                <p class="status" id="trivia-answer-status">0 answered</p>
+            </div>
+
+            <div id="trivia-result-view" class="game-content hidden">
+                <h2 id="trivia-result-label" class="result-correct">Correct!</h2>
+                <p class="points-earned" id="trivia-points-label">+150 points</p>
+                <p class="correct-answer" id="trivia-correct-answer">Answer: Au</p>
+            </div>
+
+            <div id="trivia-leaderboard-view" class="game-content hidden">
+                <h2 id="trivia-leaderboard-title">Leaderboard</h2>
+                <div class="leaderboard-list" id="trivia-leaderboard-list"></div>
+            </div>
+
+            <div id="trivia-round-end-view" class="game-content hidden">
+                <h2 id="trivia-round-complete">Round Complete!</h2>
+                <p class="round-winner" id="trivia-round-winner">Winner: ???</p>
+                <p class="status">Next round starting soon...</p>
             </div>
         </div>
 
@@ -227,6 +354,9 @@
     <script src="js/games/wordbomb.js"></script>
     <script src="js/games/quickdraw.js"></script>
     <script src="js/games/imposter.js"></script>
+    <script src="js/games/whosaidit.js"></script>
+    <script src="js/games/fibbage.js"></script>
+    <script src="js/games/trivia.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

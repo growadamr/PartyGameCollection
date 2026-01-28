@@ -1,0 +1,189 @@
+[gd_scene load_steps=2 format=3 uid="uid://fibbage_game"]
+
+[ext_resource type="Script" path="res://scripts/games/fibbage.gd" id="1_fibbage"]
+
+[node name="Fibbage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fibbage")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.08, 0.1, 0.14, 1)
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 50.0
+offset_right = -30.0
+offset_bottom = -30.0
+theme_override_constants/separation = 15
+
+[node name="Header" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="VBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Fibbage"
+
+[node name="Spacer" type="Control" parent="VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PhaseLabel" type="Label" parent="VBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.5, 0.8, 0.4, 1)
+text = "LIE"
+
+[node name="Spacer2" type="Control" parent="VBox/Header"]
+layout_mode = 2
+custom_minimum_size = Vector2(15, 0)
+
+[node name="RoundLabel" type="Label" parent="VBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Round 1/3"
+
+[node name="Spacer3" type="Control" parent="VBox/Header"]
+layout_mode = 2
+custom_minimum_size = Vector2(15, 0)
+
+[node name="TimerLabel" type="Label" parent="VBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+text = "60s"
+
+[node name="PromptSection" type="PanelContainer" parent="VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 80)
+
+[node name="PromptLabel" type="Label" parent="VBox/PromptSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "The world's largest _____ weighs over 500 pounds."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="WritingSection" type="VBoxContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="InstructionLabel" type="Label" parent="VBox/WritingSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Write a believable LIE to fill in the blank:"
+horizontal_alignment = 1
+
+[node name="AnswerInput" type="TextEdit" parent="VBox/WritingSection"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 18
+placeholder_text = "Your lie..."
+wrap_mode = 1
+
+[node name="SubmitButton" type="Button" parent="VBox/WritingSection"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Submit Lie"
+
+[node name="AnswersStatus" type="Label" parent="VBox/WritingSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "0/4 lies submitted"
+horizontal_alignment = 1
+
+[node name="VotingSection" type="VBoxContainer" parent="VBox"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="VoteInstruction" type="Label" parent="VBox/VotingSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Which answer is the TRUTH?"
+horizontal_alignment = 1
+
+[node name="VoteButtons" type="GridContainer" parent="VBox/VotingSection"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 1
+
+[node name="VotesStatus" type="Label" parent="VBox/VotingSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "0/4 votes"
+horizontal_alignment = 1
+
+[node name="RevealSection" type="VBoxContainer" parent="VBox"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="RevealAnswer" type="Label" parent="VBox/RevealSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.4, 1, 0.4, 1)
+text = "The truth: \"potato\""
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RevealResults" type="VBoxContainer" parent="VBox/RevealSection"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="ReadySection" type="VBoxContainer" parent="VBox"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="ReadyButton" type="Button" parent="VBox/ReadySection"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Ready!"
+
+[node name="ReadyStatus" type="Label" parent="VBox/ReadySection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "0/4 ready"
+horizontal_alignment = 1
+
+[node name="PlayersStatus" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 15
+
+[node name="PhaseTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="TickTimer" type="Timer" parent="."]
+wait_time = 1.0

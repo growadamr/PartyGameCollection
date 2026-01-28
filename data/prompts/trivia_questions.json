@@ -1,0 +1,965 @@
+{
+  "categories": ["Science", "History", "Geography", "Entertainment", "Sports", "General"],
+  "questions": [
+    {
+      "id": 1,
+      "category": "Science",
+      "difficulty": "easy",
+      "question": "What is the chemical symbol for gold?",
+      "answers": ["Au", "Ag", "Fe", "Cu"],
+      "correct": 0
+    },
+    {
+      "id": 2,
+      "category": "Science",
+      "difficulty": "easy",
+      "question": "What planet is known as the Red Planet?",
+      "answers": ["Venus", "Mars", "Jupiter", "Saturn"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "category": "Science",
+      "difficulty": "easy",
+      "question": "How many bones are in the adult human body?",
+      "answers": ["186", "206", "226", "246"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "category": "Science",
+      "difficulty": "easy",
+      "question": "What is the largest organ in the human body?",
+      "answers": ["Heart", "Liver", "Skin", "Brain"],
+      "correct": 2
+    },
+    {
+      "id": 5,
+      "category": "Science",
+      "difficulty": "medium",
+      "question": "What is the powerhouse of the cell?",
+      "answers": ["Nucleus", "Ribosome", "Mitochondria", "Endoplasmic Reticulum"],
+      "correct": 2
+    },
+    {
+      "id": 6,
+      "category": "Science",
+      "difficulty": "medium",
+      "question": "What gas do plants absorb from the atmosphere?",
+      "answers": ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"],
+      "correct": 2
+    },
+    {
+      "id": 7,
+      "category": "Science",
+      "difficulty": "medium",
+      "question": "What is the speed of light in miles per second (approximately)?",
+      "answers": ["86,000", "126,000", "186,000", "246,000"],
+      "correct": 2
+    },
+    {
+      "id": 8,
+      "category": "Science",
+      "difficulty": "medium",
+      "question": "What element has the atomic number 1?",
+      "answers": ["Helium", "Hydrogen", "Oxygen", "Carbon"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "category": "Science",
+      "difficulty": "hard",
+      "question": "What is the half-life of Carbon-14 (in years)?",
+      "answers": ["2,730", "5,730", "8,730", "11,730"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "category": "Science",
+      "difficulty": "hard",
+      "question": "What is the most abundant element in the universe?",
+      "answers": ["Oxygen", "Carbon", "Helium", "Hydrogen"],
+      "correct": 3
+    },
+    {
+      "id": 11,
+      "category": "Science",
+      "difficulty": "easy",
+      "question": "What is the boiling point of water in Celsius?",
+      "answers": ["90", "100", "110", "120"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "category": "Science",
+      "difficulty": "medium",
+      "question": "Which planet has the most moons?",
+      "answers": ["Jupiter", "Saturn", "Uranus", "Neptune"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "category": "Science",
+      "difficulty": "medium",
+      "question": "What type of animal is a Komodo dragon?",
+      "answers": ["Mammal", "Amphibian", "Reptile", "Bird"],
+      "correct": 2
+    },
+    {
+      "id": 14,
+      "category": "Science",
+      "difficulty": "hard",
+      "question": "What is the chemical formula for sulfuric acid?",
+      "answers": ["H2SO3", "H2SO4", "HSO4", "H2S2O4"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "category": "Science",
+      "difficulty": "easy",
+      "question": "What force keeps us on the ground?",
+      "answers": ["Magnetism", "Friction", "Gravity", "Inertia"],
+      "correct": 2
+    },
+    {
+      "id": 16,
+      "category": "Science",
+      "difficulty": "medium",
+      "question": "How many chromosomes do humans have?",
+      "answers": ["23", "46", "48", "52"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "category": "History",
+      "difficulty": "easy",
+      "question": "In what year did World War II end?",
+      "answers": ["1943", "1944", "1945", "1946"],
+      "correct": 2
+    },
+    {
+      "id": 18,
+      "category": "History",
+      "difficulty": "easy",
+      "question": "Who was the first President of the United States?",
+      "answers": ["John Adams", "Thomas Jefferson", "George Washington", "Benjamin Franklin"],
+      "correct": 2
+    },
+    {
+      "id": 19,
+      "category": "History",
+      "difficulty": "easy",
+      "question": "What ancient civilization built the pyramids?",
+      "answers": ["Romans", "Greeks", "Egyptians", "Mayans"],
+      "correct": 2
+    },
+    {
+      "id": 20,
+      "category": "History",
+      "difficulty": "easy",
+      "question": "In which year did the Titanic sink?",
+      "answers": ["1910", "1912", "1914", "1916"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "category": "History",
+      "difficulty": "medium",
+      "question": "Who discovered America in 1492?",
+      "answers": ["Amerigo Vespucci", "Ferdinand Magellan", "Christopher Columbus", "Leif Erikson"],
+      "correct": 2
+    },
+    {
+      "id": 22,
+      "category": "History",
+      "difficulty": "medium",
+      "question": "What year did the Berlin Wall fall?",
+      "answers": ["1987", "1988", "1989", "1990"],
+      "correct": 2
+    },
+    {
+      "id": 23,
+      "category": "History",
+      "difficulty": "medium",
+      "question": "Who was the British Prime Minister during most of World War II?",
+      "answers": ["Neville Chamberlain", "Winston Churchill", "Clement Attlee", "Anthony Eden"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "category": "History",
+      "difficulty": "medium",
+      "question": "The French Revolution began in which year?",
+      "answers": ["1776", "1789", "1799", "1804"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "category": "History",
+      "difficulty": "hard",
+      "question": "In what year was the Magna Carta signed?",
+      "answers": ["1066", "1215", "1415", "1492"],
+      "correct": 1
+    },
+    {
+      "id": 26,
+      "category": "History",
+      "difficulty": "hard",
+      "question": "Who was the last Tsar of Russia?",
+      "answers": ["Alexander III", "Nicholas II", "Peter the Great", "Ivan the Terrible"],
+      "correct": 1
+    },
+    {
+      "id": 27,
+      "category": "History",
+      "difficulty": "easy",
+      "question": "What country gave the Statue of Liberty to the USA?",
+      "answers": ["England", "Germany", "France", "Spain"],
+      "correct": 2
+    },
+    {
+      "id": 28,
+      "category": "History",
+      "difficulty": "medium",
+      "question": "Who painted the ceiling of the Sistine Chapel?",
+      "answers": ["Leonardo da Vinci", "Raphael", "Michelangelo", "Donatello"],
+      "correct": 2
+    },
+    {
+      "id": 29,
+      "category": "History",
+      "difficulty": "medium",
+      "question": "What empire was ruled by Genghis Khan?",
+      "answers": ["Ottoman Empire", "Roman Empire", "Mongol Empire", "Persian Empire"],
+      "correct": 2
+    },
+    {
+      "id": 30,
+      "category": "History",
+      "difficulty": "hard",
+      "question": "The Hundred Years' War was fought between which two countries?",
+      "answers": ["England and Spain", "France and Germany", "England and France", "Spain and Portugal"],
+      "correct": 2
+    },
+    {
+      "id": 31,
+      "category": "History",
+      "difficulty": "easy",
+      "question": "Who wrote the Declaration of Independence?",
+      "answers": ["George Washington", "Benjamin Franklin", "John Adams", "Thomas Jefferson"],
+      "correct": 3
+    },
+    {
+      "id": 32,
+      "category": "History",
+      "difficulty": "medium",
+      "question": "What year did the first humans land on the Moon?",
+      "answers": ["1967", "1968", "1969", "1970"],
+      "correct": 2
+    },
+    {
+      "id": 33,
+      "category": "Geography",
+      "difficulty": "easy",
+      "question": "What is the largest country in the world by area?",
+      "answers": ["China", "United States", "Canada", "Russia"],
+      "correct": 3
+    },
+    {
+      "id": 34,
+      "category": "Geography",
+      "difficulty": "easy",
+      "question": "What is the capital of France?",
+      "answers": ["London", "Berlin", "Paris", "Madrid"],
+      "correct": 2
+    },
+    {
+      "id": 35,
+      "category": "Geography",
+      "difficulty": "easy",
+      "question": "Which ocean is the largest?",
+      "answers": ["Atlantic", "Indian", "Arctic", "Pacific"],
+      "correct": 3
+    },
+    {
+      "id": 36,
+      "category": "Geography",
+      "difficulty": "easy",
+      "question": "How many continents are there?",
+      "answers": ["5", "6", "7", "8"],
+      "correct": 2
+    },
+    {
+      "id": 37,
+      "category": "Geography",
+      "difficulty": "medium",
+      "question": "What is the longest river in the world?",
+      "answers": ["Amazon", "Nile", "Mississippi", "Yangtze"],
+      "correct": 1
+    },
+    {
+      "id": 38,
+      "category": "Geography",
+      "difficulty": "medium",
+      "question": "What is the smallest country in the world?",
+      "answers": ["Monaco", "San Marino", "Vatican City", "Liechtenstein"],
+      "correct": 2
+    },
+    {
+      "id": 39,
+      "category": "Geography",
+      "difficulty": "medium",
+      "question": "Which country has the most people?",
+      "answers": ["United States", "India", "China", "Indonesia"],
+      "correct": 1
+    },
+    {
+      "id": 40,
+      "category": "Geography",
+      "difficulty": "medium",
+      "question": "What is the capital of Australia?",
+      "answers": ["Sydney", "Melbourne", "Canberra", "Perth"],
+      "correct": 2
+    },
+    {
+      "id": 41,
+      "category": "Geography",
+      "difficulty": "hard",
+      "question": "What is the deepest point in the ocean?",
+      "answers": ["Puerto Rico Trench", "Mariana Trench", "Java Trench", "Philippine Trench"],
+      "correct": 1
+    },
+    {
+      "id": 42,
+      "category": "Geography",
+      "difficulty": "hard",
+      "question": "Which African country has the largest population?",
+      "answers": ["Ethiopia", "Egypt", "Nigeria", "South Africa"],
+      "correct": 2
+    },
+    {
+      "id": 43,
+      "category": "Geography",
+      "difficulty": "easy",
+      "question": "What is the capital of Japan?",
+      "answers": ["Osaka", "Kyoto", "Tokyo", "Hiroshima"],
+      "correct": 2
+    },
+    {
+      "id": 44,
+      "category": "Geography",
+      "difficulty": "medium",
+      "question": "Which country is known as the Land of the Rising Sun?",
+      "answers": ["China", "Thailand", "Japan", "South Korea"],
+      "correct": 2
+    },
+    {
+      "id": 45,
+      "category": "Geography",
+      "difficulty": "medium",
+      "question": "What is the highest mountain in the world?",
+      "answers": ["K2", "Kangchenjunga", "Mount Everest", "Lhotse"],
+      "correct": 2
+    },
+    {
+      "id": 46,
+      "category": "Geography",
+      "difficulty": "hard",
+      "question": "What is the capital of Mongolia?",
+      "answers": ["Astana", "Ulaanbaatar", "Bishkek", "Dushanbe"],
+      "correct": 1
+    },
+    {
+      "id": 47,
+      "category": "Geography",
+      "difficulty": "easy",
+      "question": "Which continent is the Sahara Desert located on?",
+      "answers": ["Asia", "Australia", "Africa", "South America"],
+      "correct": 2
+    },
+    {
+      "id": 48,
+      "category": "Geography",
+      "difficulty": "medium",
+      "question": "What country has the most islands?",
+      "answers": ["Indonesia", "Philippines", "Sweden", "Finland"],
+      "correct": 2
+    },
+    {
+      "id": 49,
+      "category": "Entertainment",
+      "difficulty": "easy",
+      "question": "What is the name of the wizarding school in Harry Potter?",
+      "answers": ["Durmstrang", "Beauxbatons", "Hogwarts", "Ilvermorny"],
+      "correct": 2
+    },
+    {
+      "id": 50,
+      "category": "Entertainment",
+      "difficulty": "easy",
+      "question": "Who played Jack in the movie Titanic?",
+      "answers": ["Brad Pitt", "Tom Cruise", "Leonardo DiCaprio", "Johnny Depp"],
+      "correct": 2
+    },
+    {
+      "id": 51,
+      "category": "Entertainment",
+      "difficulty": "easy",
+      "question": "What Disney movie features a character named Simba?",
+      "answers": ["Bambi", "The Lion King", "Dumbo", "Aladdin"],
+      "correct": 1
+    },
+    {
+      "id": 52,
+      "category": "Entertainment",
+      "difficulty": "easy",
+      "question": "What is the name of Batman's butler?",
+      "answers": ["James", "Alfred", "Winston", "Geoffrey"],
+      "correct": 1
+    },
+    {
+      "id": 53,
+      "category": "Entertainment",
+      "difficulty": "medium",
+      "question": "Which band performed 'Bohemian Rhapsody'?",
+      "answers": ["The Beatles", "Led Zeppelin", "Queen", "Pink Floyd"],
+      "correct": 2
+    },
+    {
+      "id": 54,
+      "category": "Entertainment",
+      "difficulty": "medium",
+      "question": "What year was the first Star Wars movie released?",
+      "answers": ["1975", "1977", "1979", "1981"],
+      "correct": 1
+    },
+    {
+      "id": 55,
+      "category": "Entertainment",
+      "difficulty": "medium",
+      "question": "Who directed Jurassic Park?",
+      "answers": ["James Cameron", "Steven Spielberg", "George Lucas", "Ridley Scott"],
+      "correct": 1
+    },
+    {
+      "id": 56,
+      "category": "Entertainment",
+      "difficulty": "medium",
+      "question": "What TV show features the character Walter White?",
+      "answers": ["The Wire", "Breaking Bad", "Better Call Saul", "Ozark"],
+      "correct": 1
+    },
+    {
+      "id": 57,
+      "category": "Entertainment",
+      "difficulty": "hard",
+      "question": "What was the first feature-length animated movie ever released?",
+      "answers": ["Fantasia", "Snow White", "Pinocchio", "Bambi"],
+      "correct": 1
+    },
+    {
+      "id": 58,
+      "category": "Entertainment",
+      "difficulty": "hard",
+      "question": "What actor has won the most Academy Awards?",
+      "answers": ["Meryl Streep", "Katharine Hepburn", "Jack Nicholson", "Daniel Day-Lewis"],
+      "correct": 1
+    },
+    {
+      "id": 59,
+      "category": "Entertainment",
+      "difficulty": "easy",
+      "question": "What is the highest-grossing film of all time?",
+      "answers": ["Titanic", "Avatar", "Avengers: Endgame", "Star Wars: The Force Awakens"],
+      "correct": 1
+    },
+    {
+      "id": 60,
+      "category": "Entertainment",
+      "difficulty": "medium",
+      "question": "Who wrote the Game of Thrones book series?",
+      "answers": ["J.R.R. Tolkien", "George R.R. Martin", "Brandon Sanderson", "Patrick Rothfuss"],
+      "correct": 1
+    },
+    {
+      "id": 61,
+      "category": "Entertainment",
+      "difficulty": "medium",
+      "question": "What is the name of the fictional country in Black Panther?",
+      "answers": ["Zamunda", "Wakanda", "Genovia", "Latveria"],
+      "correct": 1
+    },
+    {
+      "id": 62,
+      "category": "Entertainment",
+      "difficulty": "hard",
+      "question": "What was the first music video played on MTV?",
+      "answers": ["Thriller", "Video Killed the Radio Star", "Billie Jean", "Like a Virgin"],
+      "correct": 1
+    },
+    {
+      "id": 63,
+      "category": "Entertainment",
+      "difficulty": "easy",
+      "question": "Who plays Iron Man in the Marvel movies?",
+      "answers": ["Chris Evans", "Chris Hemsworth", "Robert Downey Jr.", "Mark Ruffalo"],
+      "correct": 2
+    },
+    {
+      "id": 64,
+      "category": "Entertainment",
+      "difficulty": "medium",
+      "question": "What TV show takes place in Hawkins, Indiana?",
+      "answers": ["The Walking Dead", "Stranger Things", "Supernatural", "The X-Files"],
+      "correct": 1
+    },
+    {
+      "id": 65,
+      "category": "Sports",
+      "difficulty": "easy",
+      "question": "How many players are on a basketball team on the court?",
+      "answers": ["4", "5", "6", "7"],
+      "correct": 1
+    },
+    {
+      "id": 66,
+      "category": "Sports",
+      "difficulty": "easy",
+      "question": "In which sport would you perform a slam dunk?",
+      "answers": ["Football", "Tennis", "Basketball", "Golf"],
+      "correct": 2
+    },
+    {
+      "id": 67,
+      "category": "Sports",
+      "difficulty": "easy",
+      "question": "How many rings are on the Olympic flag?",
+      "answers": ["3", "4", "5", "6"],
+      "correct": 2
+    },
+    {
+      "id": 68,
+      "category": "Sports",
+      "difficulty": "easy",
+      "question": "What sport is played at Wimbledon?",
+      "answers": ["Golf", "Cricket", "Tennis", "Rugby"],
+      "correct": 2
+    },
+    {
+      "id": 69,
+      "category": "Sports",
+      "difficulty": "medium",
+      "question": "Which country has won the most FIFA World Cups?",
+      "answers": ["Germany", "Italy", "Argentina", "Brazil"],
+      "correct": 3
+    },
+    {
+      "id": 70,
+      "category": "Sports",
+      "difficulty": "medium",
+      "question": "How long is a marathon in miles (approximately)?",
+      "answers": ["20.2", "24.2", "26.2", "28.2"],
+      "correct": 2
+    },
+    {
+      "id": 71,
+      "category": "Sports",
+      "difficulty": "medium",
+      "question": "What is the only sport to be played on the moon?",
+      "answers": ["Baseball", "Golf", "Frisbee", "Bowling"],
+      "correct": 1
+    },
+    {
+      "id": 72,
+      "category": "Sports",
+      "difficulty": "medium",
+      "question": "Who holds the record for most home runs in MLB history?",
+      "answers": ["Babe Ruth", "Hank Aaron", "Barry Bonds", "Willie Mays"],
+      "correct": 2
+    },
+    {
+      "id": 73,
+      "category": "Sports",
+      "difficulty": "hard",
+      "question": "In what year were the first modern Olympic Games held?",
+      "answers": ["1892", "1896", "1900", "1904"],
+      "correct": 1
+    },
+    {
+      "id": 74,
+      "category": "Sports",
+      "difficulty": "hard",
+      "question": "Which boxer was known as 'The Greatest'?",
+      "answers": ["Mike Tyson", "Muhammad Ali", "Floyd Mayweather", "Joe Louis"],
+      "correct": 1
+    },
+    {
+      "id": 75,
+      "category": "Sports",
+      "difficulty": "easy",
+      "question": "In American football, how many points is a touchdown worth?",
+      "answers": ["3", "5", "6", "7"],
+      "correct": 2
+    },
+    {
+      "id": 76,
+      "category": "Sports",
+      "difficulty": "medium",
+      "question": "What is the national sport of Japan?",
+      "answers": ["Karate", "Judo", "Sumo", "Kendo"],
+      "correct": 2
+    },
+    {
+      "id": 77,
+      "category": "Sports",
+      "difficulty": "medium",
+      "question": "How many Grand Slam tennis tournaments are there per year?",
+      "answers": ["2", "3", "4", "5"],
+      "correct": 2
+    },
+    {
+      "id": 78,
+      "category": "Sports",
+      "difficulty": "hard",
+      "question": "Who was the first gymnast to score a perfect 10 at the Olympics?",
+      "answers": ["Mary Lou Retton", "Nadia Comaneci", "Simone Biles", "Olga Korbut"],
+      "correct": 1
+    },
+    {
+      "id": 79,
+      "category": "Sports",
+      "difficulty": "easy",
+      "question": "What color is the center of a standard archery target?",
+      "answers": ["Red", "Blue", "Yellow", "White"],
+      "correct": 2
+    },
+    {
+      "id": 80,
+      "category": "Sports",
+      "difficulty": "medium",
+      "question": "Which NHL team has won the most Stanley Cups?",
+      "answers": ["Toronto Maple Leafs", "Detroit Red Wings", "Montreal Canadiens", "Boston Bruins"],
+      "correct": 2
+    },
+    {
+      "id": 81,
+      "category": "General",
+      "difficulty": "easy",
+      "question": "How many colors are in a rainbow?",
+      "answers": ["5", "6", "7", "8"],
+      "correct": 2
+    },
+    {
+      "id": 82,
+      "category": "General",
+      "difficulty": "easy",
+      "question": "What is the primary color you get when mixing red and blue?",
+      "answers": ["Green", "Orange", "Purple", "Brown"],
+      "correct": 2
+    },
+    {
+      "id": 83,
+      "category": "General",
+      "difficulty": "easy",
+      "question": "How many days are in a leap year?",
+      "answers": ["364", "365", "366", "367"],
+      "correct": 2
+    },
+    {
+      "id": 84,
+      "category": "General",
+      "difficulty": "easy",
+      "question": "What is the tallest animal in the world?",
+      "answers": ["Elephant", "Giraffe", "Whale", "Ostrich"],
+      "correct": 1
+    },
+    {
+      "id": 85,
+      "category": "General",
+      "difficulty": "medium",
+      "question": "What is the fear of spiders called?",
+      "answers": ["Claustrophobia", "Arachnophobia", "Acrophobia", "Agoraphobia"],
+      "correct": 1
+    },
+    {
+      "id": 86,
+      "category": "General",
+      "difficulty": "medium",
+      "question": "What is the hardest natural substance on Earth?",
+      "answers": ["Gold", "Iron", "Diamond", "Titanium"],
+      "correct": 2
+    },
+    {
+      "id": 87,
+      "category": "General",
+      "difficulty": "medium",
+      "question": "How many teeth does an adult human have?",
+      "answers": ["28", "30", "32", "34"],
+      "correct": 2
+    },
+    {
+      "id": 88,
+      "category": "General",
+      "difficulty": "medium",
+      "question": "What is the most spoken language in the world?",
+      "answers": ["Spanish", "English", "Mandarin Chinese", "Hindi"],
+      "correct": 2
+    },
+    {
+      "id": 89,
+      "category": "General",
+      "difficulty": "hard",
+      "question": "What is the rarest blood type?",
+      "answers": ["O Negative", "B Negative", "AB Negative", "A Negative"],
+      "correct": 2
+    },
+    {
+      "id": 90,
+      "category": "General",
+      "difficulty": "hard",
+      "question": "How many time zones are there in Russia?",
+      "answers": ["7", "9", "11", "13"],
+      "correct": 2
+    },
+    {
+      "id": 91,
+      "category": "General",
+      "difficulty": "easy",
+      "question": "What is the largest mammal in the world?",
+      "answers": ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
+      "correct": 1
+    },
+    {
+      "id": 92,
+      "category": "General",
+      "difficulty": "medium",
+      "question": "How many sides does a hexagon have?",
+      "answers": ["5", "6", "7", "8"],
+      "correct": 1
+    },
+    {
+      "id": 93,
+      "category": "General",
+      "difficulty": "medium",
+      "question": "What year was the iPhone first released?",
+      "answers": ["2005", "2006", "2007", "2008"],
+      "correct": 2
+    },
+    {
+      "id": 94,
+      "category": "General",
+      "difficulty": "hard",
+      "question": "What is the national animal of Scotland?",
+      "answers": ["Lion", "Dragon", "Unicorn", "Eagle"],
+      "correct": 2
+    },
+    {
+      "id": 95,
+      "category": "General",
+      "difficulty": "easy",
+      "question": "What is the currency of the United Kingdom?",
+      "answers": ["Euro", "Dollar", "Pound", "Franc"],
+      "correct": 2
+    },
+    {
+      "id": 96,
+      "category": "General",
+      "difficulty": "medium",
+      "question": "Who invented the telephone?",
+      "answers": ["Thomas Edison", "Nikola Tesla", "Alexander Graham Bell", "Guglielmo Marconi"],
+      "correct": 2
+    },
+    {
+      "id": 97,
+      "category": "Science",
+      "difficulty": "easy",
+      "question": "What is H2O commonly known as?",
+      "answers": ["Salt", "Sugar", "Water", "Oxygen"],
+      "correct": 2
+    },
+    {
+      "id": 98,
+      "category": "Science",
+      "difficulty": "medium",
+      "question": "What is the closest star to Earth?",
+      "answers": ["Proxima Centauri", "Alpha Centauri", "Sirius", "The Sun"],
+      "correct": 3
+    },
+    {
+      "id": 99,
+      "category": "History",
+      "difficulty": "easy",
+      "question": "What ship brought the Pilgrims to America in 1620?",
+      "answers": ["Santa Maria", "Mayflower", "Endeavour", "Beagle"],
+      "correct": 1
+    },
+    {
+      "id": 100,
+      "category": "History",
+      "difficulty": "medium",
+      "question": "Who was the first woman to fly solo across the Atlantic?",
+      "answers": ["Bessie Coleman", "Harriet Quimby", "Amelia Earhart", "Jacqueline Cochran"],
+      "correct": 2
+    },
+    {
+      "id": 101,
+      "category": "Geography",
+      "difficulty": "easy",
+      "question": "What is the largest desert in the world?",
+      "answers": ["Sahara", "Gobi", "Antarctic", "Arabian"],
+      "correct": 2
+    },
+    {
+      "id": 102,
+      "category": "Geography",
+      "difficulty": "medium",
+      "question": "What two countries share the longest border?",
+      "answers": ["USA and Mexico", "Russia and China", "USA and Canada", "Argentina and Chile"],
+      "correct": 2
+    },
+    {
+      "id": 103,
+      "category": "Entertainment",
+      "difficulty": "easy",
+      "question": "What is the name of the main character in the Mario video games?",
+      "answers": ["Luigi", "Mario", "Wario", "Toad"],
+      "correct": 1
+    },
+    {
+      "id": 104,
+      "category": "Entertainment",
+      "difficulty": "medium",
+      "question": "What year was Minecraft first released?",
+      "answers": ["2009", "2010", "2011", "2012"],
+      "correct": 2
+    },
+    {
+      "id": 105,
+      "category": "Sports",
+      "difficulty": "easy",
+      "question": "What sport does Tiger Woods play?",
+      "answers": ["Tennis", "Basketball", "Golf", "Baseball"],
+      "correct": 2
+    },
+    {
+      "id": 106,
+      "category": "Sports",
+      "difficulty": "medium",
+      "question": "How many players are on a soccer team on the field?",
+      "answers": ["9", "10", "11", "12"],
+      "correct": 2
+    },
+    {
+      "id": 107,
+      "category": "General",
+      "difficulty": "easy",
+      "question": "What is the largest continent?",
+      "answers": ["Africa", "North America", "Europe", "Asia"],
+      "correct": 3
+    },
+    {
+      "id": 108,
+      "category": "General",
+      "difficulty": "medium",
+      "question": "What company created the PlayStation?",
+      "answers": ["Nintendo", "Microsoft", "Sony", "Sega"],
+      "correct": 2
+    },
+    {
+      "id": 109,
+      "category": "Science",
+      "difficulty": "hard",
+      "question": "What is the only metal that is liquid at room temperature?",
+      "answers": ["Lead", "Mercury", "Gallium", "Cesium"],
+      "correct": 1
+    },
+    {
+      "id": 110,
+      "category": "History",
+      "difficulty": "hard",
+      "question": "What year did the Roman Empire fall?",
+      "answers": ["376 AD", "410 AD", "455 AD", "476 AD"],
+      "correct": 3
+    },
+    {
+      "id": 111,
+      "category": "Entertainment",
+      "difficulty": "hard",
+      "question": "What was the first Pixar movie?",
+      "answers": ["A Bug's Life", "Toy Story", "Finding Nemo", "Monsters, Inc."],
+      "correct": 1
+    },
+    {
+      "id": 112,
+      "category": "Sports",
+      "difficulty": "hard",
+      "question": "What country invented the sport of cricket?",
+      "answers": ["India", "Australia", "England", "South Africa"],
+      "correct": 2
+    },
+    {
+      "id": 113,
+      "category": "General",
+      "difficulty": "hard",
+      "question": "What is the only letter not appearing in any US state name?",
+      "answers": ["Q", "X", "Z", "J"],
+      "correct": 0
+    },
+    {
+      "id": 114,
+      "category": "Science",
+      "difficulty": "easy",
+      "question": "What do bees produce?",
+      "answers": ["Milk", "Silk", "Honey", "Wax"],
+      "correct": 2
+    },
+    {
+      "id": 115,
+      "category": "Geography",
+      "difficulty": "hard",
+      "question": "What is the only country that borders both the Atlantic and Indian Oceans?",
+      "answers": ["Brazil", "Australia", "South Africa", "Indonesia"],
+      "correct": 2
+    },
+    {
+      "id": 116,
+      "category": "Entertainment",
+      "difficulty": "medium",
+      "question": "Who is the author of the 'Lord of the Rings' trilogy?",
+      "answers": ["C.S. Lewis", "J.R.R. Tolkien", "George R.R. Martin", "Terry Pratchett"],
+      "correct": 1
+    },
+    {
+      "id": 117,
+      "category": "Sports",
+      "difficulty": "easy",
+      "question": "What is the national sport of Canada?",
+      "answers": ["Hockey", "Lacrosse", "Curling", "Baseball"],
+      "correct": 1
+    },
+    {
+      "id": 118,
+      "category": "History",
+      "difficulty": "easy",
+      "question": "What war was fought between the North and South in the United States?",
+      "answers": ["Revolutionary War", "Civil War", "War of 1812", "World War I"],
+      "correct": 1
+    },
+    {
+      "id": 119,
+      "category": "General",
+      "difficulty": "easy",
+      "question": "How many weeks are in a year?",
+      "answers": ["48", "50", "52", "54"],
+      "correct": 2
+    },
+    {
+      "id": 120,
+      "category": "Science",
+      "difficulty": "medium",
+      "question": "What is the study of earthquakes called?",
+      "answers": ["Geology", "Seismology", "Meteorology", "Volcanology"],
+      "correct": 1
+    }
+  ]
+}

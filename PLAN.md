@@ -302,10 +302,10 @@ mcp__pixellab__get_character(character_id="CHARACTER_ID")
 - [x] Quick Draw (drawing sync, guess input)
 - [x] Act It Out (prompt display, guess voting) - implemented as `charades`
 - [x] Imposter (social deduction, voting, elimination)
-- [ ] Fibbage (answer submission, voting)
+- [x] Fibbage (answer submission, voting)
 - [x] Word Bomb (word validation, elimination)
-- [ ] Who Said It? (anonymous answers, attribution voting)
-- [ ] Trivia Showdown (question display, answer selection)
+- [x] Who Said It? (anonymous answers, attribution voting)
+- [x] Trivia Showdown (question display, answer selection, speed bonus scoring)
 
 ### Phase 4: Polish & Assets
 - [ ] Generate PixelLab assets
@@ -409,7 +409,7 @@ res://
 |-------|--------|-------|
 | Phase 1: Foundation | Complete | Lobby, networking done |
 | Phase 2: Game Framework | Complete | Base game class created |
-| Phase 3: Individual Games | In Progress | Word Bomb, Quick Draw, Charades, Imposter complete |
+| Phase 3: Individual Games | Complete | All 7 games complete |
 | Phase 4: Polish & Assets | In Progress | 5/8 character sprites integrated |
 | Phase 5: Testing | Not Started | |
 
@@ -453,6 +453,25 @@ res://
 - [x] Imposter spectator mode (eliminated players can watch voting)
 - [x] Imposter words data (945 prompts for secret words)
 - [x] Imposter web player module (role display, voting interface, consensus countdown, reveal screens, round end)
+- [x] Quick Draw simplified (reduced from 835 to ~580 lines)
+- [x] Quick Draw drawer ready prompt ("Start Drawing!" button)
+- [x] Quick Draw multiplayer fixes (UI updates, notifications to all guessers)
+- [x] Quick Draw simplified scoring (1 point system)
+- [x] Quick Draw min players reduced to 2
+- [x] Charades skip gives new phrase (timer continues, actor can skip difficult prompts without ending turn)
+- [x] Who Said It game (anonymous answers, voting, reveals, scoring)
+- [x] Who Said It prompts data (62 prompts across 5 categories: hypothetical, personal, opinions, creative, wouldyourather)
+- [x] Who Said It web player interface
+- [x] Fibbage game (lie submission, voting, reveal with fooled tracking)
+- [x] Fibbage questions data (52 trivia questions with fill-in-the-blank format)
+- [x] Fibbage web player interface
+- [x] Fibbage duplicate answer detection (rejects lies matching the truth)
+- [x] Fibbage duplicate lie detection (rejects lies already submitted by other players)
+- [x] Trivia Showdown game (multiple choice, speed bonus scoring, leaderboard)
+- [x] Trivia questions data (120 questions across 6 categories: Science, History, Geography, Entertainment, Sports, General)
+- [x] Trivia Showdown web player interface
+- [x] Character sprites display in lobby (waiting_lobby, player_waiting screens)
+- [x] Character sprites display in all 7 games (replaced color blocks with actual sprites)
 
 ### In Progress
 - [ ] Cross-device multiplayer testing (iPhone + macOS)
@@ -460,11 +479,8 @@ res://
 
 ### Next Steps
 1. Complete remaining character downloads when PixelLab finishes
-2. Test Imposter game across multiple devices
-3. Build Fibbage game (bluffing/voting)
-4. Build Who Said It? game (anonymous answers)
-5. Build Trivia Showdown game (multiple choice)
-6. Add sound effects and polish
+2. Cross-device multiplayer testing for all 7 games
+3. Add sound effects and polish
 
 ### Character Assets Status
 | Character | Status | Sprite Path |
@@ -498,4 +514,4 @@ res://
 
 ---
 
-*Last Updated: 2026-01-27 (Imposter game implemented)*
+*Last Updated: 2026-01-27 (All 7 games complete: Quick Draw, Charades, Imposter, Fibbage, Word Bomb, Who Said It, Trivia Showdown)*

@@ -10,9 +10,11 @@ This is a **multiplayer party game** built with the Godot game engine. Think of 
 
 **The games include:**
 - Word Bomb - Type words containing certain letters before time runs out
-- Quick Draw - Draw something and others guess (coming soon)
-- Fibbage - Write fake answers to trick your friends (coming soon)
-- And more!
+- Act It Out (Charades) - Act out prompts while others guess
+- Quick Draw - Draw something and others guess what it is
+- Who Said It? - Write anonymous answers, then guess who wrote what
+- Trivia Showdown - Fast-paced multiple choice trivia
+- Fibbage - Write fake answers to trick your friends
 
 ---
 
@@ -485,8 +487,17 @@ func _something_happened() -> void:
 | Host lobby | `scripts/lobby/host_lobby.gd` |
 | Join lobby | `scripts/lobby/join_lobby.gd` |
 | Word Bomb game | `scripts/games/word_bomb.gd` |
+| Charades game | `scripts/games/charades.gd` |
+| Quick Draw game | `scripts/games/quick_draw.gd` |
+| Who Said It game | `scripts/games/who_said_it.gd` |
+| Fibbage game | `scripts/games/fibbage.gd` |
+| Trivia Showdown game | `scripts/games/trivia_showdown.gd` |
 | Letter combos | `data/prompts/letter_combos.json` |
+| Charades prompts | `data/prompts/charades_prompts.json` |
+| Who Said It prompts | `data/prompts/who_said_prompts.json` |
+| Fibbage questions | `data/prompts/fibbage_questions.json` |
 | Character sprites | `assets/characters/CHARACTER_NAME/` |
+| Web player | `web-player/` |
 
 ---
 

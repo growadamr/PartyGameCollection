@@ -287,6 +287,15 @@ input::placeholder {
     color: var(--accent-secondary);
 }
 
+/* Wrong Guess Display */
+.wrong-guess {
+    color: var(--accent-secondary);
+    font-size: 0.95rem;
+    text-align: center;
+    min-height: 20px;
+    opacity: 0.9;
+}
+
 /* Drawing Canvas */
 #drawing-canvas {
     background: #1a1a1a;
@@ -360,6 +369,355 @@ input::placeholder {
     padding: 8px 12px;
     background: var(--bg-secondary);
     border-radius: 8px;
+}
+
+/* Who Said It - Textarea */
+textarea {
+    background: var(--bg-secondary);
+    border: 2px solid transparent;
+    border-radius: var(--border-radius);
+    padding: 16px;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    width: 100%;
+    resize: none;
+    font-family: inherit;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+textarea::placeholder {
+    color: var(--text-secondary);
+}
+
+/* Who Said It - Vote Buttons */
+.vote-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+}
+
+.btn-vote {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 2px solid var(--accent-primary);
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.btn-vote:hover:not(:disabled) {
+    background: var(--accent-primary);
+}
+
+.btn-vote:disabled {
+    border-color: var(--text-secondary);
+    opacity: 0.5;
+}
+
+/* Who Said It - Reveal */
+.reveal-author {
+    font-size: 1.3rem;
+    color: var(--accent-success);
+    text-align: center;
+    margin: 12px 0;
+}
+
+.reveal-results {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.result-correct {
+    background: rgba(74, 222, 128, 0.15);
+    color: var(--accent-success);
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.result-fooled {
+    background: rgba(251, 191, 36, 0.15);
+    color: var(--accent-warning);
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Who Said It - Ready View */
+.btn-large {
+    padding: 20px 40px;
+    font-size: 1.3rem;
+}
+
+.players-ready-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.player-ready-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.player-ready-indicator.ready {
+    opacity: 1;
+}
+
+.player-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 3px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.player-ready-indicator.ready .player-avatar {
+    border-color: var(--accent-success);
+}
+
+.player-avatar .checkmark {
+    font-size: 1.5rem;
+    color: white;
+    text-shadow: 0 0 4px rgba(0,0,0,0.5);
+}
+
+.player-ready-indicator .player-name {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.player-ready-indicator.ready .player-name {
+    color: var(--text-primary);
+}
+
+/* Fibbage - Vote Buttons (Vertical) */
+.vote-buttons-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.btn-vote-answer {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 2px solid var(--accent-primary);
+    padding: 14px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: left;
+    width: 100%;
+}
+
+.btn-vote-answer:hover:not(:disabled) {
+    background: var(--accent-primary);
+}
+
+.btn-vote-answer:disabled {
+    border-color: var(--text-secondary);
+    opacity: 0.5;
+}
+
+/* Fibbage - Reveal Truth */
+.reveal-truth {
+    border-color: var(--accent-success);
+    color: var(--accent-success);
+}
+
+.result-wrong {
+    background: rgba(248, 113, 113, 0.15);
+    color: var(--accent-error);
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Trivia Showdown Styles */
+.trivia-question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.trivia-question-header .category {
+    background: var(--accent-primary);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.trivia-question-header .question-num {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.trivia-answers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+.btn-trivia-answer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 2px solid var(--bg-secondary);
+    padding: 14px 18px;
+    font-size: 1rem;
+    text-align: left;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.btn-trivia-answer:hover:not(:disabled) {
+    border-color: var(--accent-primary);
+    background: var(--bg-secondary);
+}
+
+.btn-trivia-answer:disabled {
+    opacity: 0.7;
+}
+
+.btn-trivia-answer.selected {
+    border-color: var(--accent-primary);
+    background: rgba(108, 99, 255, 0.2);
+}
+
+.btn-trivia-answer.correct {
+    border-color: var(--accent-success);
+    background: rgba(74, 222, 128, 0.2);
+}
+
+.btn-trivia-answer.wrong {
+    border-color: var(--accent-secondary);
+    background: rgba(255, 107, 107, 0.2);
+}
+
+.btn-trivia-answer .answer-label {
+    background: var(--bg-secondary);
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.btn-trivia-answer .answer-text {
+    flex: 1;
+}
+
+/* Trivia Result Styles */
+#trivia-result-view h2 {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+}
+
+#trivia-result-view .result-correct {
+    color: var(--accent-success);
+    background: transparent;
+    padding: 0;
+}
+
+#trivia-result-view .result-wrong {
+    color: var(--accent-secondary);
+}
+
+#trivia-result-view .result-timeout {
+    color: var(--accent-warning);
+}
+
+.points-earned {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent-warning);
+}
+
+.correct-answer {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-top: 8px;
+}
+
+/* Trivia Leaderboard Styles */
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.leaderboard-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+}
+
+.leaderboard-row .rank {
+    font-weight: bold;
+    font-size: 1.1rem;
+    width: 40px;
+}
+
+.leaderboard-row .rank.rank-gold {
+    color: #ffd700;
+}
+
+.leaderboard-row .rank.rank-silver {
+    color: #c0c0c0;
+}
+
+.leaderboard-row .rank.rank-bronze {
+    color: #cd7f32;
+}
+
+.leaderboard-row .name {
+    flex: 1;
+    font-size: 1.1rem;
+}
+
+.leaderboard-row .score {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--accent-warning);
+}
+
+/* Trivia Round End Styles */
+.round-winner {
+    font-size: 1.3rem;
+    color: var(--accent-warning);
+    margin: 12px 0;
 }
 
 /* Utility */
