@@ -96,14 +96,28 @@ The charades game includes **799 prompts** across 5 categories:
 - **Scoring:** Last player standing wins; points for survival each round
 - **Prompts needed:** Letter combinations (2-3 letters)
 
-### 5. **Who Said It?** (Quote Attribution)
+### 5. **Imposter** (Social Deduction)
+- **How it works:** Most players receive a secret word, but 1-2 imposters don't know it. Through discussion, players try to identify the imposters
+- **Host display:** Discussion phase, voting interface, elimination results
+- **Player roles:** Innocents discuss the word to find imposters; Imposters blend in and can guess the word
+- **Scoring:** Round-based team scoring (imposters vs innocents)
+- **Prompts needed:** Word bank of common nouns and concepts
+- **Game mechanics:**
+  - **Discussion Phase:** All players discuss clues about the word (imposters try to blend in)
+  - **Voting Phase:** Players vote to eliminate suspects
+  - **Consensus System:** When all living players (except target) vote for the same person, a 5-second countdown starts
+  - **Reveal:** Shows if eliminated player was imposter or innocent
+  - **Win Conditions:** Imposters win if they guess the word correctly OR survive; Innocents win if they eliminate all imposters
+  - **Team Scores:** Persistent across rounds (imposters vs innocents)
+
+### 6. **Who Said It?** (Quote Attribution)
 - **How it works:** Players write responses to prompts, then everyone guesses who wrote what
 - **Host display:** The prompt, then anonymous answers
 - **Player roles:** Write answer, then vote on who wrote each answer
 - **Scoring:** Points for correct guesses, points when you're hard to identify
 - **Prompts needed:** Personal questions, hypotheticals, "What would you do if..."
 
-### 6. **Bonus: Trivia Showdown** (Quiz Game)
+### 7. **Bonus: Trivia Showdown** (Quiz Game)
 - **How it works:** Multiple choice trivia, fastest correct answer wins
 - **Host display:** Question and timer
 - **Player roles:** Select answer on device
@@ -287,6 +301,7 @@ mcp__pixellab__get_character(character_id="CHARACTER_ID")
 ### Phase 3: Individual Games
 - [x] Quick Draw (drawing sync, guess input)
 - [x] Act It Out (prompt display, guess voting) - implemented as `charades`
+- [x] Imposter (social deduction, voting, elimination)
 - [ ] Fibbage (answer submission, voting)
 - [x] Word Bomb (word validation, elimination)
 - [ ] Who Said It? (anonymous answers, attribution voting)
@@ -339,6 +354,7 @@ res://
 │   ├── games/
 │   │   ├── quick_draw/
 │   │   ├── charades/            # Act It Out game
+│   │   ├── imposter/            # Imposter game
 │   │   ├── fibbage/
 │   │   ├── word_bomb/
 │   │   ├── who_said_it/
@@ -361,6 +377,7 @@ res://
 │   │   ├── base_game.gd      # Abstract base class
 │   │   ├── quick_draw.gd
 │   │   ├── charades.gd       # Act It Out game
+│   │   ├── imposter.gd       # Imposter game
 │   │   ├── fibbage.gd
 │   │   ├── word_bomb.gd
 │   │   ├── who_said_it.gd
@@ -373,6 +390,7 @@ res://
 	├── prompts/
 	│   ├── quick_draw_words.json
 	│   ├── charades_prompts.json
+	│   ├── imposter_words.json
 	│   ├── fibbage_questions.json
 	│   ├── letter_combos.json
 	│   ├── who_said_prompts.json
@@ -391,7 +409,7 @@ res://
 |-------|--------|-------|
 | Phase 1: Foundation | Complete | Lobby, networking done |
 | Phase 2: Game Framework | Complete | Base game class created |
-| Phase 3: Individual Games | In Progress | Word Bomb, Quick Draw, Act It Out (Charades) complete |
+| Phase 3: Individual Games | In Progress | Word Bomb, Quick Draw, Charades, Imposter complete |
 | Phase 4: Polish & Assets | In Progress | 5/8 character sprites integrated |
 | Phase 5: Testing | Not Started | |
 
@@ -426,6 +444,15 @@ res://
 - [x] 8 PixelLab character avatars generated (chibi style, 64px)
 - [x] Downloaded 5 completed character sprites (Red Knight, Blue Wizard, Green Ranger, Purple Rogue, Pink Princess)
 - [x] Character selection UI shows sprites with color fallback for pending characters
+- [x] Imposter game (complete social deduction game with voting, elimination, team scoring)
+- [x] Imposter state machine (DISCUSSION, VOTING, CONSENSUS_WARNING, REVEALING, RESULT_DISPLAY, ROUND_END)
+- [x] Imposter role assignment (1-2 imposters based on player count)
+- [x] Imposter consensus voting system (unanimous votes trigger 5-second countdown)
+- [x] Imposter word guessing mechanic (imposters can guess the word to win instantly)
+- [x] Imposter team scoring (persistent across rounds: imposters vs innocents)
+- [x] Imposter spectator mode (eliminated players can watch voting)
+- [x] Imposter words data (945 prompts for secret words)
+- [x] Imposter web player module (role display, voting interface, consensus countdown, reveal screens, round end)
 
 ### In Progress
 - [ ] Cross-device multiplayer testing (iPhone + macOS)
@@ -433,10 +460,11 @@ res://
 
 ### Next Steps
 1. Complete remaining character downloads when PixelLab finishes
-2. Build Fibbage game (bluffing/voting)
-3. Build Who Said It? game (anonymous answers)
-4. Build Trivia Showdown game (multiple choice)
-5. Add sound effects and polish
+2. Test Imposter game across multiple devices
+3. Build Fibbage game (bluffing/voting)
+4. Build Who Said It? game (anonymous answers)
+5. Build Trivia Showdown game (multiple choice)
+6. Add sound effects and polish
 
 ### Character Assets Status
 | Character | Status | Sprite Path |
@@ -470,4 +498,4 @@ res://
 
 ---
 
-*Last Updated: 2026-01-21 (Quick Draw and Charades games implemented)*
+*Last Updated: 2026-01-27 (Imposter game implemented)*
