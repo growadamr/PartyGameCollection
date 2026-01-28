@@ -35,15 +35,15 @@ Requirements for the Imposter game addition.
 
 ### Imposter Guess
 
-- [ ] **GUESS-01**: Imposters can submit a word guess at any time via input field
-- [ ] **GUESS-02**: Correct guess ends round immediately - imposters win
-- [ ] **GUESS-03**: Wrong guess - no penalty, game continues
+- [x] **GUESS-01**: Imposters can submit a word guess at any time via input field
+- [x] **GUESS-02**: Correct guess ends round immediately - imposters win
+- [x] **GUESS-03**: Wrong guess - no penalty, game continues
 
 ### Round End & Scoring
 
-- [ ] **END-01**: Round ends when all imposters found (non-imposters win)
-- [ ] **END-02**: Round ends when imposter guesses word correctly (imposters win)
-- [ ] **END-03**: Track round wins for each team across game session
+- [x] **END-01**: Round ends when all imposters found (non-imposters win)
+- [x] **END-02**: Round ends when imposter guesses word correctly (imposters win)
+- [x] **END-03**: Track round wins for each team across game session
 
 ### Data
 

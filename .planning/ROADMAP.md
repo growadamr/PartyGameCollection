@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Core Game Foundation** - Role assignment, discussion phase, and integration ✓
 - [x] **Phase 2: Voting & Elimination** - Real-time voting with consensus detection and reveals ✓
-- [ ] **Phase 3: Imposter Guess & Round End** - Word guessing and win condition tracking
+- [x] **Phase 3: Imposter Guess & Round End** - Word guessing and win condition tracking ✓
 
 ## Phase Details
 
@@ -68,8 +68,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Host-side guess processing, round-end detection, and win tracking
-- [ ] 03-02-PLAN.md — Web player guess UI, round-end display, and score tracking
+- [x] 03-01-PLAN.md — Host-side guess processing, round-end detection, and win tracking
+- [x] 03-02-PLAN.md — Web player guess UI, round-end display, and score tracking
 
 ## Progress
 
@@ -80,7 +80,7 @@ Phases execute in numeric order: 1 → 2 → 3
 |-------|----------------|--------|-----------|
 | 1. Core Game Foundation | 3/3 | Complete ✓ | 2026-01-22 |
 | 2. Voting & Elimination | 4/4 | Verified ✓ | 2026-01-23 |
-| 3. Imposter Guess & Round End | 0/2 | Planned | - |
+| 3. Imposter Guess & Round End | 2/2 | Verified ✓ | 2026-01-27 |
 
 ---
 *Roadmap created: 2026-01-22*
