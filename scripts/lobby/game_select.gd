@@ -21,6 +21,14 @@ const GAMES = [
 		"color": Color(0.8, 0.3, 0.5)
 	},
 	{
+		"id": "imposter",
+		"name": "Imposter",
+		"description": "Find the imposter! One player doesn't know the secret word.",
+		"icon": "🕵️",
+		"min_players": 4,
+		"color": Color(0.4, 0.3, 0.6)
+	},
+	{
 		"id": "fibbage",
 		"name": "Fibbage",
 		"description": "Bluff your way to victory! Write fake answers to fool others.",

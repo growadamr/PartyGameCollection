@@ -725,6 +725,377 @@ textarea::placeholder {
     display: none !important;
 }
 
+/* ============ IMPOSTER VOTING STYLES ============ */
+
+/* Imposter count in header */
+.imposter-count {
+    color: var(--accent-secondary);
+    font-size: 0.9rem;
+}
+
+/* Vote instruction */
+.vote-instruction {
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+/* Voting list container */
+.vote-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+/* Individual vote option */
+.vote-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.2s, opacity 0.2s;
+}
+
+.vote-option:active {
+    transform: scale(0.98);
+}
+
+.vote-option.my-vote {
+    border-color: var(--accent-primary);
+}
+
+.vote-option.eliminated {
+    opacity: 0.4;
+    text-decoration: line-through;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.vote-option .player-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.vote-option .vote-count {
+    background: var(--accent-secondary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    min-width: 24px;
+    text-align: center;
+}
+
+.vote-option .vote-count.zero {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+}
+
+/* Spectator styles */
+.spectator-label {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.spectator-word {
+    font-size: 1.5rem;
+    color: var(--accent-success);
+    text-align: center;
+    margin: 8px 0;
+}
+
+.spectator-instruction {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.vote-list.spectator .vote-option {
+    cursor: default;
+    pointer-events: none;
+}
+
+/* Consensus warning */
+.consensus-warning {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+    border-radius: var(--border-radius);
+    animation: pulse-red 0.5s infinite;
+    width: 100%;
+}
+
+@keyframes pulse-red {
+    0%, 100% { background-color: rgba(255, 59, 59, 0.15); }
+    50% { background-color: rgba(255, 59, 59, 0.35); }
+}
+
+.consensus-text {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.consensus-name {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent-secondary);
+    margin-bottom: 16px;
+}
+
+.countdown-number {
+    font-size: 6rem;
+    font-weight: bold;
+    color: var(--accent-secondary);
+    line-height: 1;
+}
+
+.consensus-subtext {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 16px;
+}
+
+/* Reveal view */
+.reveal-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 32px;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    width: 100%;
+    animation: reveal-pulse 1s infinite;
+}
+
+@keyframes reveal-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.reveal-text {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.reveal-name {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+/* Result view */
+#imposter-result-view .result-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 32px;
+    border-radius: var(--border-radius);
+    width: 100%;
+    text-align: center;
+}
+
+#imposter-result-view .result-card.imposter {
+    background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+}
+
+#imposter-result-view .result-card.innocent {
+    background: linear-gradient(135deg, #44cc44 0%, #009900 100%);
+}
+
+.result-name {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.result-role {
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 16px;
+}
+
+.result-remaining {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Info text styling for imposter game */
+.info-text {
+    color: var(--text-secondary);
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+/* Word display variants */
+.word-display.imposter {
+    color: var(--accent-secondary) !important;
+}
+
+.word-display.innocent {
+    color: var(--accent-success) !important;
+}
+
+/* Role label variants */
+.role-label.imposter {
+    color: var(--accent-secondary);
+}
+
+.role-label.innocent {
+    color: var(--accent-success);
+}
+
+/* ============ IMPOSTER GUESS STYLES ============ */
+
+.guess-section {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.guess-label {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.guess-input-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.guess-input {
+    flex: 1;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 2px solid rgba(255,107,107,0.3);
+    background: rgba(0,0,0,0.3);
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+.guess-input:focus {
+    border-color: #ff6b6b;
+}
+
+.btn-guess {
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    border: none;
+    background: #ff6b6b;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-guess:active {
+    background: #e05555;
+}
+
+.guess-feedback {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+/* ============ ROUND END STYLES ============ */
+
+.round-end-card {
+    text-align: center;
+    padding: 2rem 1rem;
+    border-radius: 16px;
+    margin: 1rem;
+}
+
+.round-end-card.imposters-win {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+.round-end-card.innocents-win {
+    background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+}
+
+.round-end-winner {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.round-end-word {
+    font-size: 1.5rem;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 1.5rem;
+}
+
+.round-end-imposters {
+    margin-bottom: 1.5rem;
+}
+
+.imposters-label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.25rem;
+}
+
+.imposter-names {
+    font-size: 1.2rem;
+    color: white;
+    font-weight: bold;
+}
+
+.round-end-scores {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.team-score {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.imposter-score {
+    color: #ff6b6b;
+}
+
+.innocent-score {
+    color: #6bb5ff;
+}
+
+.score-divider {
+    color: rgba(255,255,255,0.4);
+    font-size: 1.2rem;
+}
+
 /* Responsive */
 @media (max-height: 600px) {
     .screen {

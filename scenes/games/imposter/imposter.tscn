@@ -1,0 +1,90 @@
+[gd_scene load_steps=2 format=3 uid="uid://imposter"]
+
+[ext_resource type="Script" path="res://scripts/games/imposter.gd" id="1_imposter"]
+
+[node name="Imposter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_imposter")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.08, 0.12, 1)
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 60.0
+offset_right = -40.0
+offset_bottom = -40.0
+theme_override_constants/separation = 20
+
+[node name="Header" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="VBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Imposter"
+
+[node name="Spacer" type="Control" parent="VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ImposterCountLabel" type="Label" parent="VBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "? Imposters"
+
+[node name="RoleSection" type="VBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="RoleLabel" type="Label" parent="VBox/RoleSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "You are..."
+horizontal_alignment = 1
+
+[node name="WordDisplay" type="PanelContainer" parent="VBox/RoleSection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="WordLabel" type="Label" parent="VBox/RoleSection/WordDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InstructionLabel" type="Label" parent="VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Discuss with your group!"
+horizontal_alignment = 1
+
+[node name="PlayersStatus" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="CountdownTimer" type="Timer" parent="."]
+wait_time = 1.0
+one_shot = false
+
+[node name="ConsensusCheckTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true

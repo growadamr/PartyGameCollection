@@ -1,29 +1,29 @@
 {
   "easy": [
-    "cat", "dog", "sun", "tree", "house", "car", "ball", "fish", "bird", "star",
-    "moon", "book", "apple", "flower", "hat", "shoe", "chair", "table", "door", "window",
-    "bed", "lamp", "cup", "fork", "spoon", "clock", "phone", "key", "boat", "plane",
-    "train", "bus", "bike", "cake", "ice cream", "pizza", "egg", "bread", "milk", "water",
-    "rain", "cloud", "snow", "grass", "leaf", "rock", "sand", "fire", "heart", "smile"
+	"cat", "dog", "sun", "tree", "house", "car", "ball", "fish", "bird", "star",
+	"moon", "book", "apple", "flower", "hat", "shoe", "chair", "table", "door", "window",
+	"bed", "lamp", "cup", "fork", "spoon", "clock", "phone", "key", "boat", "plane",
+	"train", "bus", "bike", "cake", "ice cream", "pizza", "egg", "bread", "milk", "water",
+	"rain", "cloud", "snow", "grass", "leaf", "rock", "sand", "fire", "heart", "smile"
   ],
   "medium": [
-    "elephant", "bicycle", "rainbow", "guitar", "camera", "balloon", "dinosaur", "penguin",
-    "hamburger", "sandwich", "butterfly", "umbrella", "flashlight", "telescope", "basketball",
-    "skateboard", "snowman", "pumpkin", "lighthouse", "volcano", "waterfall", "mountain",
-    "octopus", "jellyfish", "kangaroo", "giraffe", "crocodile", "dolphin", "helicopter",
-    "submarine", "astronaut", "cowboy", "pirate", "wizard", "robot", "castle", "bridge",
-    "fountain", "fireworks", "bowling", "fishing", "camping", "surfing", "dancing", "singing",
-    "painting", "cooking", "reading", "sleeping", "running"
+	"elephant", "bicycle", "rainbow", "guitar", "camera", "balloon", "dinosaur", "penguin",
+	"hamburger", "sandwich", "butterfly", "umbrella", "flashlight", "telescope", "basketball",
+	"skateboard", "snowman", "pumpkin", "lighthouse", "volcano", "waterfall", "mountain",
+	"octopus", "jellyfish", "kangaroo", "giraffe", "crocodile", "dolphin", "helicopter",
+	"submarine", "astronaut", "cowboy", "pirate", "wizard", "robot", "castle", "bridge",
+	"fountain", "fireworks", "bowling", "fishing", "camping", "surfing", "dancing", "singing",
+	"painting", "cooking", "reading", "sleeping", "running"
   ],
   "hard": [
-    "graduation", "earthquake", "celebration", "imagination", "skyscraper", "thunderstorm",
-    "championship", "rollercoaster", "marshmallow", "trampoline", "hibernation", "photosynthesis",
-    "constellation", "archaeology", "camouflage", "ventriloquist", "saxophone", "xylophone",
-    "chandelier", "refrigerator", "temperature", "atmosphere", "electricity", "civilization",
-    "revolution", "meditation", "acrobatics", "magician", "sleepwalking", "nightmare",
-    "time travel", "black hole", "parallel universe", "invisibility", "teleportation",
-    "mind reading", "superhero", "quicksand", "avalanche", "shipwreck", "treasure map",
-    "secret agent", "haunted house", "escape room", "virtual reality", "artificial intelligence",
-    "global warming", "recycling", "renewable energy", "space station"
+	"graduation", "earthquake", "celebration", "imagination", "skyscraper", "thunderstorm",
+	"championship", "rollercoaster", "marshmallow", "trampoline", "hibernation", "photosynthesis",
+	"constellation", "archaeology", "camouflage", "ventriloquist", "saxophone", "xylophone",
+	"chandelier", "refrigerator", "temperature", "atmosphere", "electricity", "civilization",
+	"revolution", "meditation", "acrobatics", "magician", "sleepwalking", "nightmare",
+	"time travel", "black hole", "parallel universe", "invisibility", "teleportation",
+	"mind reading", "superhero", "quicksand", "avalanche", "shipwreck", "treasure map",
+	"secret agent", "haunted house", "escape room", "virtual reality", "artificial intelligence",
+	"global warming", "recycling", "renewable energy", "space station"
   ]
 }

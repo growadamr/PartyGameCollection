@@ -38,3 +38,13 @@ mono_crash.*.json
 *.paint
 *.psd
 *.sketch
+
+# GSD temporary files
+GSD_Next_command.txt
+*-v1-gaps.md
+
+# Godot export presets (user-specific)
+export_presets.cfg
+
+# Godot UID files
+*.uid

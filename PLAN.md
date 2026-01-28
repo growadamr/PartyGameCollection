@@ -64,16 +64,13 @@ A mobile party game collection where one player hosts a session, others join via
 - **How it works:** One player draws on their phone, others guess on their devices
 - **Host display:** Shows the drawing in real-time
 - **Player roles:** Drawer sees the word, guessers type answers
-- **Round flow:** Drawer sees "Start Drawing!" prompt, presses to begin, round ends when first person guesses correctly
-- **Scoring:** 1 point for correct guess, 1 point for drawer if someone guesses correctly
-- **Min players:** 2
-- **Prompts needed:** Word bank (easy, medium, hard categories - 150 words)
+- **Scoring:** Points for correct guesses (faster = more points), drawer gets points when someone guesses correctly
+- **Prompts needed:** Word bank (easy, medium, hard categories)
 
 ### 2. **Act It Out** (Charades)
 - **How it works:** One player acts out a prompt (physically, away from screens), others guess
 - **Host display:** Timer, current actor's name, guess input
 - **Player roles:** Actor sees prompt on their device (hidden from others), guessers submit guesses
-- **Skip feature:** Actor can skip difficult prompts to get a new phrase; timer continues running
 - **Scoring:** Points for correct guesses, actor earns points when guessed
 - **Prompts needed:** Actions, movies, celebrities, objects, phrases
 
@@ -99,14 +96,28 @@ The charades game includes **799 prompts** across 5 categories:
 - **Scoring:** Last player standing wins; points for survival each round
 - **Prompts needed:** Letter combinations (2-3 letters)
 
-### 5. **Who Said It?** (Quote Attribution)
+### 5. **Imposter** (Social Deduction)
+- **How it works:** Most players receive a secret word, but 1-2 imposters don't know it. Through discussion, players try to identify the imposters
+- **Host display:** Discussion phase, voting interface, elimination results
+- **Player roles:** Innocents discuss the word to find imposters; Imposters blend in and can guess the word
+- **Scoring:** Round-based team scoring (imposters vs innocents)
+- **Prompts needed:** Word bank of common nouns and concepts
+- **Game mechanics:**
+  - **Discussion Phase:** All players discuss clues about the word (imposters try to blend in)
+  - **Voting Phase:** Players vote to eliminate suspects
+  - **Consensus System:** When all living players (except target) vote for the same person, a 5-second countdown starts
+  - **Reveal:** Shows if eliminated player was imposter or innocent
+  - **Win Conditions:** Imposters win if they guess the word correctly OR survive; Innocents win if they eliminate all imposters
+  - **Team Scores:** Persistent across rounds (imposters vs innocents)
+
+### 6. **Who Said It?** (Quote Attribution)
 - **How it works:** Players write responses to prompts, then everyone guesses who wrote what
 - **Host display:** The prompt, then anonymous answers
 - **Player roles:** Write answer, then vote on who wrote each answer
 - **Scoring:** Points for correct guesses, points when you're hard to identify
 - **Prompts needed:** Personal questions, hypotheticals, "What would you do if..."
 
-### 6. **Bonus: Trivia Showdown** (Quiz Game)
+### 7. **Bonus: Trivia Showdown** (Quiz Game)
 - **How it works:** Multiple choice trivia, fastest correct answer wins
 - **Host display:** Question and timer
 - **Player roles:** Select answer on device
@@ -171,7 +182,7 @@ var session = {
 
 | Game | Correct Guess | Speed Bonus | Special |
 |------|--------------|-------------|---------|
-| Quick Draw | 1 pt | None | Drawer: 1 pt if guessed |
+| Quick Draw | 100 pts | +50 max | Drawer: 25 pts per guess |
 | Act It Out | 100 pts | +50 max | Actor: 25 pts per guess |
 | Fibbage | 200 pts | None | 100 pts per fooled player |
 | Word Bomb | Survival | None | Winner: 100 pts |
@@ -290,6 +301,7 @@ mcp__pixellab__get_character(character_id="CHARACTER_ID")
 ### Phase 3: Individual Games
 - [x] Quick Draw (drawing sync, guess input)
 - [x] Act It Out (prompt display, guess voting) - implemented as `charades`
+- [x] Imposter (social deduction, voting, elimination)
 - [x] Fibbage (answer submission, voting)
 - [x] Word Bomb (word validation, elimination)
 - [x] Who Said It? (anonymous answers, attribution voting)
@@ -319,19 +331,6 @@ res://
 ├── project.godot
 ├── PLAN.md
 │
-├── web-player/               # Browser-based player interface
-│   ├── index.html
-│   ├── css/style.css
-│   └── js/
-│       ├── app.js
-│       ├── websocket.js
-│       └── games/
-│           ├── charades.js
-│           ├── quickdraw.js
-│           ├── wordbomb.js
-│           ├── whosaidit.js
-│           └── trivia.js
-│
 ├── assets/
 │   ├── characters/           # PixelLab generated
 │   │   ├── red_knight/
@@ -355,10 +354,11 @@ res://
 │   ├── games/
 │   │   ├── quick_draw/
 │   │   ├── charades/            # Act It Out game
+│   │   ├── imposter/            # Imposter game
 │   │   ├── fibbage/
 │   │   ├── word_bomb/
 │   │   ├── who_said_it/
-│   │   └── trivia_showdown/
+│   │   └── trivia/
 │   └── ui/
 │       ├── scoreboard.tscn
 │       ├── timer.tscn
@@ -377,6 +377,7 @@ res://
 │   │   ├── base_game.gd      # Abstract base class
 │   │   ├── quick_draw.gd
 │   │   ├── charades.gd       # Act It Out game
+│   │   ├── imposter.gd       # Imposter game
 │   │   ├── fibbage.gd
 │   │   ├── word_bomb.gd
 │   │   ├── who_said_it.gd
@@ -389,6 +390,7 @@ res://
 	├── prompts/
 	│   ├── quick_draw_words.json
 	│   ├── charades_prompts.json
+	│   ├── imposter_words.json
 	│   ├── fibbage_questions.json
 	│   ├── letter_combos.json
 	│   ├── who_said_prompts.json
@@ -407,7 +409,7 @@ res://
 |-------|--------|-------|
 | Phase 1: Foundation | Complete | Lobby, networking done |
 | Phase 2: Game Framework | Complete | Base game class created |
-| Phase 3: Individual Games | Complete | All 6 games complete |
+| Phase 3: Individual Games | Complete | All 7 games complete |
 | Phase 4: Polish & Assets | In Progress | 5/8 character sprites integrated |
 | Phase 5: Testing | Not Started | |
 
@@ -434,7 +436,6 @@ res://
 - [x] Charades prompts data (799 prompts across 5 categories: movies_tv, actions, animals, occupations, objects)
 - [x] Charades turn preparation phase (actor presses "Start My Turn" before seeing prompt)
 - [x] Charades result screens (shows correct answer, who guessed, points awarded to all players)
-- [x] Charades skip gives new phrase (timer continues, actor can skip difficult prompts without ending turn)
 - [x] Character selection click area fix (mouse_filter on child controls)
 - [x] Game state sync for non-host players (word_bomb_init message)
 - [x] Fixed player scene transition bug (message_received signal not emitting for handled messages)
@@ -443,12 +444,21 @@ res://
 - [x] 8 PixelLab character avatars generated (chibi style, 64px)
 - [x] Downloaded 5 completed character sprites (Red Knight, Blue Wizard, Green Ranger, Purple Rogue, Pink Princess)
 - [x] Character selection UI shows sprites with color fallback for pending characters
+- [x] Imposter game (complete social deduction game with voting, elimination, team scoring)
+- [x] Imposter state machine (DISCUSSION, VOTING, CONSENSUS_WARNING, REVEALING, RESULT_DISPLAY, ROUND_END)
+- [x] Imposter role assignment (1-2 imposters based on player count)
+- [x] Imposter consensus voting system (unanimous votes trigger 5-second countdown)
+- [x] Imposter word guessing mechanic (imposters can guess the word to win instantly)
+- [x] Imposter team scoring (persistent across rounds: imposters vs innocents)
+- [x] Imposter spectator mode (eliminated players can watch voting)
+- [x] Imposter words data (945 prompts for secret words)
+- [x] Imposter web player module (role display, voting interface, consensus countdown, reveal screens, round end)
 - [x] Quick Draw simplified (reduced from 835 to ~580 lines)
 - [x] Quick Draw drawer ready prompt ("Start Drawing!" button)
 - [x] Quick Draw multiplayer fixes (UI updates, notifications to all guessers)
 - [x] Quick Draw simplified scoring (1 point system)
 - [x] Quick Draw min players reduced to 2
-- [x] Web player interface (HTML/CSS/JS for browser-based players)
+- [x] Charades skip gives new phrase (timer continues, actor can skip difficult prompts without ending turn)
 - [x] Who Said It game (anonymous answers, voting, reveals, scoring)
 - [x] Who Said It prompts data (62 prompts across 5 categories: hypothetical, personal, opinions, creative, wouldyourather)
 - [x] Who Said It web player interface
@@ -461,7 +471,7 @@ res://
 - [x] Trivia questions data (120 questions across 6 categories: Science, History, Geography, Entertainment, Sports, General)
 - [x] Trivia Showdown web player interface
 - [x] Character sprites display in lobby (waiting_lobby, player_waiting screens)
-- [x] Character sprites display in all 6 games (replaced color blocks with actual sprites)
+- [x] Character sprites display in all 7 games (replaced color blocks with actual sprites)
 
 ### In Progress
 - [ ] Cross-device multiplayer testing (iPhone + macOS)
@@ -469,8 +479,8 @@ res://
 
 ### Next Steps
 1. Complete remaining character downloads when PixelLab finishes
-2. Add sound effects and polish
-3. Cross-device multiplayer testing
+2. Cross-device multiplayer testing for all 7 games
+3. Add sound effects and polish
 
 ### Character Assets Status
 | Character | Status | Sprite Path |
@@ -502,9 +512,6 @@ res://
 - WebSocket connectivity across different networks (NAT traversal)
 - Reconnection handling for dropped connections
 
-### Known Issues
-- None currently
-
 ---
 
-*Last Updated: 2026-01-23 (Charades skip gives new phrase instead of ending turn)*
+*Last Updated: 2026-01-27 (All 7 games complete: Quick Draw, Charades, Imposter, Fibbage, Word Bomb, Who Said It, Trivia Showdown)*

@@ -293,6 +293,10 @@ class PartyGameApp {
                 }
                 break;
 
+            case 'imposter':
+                this.showScreen('imposter');
+                if (window.imposterGame) {
+                    imposterGame.init(this);
             case 'who_said_it':
                 this.showScreen('who-said-it');
                 if (window.whoSaidItGame) {
