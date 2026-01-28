@@ -8,7 +8,7 @@ extends Control
 @onready var countdown_timer: Timer = $CountdownTimer
 @onready var consensus_check_timer: Timer = $ConsensusCheckTimer
 
-enum State { DISCUSSION, VOTING, CONSENSUS_WARNING, REVEALING, RESULT_DISPLAY }
+enum State { DISCUSSION, VOTING, CONSENSUS_WARNING, REVEALING, RESULT_DISPLAY, ROUND_END }
 
 var words: Array = []
 var current_word: String = ""
@@ -24,6 +24,7 @@ var eliminated_players: Array = []      # List of eliminated player IDs
 var consensus_target: String = ""       # Current consensus target
 var countdown_remaining: int = 5        # Consensus countdown
 var remaining_imposters: int = 0        # Living imposters count
+var scores: Dictionary = {"imposters": 0, "innocents": 0}  # Persists across rounds
 
 func _ready() -> void:
 	NetworkManager.message_received.connect(_on_message_received)
@@ -122,6 +123,10 @@ func _on_message_received(_peer_id: int, data: Dictionary) -> void:
 			if GameManager.is_host:
 				var voter_id = "peer_%d" % _peer_id
 				_process_vote(voter_id, data.get("target_id", ""))
+		"word_guess":
+			if GameManager.is_host:
+				var guesser_id = "peer_%d" % _peer_id
+				_process_word_guess(guesser_id, data.get("guess", ""))
 		"start_voting":
 			if GameManager.is_host:
 				start_voting()
@@ -139,6 +144,10 @@ func _on_message_received(_peer_id: int, data: Dictionary) -> void:
 			_apply_reveal_start(data)
 		"reveal_result":
 			_apply_reveal_result(data)
+		"round_end":
+			_apply_round_end(data)
+		"round_restart":
+			_apply_round_restart()
 
 func _apply_role_data(data: Dictionary) -> void:
 	is_imposter = data.get("is_imposter", false)
@@ -364,9 +373,11 @@ func _show_reveal_result() -> void:
 func _after_reveal() -> void:
 	consensus_target = ""
 
-	# Check if game should end (Phase 3 will handle this properly)
-	# For now, just return to voting if game continues
-	if remaining_imposters > 0 and _get_eligible_voters().size() > 2:
+	# Check if all imposters eliminated (innocents win)
+	if remaining_imposters <= 0:
+		_end_round("innocents", "")
+	# Check if enough players to continue
+	elif _get_eligible_voters().size() > 2:
 		current_state = State.VOTING
 		votes.clear()
 		_broadcast_vote_state()
@@ -376,6 +387,85 @@ func _after_reveal() -> void:
 			"votes": votes,
 			"tallies": {}
 		})
+	else:
+		# Not enough players to continue
+		_end_round("innocents", "")
+
+# ============ WORD GUESS & ROUND END ============
+
+func _process_word_guess(guesser_id: String, guess: String) -> void:
+	# Only imposters can guess
+	if not player_roles.get(guesser_id, false):
+		return
+
+	# Only living players can guess
+	if guesser_id in eliminated_players:
+		return
+
+	# Only process during active gameplay (not during REVEALING or ROUND_END)
+	if current_state in [State.REVEALING, State.ROUND_END]:
+		return
+
+	# Case-insensitive comparison
+	if guess.strip_edges().to_lower() == current_word.to_lower():
+		# Correct guess - imposters win immediately
+		_end_round("imposters", guesser_id)
+	else:
+		# Wrong guess - no penalty
+		NetworkManager.broadcast({
+			"type": "guess_result",
+			"correct": false,
+			"guesser_id": guesser_id
+		})
+
+func _end_round(winner: String, guesser_id: String) -> void:
+	current_state = State.ROUND_END
+
+	# Stop all timers
+	countdown_timer.stop()
+	consensus_check_timer.stop()
+
+	# Increment score
+	scores[winner] += 1
+
+	# Build imposter names list for reveal
+	var imposter_names = []
+	for imp_id in imposters:
+		var player_data = GameManager.players.get(imp_id, {})
+		imposter_names.append(player_data.get("name", "Unknown"))
+
+	# Broadcast round end
+	NetworkManager.broadcast({
+		"type": "round_end",
+		"winner": winner,
+		"word": current_word,
+		"imposters": imposters,
+		"imposter_names": imposter_names,
+		"guesser_id": guesser_id,
+		"scores": scores
+	})
+
+	# Wait 5 seconds then return to lobby
+	await get_tree().create_timer(5.0).timeout
+	_return_to_lobby()
+
+func _return_to_lobby() -> void:
+	# Broadcast round restart
+	NetworkManager.broadcast({
+		"type": "round_restart"
+	})
+
+	# Reset round state
+	votes.clear()
+	eliminated_players.clear()
+	player_roles.clear()
+	imposters.clear()
+	consensus_target = ""
+	current_state = State.DISCUSSION
+
+	# Start fresh round with new word/roles
+	# Do NOT reset scores - they persist across rounds
+	_initialize_game()
 
 # ============ APPLY FUNCTIONS FOR NON-HOST CLIENTS ============
 
@@ -410,3 +500,14 @@ func _apply_reveal_result(data: Dictionary) -> void:
 
 	if is_imposter_target and target_id not in eliminated_players:
 		eliminated_players.append(target_id)
+
+func _apply_round_end(data: Dictionary) -> void:
+	current_state = State.ROUND_END
+	scores = data.get("scores", {"imposters": 0, "innocents": 0})
+	# UI update will be handled by web player
+
+func _apply_round_restart() -> void:
+	current_state = State.DISCUSSION
+	votes.clear()
+	eliminated_players.clear()
+	# Scores persist across rounds
