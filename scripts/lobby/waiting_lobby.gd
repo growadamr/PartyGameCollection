@@ -29,11 +29,15 @@ func _ready() -> void:
 	_update_start_button()
 
 func _start_server() -> void:
+	print("[WaitingLobby] Starting servers...")
+
 	# Start WebSocket server for game communication
 	var ws_err = NetworkManager.start_server()
+	print("[WaitingLobby] WebSocket server result: ", ws_err, " (", error_string(ws_err), ")")
 
 	# Start HTTP server for serving web player files
 	var http_err = HTTPServer.start_server()
+	print("[WaitingLobby] HTTP server result: ", http_err, " (", error_string(http_err), ")")
 
 	if ws_err == OK and http_err == OK:
 		server_started = true
@@ -45,16 +49,17 @@ func _start_server() -> void:
 		# Players scan this to load the web player from the iPhone
 		var web_player_url = "http://%s:%d" % [ip, http_port]
 
-		print("HTTP server running on port: ", http_port, " (serves web player)")
-		print("WebSocket server running on port: ", ws_port, " (game communication)")
-		print("Local IP: ", ip)
-		print("Web player URL: ", web_player_url)
+		print("[WaitingLobby] ✓ Both servers started successfully")
+		print("[WaitingLobby] HTTP server running on port: ", http_port, " (serves web player)")
+		print("[WaitingLobby] WebSocket server running on port: ", ws_port, " (game communication)")
+		print("[WaitingLobby] Local IP: ", ip)
+		print("[WaitingLobby] Web player URL: ", web_player_url)
 
 		# Generate and display QR code
 		_display_qr_code(web_player_url, ip)
 	else:
-		qr_text.text = "Server\nError"
-		push_error("Failed to start servers (WS: %s, HTTP: %s)" % [ws_err, http_err])
+		qr_text.text = "Server\nError\nWS:%d\nHTTP:%d" % [ws_err, http_err]
+		push_error("[WaitingLobby] ✗ Failed to start servers (WS: %s, HTTP: %s)" % [error_string(ws_err), error_string(http_err)])
 
 func _display_qr_code(connection_info: String, ip: String) -> void:
 	# Try to generate QR code image

@@ -512,17 +512,20 @@ res://
 - [x] Imposter game auto-voting (10-second timer after role assignment)
 - [x] Debug logging for Imposter voting phase (tracking player data flow)
 - [x] Complete offline support (no internet required, local WiFi only)
+- [x] WebSocket server bind to all network interfaces (fixed connectivity issue)
+- [x] HTTP server bind to all network interfaces (fixed connectivity issue)
+- [x] Web player files embedded as GDScript constants (web_files_embedded.gd)
+- [x] HTTP server Content-Type header fix for root path
+- [x] iOS local network testing - HTTP server verified working
+- [x] Web player loads successfully on external devices
 
 ### In Progress
-- [x] iOS deployment setup (complete - see BUILD_FOR_IOS.md)
-- [x] Built-in HTTP server for offline web player hosting
-- [x] Imposter game auto-voting after 10-second discussion phase
-- [ ] iOS local network testing (iPhone + iPhone multiplayer)
+- [ ] Full multiplayer testing (all 7 games on iOS Safari)
 - [ ] Imposter game voting screen debug (empty voting list issue)
 - [ ] Remaining 3 character sprites (Yellow Bard, Orange Monk, Teal Robot) - pending PixelLab generation
 
 ### Next Steps
-1. Test on real iOS devices (grant Local Network permission)
+1. Test all games on real iOS devices (multiplayer gameplay)
 2. Debug Imposter voting screen on iOS Safari
 3. Complete remaining character downloads when PixelLab finishes
 4. Add sound effects and polish
@@ -558,6 +561,8 @@ res://
 - Web player hosting: Built-in HTTP server (offline, no external hosting needed)
 - iOS deployment: Free Apple Developer account works (no $99 payment required)
 - Network permissions: NSLocalNetworkUsageDescription required for iOS server functionality
+- Web player file export: Solved by embedding files as GDScript string constants (Godot doesn't export .html/.css/.js by default)
+- Network binding: Servers must explicitly bind to "*" to accept connections from other devices
 
 ### Open Questions
 - Reconnection handling for dropped connections
@@ -596,16 +601,33 @@ res://
 - **Completely offline:** No internet required, works on local WiFi only
 
 ### Testing Status
-- **Host App:** Deploys successfully to iPhone
-- **HTTP Server:** Configured with local network permissions (testing in progress)
-- **Web Player:** All 7 games implemented and ready for testing
-- **Multiplayer:** Pending iOS device testing
+- **Host App:** ✅ Deploys successfully to iPhone
+- **HTTP Server:** ✅ Working - serves web player on port 8000
+- **WebSocket Server:** ✅ Working - game communication on port 8080
+- **Web Player:** ✅ Loads successfully on external devices (iOS Safari tested)
+- **Multiplayer:** In progress - individual game testing needed
+
+### Technical Implementation Details
+
+#### Web File Embedding Solution
+Godot doesn't automatically export .html, .css, and .js files in the .pck archive. Solution:
+- Created `scripts/autoload/web_files_embedded.gd` - contains all web player files as string constants
+- Python script generates this file from web-player directory
+- HTTP server loads files from embedded constants using `preload()`
+- Guarantees web files are always included in iOS export
+
+#### Network Configuration
+Both servers must explicitly bind to all interfaces:
+- `TCPServer.listen(port, "*")` - binds to all network interfaces (not just localhost)
+- Without "*" parameter, servers only listen on 127.0.0.1 and reject external connections
+- Critical for iOS local network functionality
 
 ### Documentation
 - **BUILD_FOR_IOS.md:** Complete guide for Xcode deployment
 - **export_presets.cfg:** iOS export configuration
 - **scripts/autoload/http_server.gd:** Built-in HTTP file server
+- **scripts/autoload/web_files_embedded.gd:** Embedded web player files (auto-generated)
 
 ---
 
-*Last Updated: 2026-01-28 (iOS deployment configured; HTTP server added for offline web player hosting; Imposter auto-voting implemented)*
+*Last Updated: 2026-01-28 (iOS network connectivity fixed; web player loading successfully; HTTP/WebSocket servers verified working on local network)*
