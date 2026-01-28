@@ -65,10 +65,11 @@ Plans:
   3. Wrong imposter guesses don't penalize imposters or end the round
   4. Round ends when all imposters are found (non-imposters win)
   5. Round wins are tracked for each team across the game session
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] TBD during planning
+- [ ] 03-01-PLAN.md — Host-side guess processing, round-end detection, and win tracking
+- [ ] 03-02-PLAN.md — Web player guess UI, round-end display, and score tracking
 
 ## Progress
 
@@ -79,8 +80,8 @@ Phases execute in numeric order: 1 → 2 → 3
 |-------|----------------|--------|-----------|
 | 1. Core Game Foundation | 3/3 | Complete ✓ | 2026-01-22 |
 | 2. Voting & Elimination | 4/4 | Verified ✓ | 2026-01-23 |
-| 3. Imposter Guess & Round End | 0/0 | Not started | - |
+| 3. Imposter Guess & Round End | 0/2 | Planned | - |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-23*
+*Last updated: 2026-01-27*
