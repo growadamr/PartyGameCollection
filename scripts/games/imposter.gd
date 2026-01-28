@@ -226,6 +226,9 @@ func start_voting() -> void:
 			"eliminated": player_id in eliminated_players
 		})
 
+	print("Starting voting with player_list: ", player_list)
+	print("Total players in list: ", player_list.size())
+
 	NetworkManager.broadcast({
 		"type": "voting_started",
 		"players": player_list,

@@ -453,6 +453,8 @@ res://
 - [x] Imposter spectator mode (eliminated players can watch voting)
 - [x] Imposter words data (945 prompts for secret words)
 - [x] Imposter web player module (role display, voting interface, consensus countdown, reveal screens, round end)
+- [x] Fixed Imposter game initialization bug (missing break statement in app.js switch case caused fall-through to who_said_it)
+- [x] Fixed Imposter host role assignment (host now receives their own role/word data when they're a player)
 - [x] Quick Draw simplified (reduced from 835 to ~580 lines)
 - [x] Quick Draw drawer ready prompt ("Start Drawing!" button)
 - [x] Quick Draw multiplayer fixes (UI updates, notifications to all guessers)
@@ -514,4 +516,4 @@ res://
 
 ---
 
-*Last Updated: 2026-01-27 (All 7 games complete: Quick Draw, Charades, Imposter, Fibbage, Word Bomb, Who Said It, Trivia Showdown)*
+*Last Updated: 2026-01-28 (All 7 games complete; Imposter game role assignment bugs fixed)*
