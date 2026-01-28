@@ -1,6 +1,8 @@
 /**
  * Who Said It game handler for web player
  */
+const MAX_ANSWER_LENGTH = 250;
+
 class WhoSaidItGame {
     constructor() {
         this.app = null;
@@ -11,6 +13,7 @@ class WhoSaidItGame {
         this.hasVoted = false;
         this.isReady = false;
         this.currentAuthorId = null;
+        this.mySubmittedAnswer = '';
         this.playersReady = {};
     }
 
@@ -30,6 +33,13 @@ class WhoSaidItGame {
                 e.preventDefault();
                 this.submitAnswer();
             }
+        });
+
+        document.getElementById('whosaid-answer')?.addEventListener('input', (e) => {
+            if (e.target.value.length > MAX_ANSWER_LENGTH) {
+                e.target.value = e.target.value.substring(0, MAX_ANSWER_LENGTH);
+            }
+            this.updateCharCounter();
         });
 
         document.getElementById('btn-ready')?.addEventListener('click', () => {
@@ -126,6 +136,7 @@ class WhoSaidItGame {
     handlePrompt(data) {
         this.currentPhase = 'writing';
         this.hasSubmittedAnswer = false;
+        this.mySubmittedAnswer = '';
         this.timeRemaining = data.time_limit || 60;
 
         this.hideAllViews();
@@ -136,6 +147,7 @@ class WhoSaidItGame {
         document.getElementById('whosaid-answer').disabled = false;
         document.getElementById('btn-submit-answer').disabled = false;
         document.getElementById('whosaid-answers-status').textContent = '0 answers received';
+        this.updateCharCounter();
 
         this.startTimer();
     }
@@ -148,12 +160,11 @@ class WhoSaidItGame {
     handleVoteStart(data) {
         this.currentPhase = 'voting';
         this.hasVoted = false;
-        this.currentAuthorId = data.author_id;
         this.timeRemaining = data.time_limit || 30;
 
         this.hideAllViews();
 
-        const isAuthor = (data.author_id === this.app.playerId);
+        const isAuthor = (data.answer_text === this.mySubmittedAnswer);
 
         if (isAuthor) {
             document.getElementById('whosaid-author-view').classList.remove('hidden');
@@ -285,15 +296,35 @@ class WhoSaidItGame {
         }, 5000);
     }
 
+    updateCharCounter() {
+        const input = document.getElementById('whosaid-answer');
+        const counter = document.getElementById('whosaid-char-counter');
+        if (!input || !counter) return;
+        const len = input.value.length;
+        const remaining = MAX_ANSWER_LENGTH - len;
+        counter.textContent = `${len} / ${MAX_ANSWER_LENGTH}`;
+        if (remaining <= 25) {
+            counter.style.color = '#ff4d4d';
+        } else if (remaining <= 50) {
+            counter.style.color = '#ff9933';
+        } else {
+            counter.style.color = '#999';
+        }
+    }
+
     submitAnswer() {
         if (this.hasSubmittedAnswer) return;
 
         const input = document.getElementById('whosaid-answer');
-        const answer = input.value.trim();
+        let answer = input.value.trim();
 
         if (!answer) return;
+        if (answer.length > MAX_ANSWER_LENGTH) {
+            answer = answer.substring(0, MAX_ANSWER_LENGTH);
+        }
 
         this.hasSubmittedAnswer = true;
+        this.mySubmittedAnswer = answer;
         input.disabled = true;
         document.getElementById('btn-submit-answer').disabled = true;
 

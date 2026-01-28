@@ -197,7 +197,6 @@ After viewing the reveal, all players must click "Next Answer" (or "See Results"
 |--------|--------|-------------|
 | Correct Guess | +50 | You correctly identified who wrote an answer |
 | Fooled Player | +50 | Each player who guessed wrong on YOUR answer |
-| Speed Bonus | +10 | First to submit answer (optional) |
 
 ### Scoring Example
 - 4 players: Alice, Bob, Carol, Dave
@@ -1320,4 +1319,120 @@ who_said_it (Control)
 
 ---
 
-*Last Updated: 2026-01-22 (Implemented with ready-up system)*
+*Last Updated: 2026-01-28 (Removed speed bonus from docs, added funny timeout auto-answers, added tie handling, removed author_id from vote broadcast, added 250-char limit with countdown, added answer progress to Godot voting UI)*
+
+---
+
+## Feedback & Suggestions
+
+*Review conducted 2026-01-26*
+
+### What's Working Well
+
+1. **Clean phase state machine** - The 8-phase `GamePhase` enum provides clear game flow control
+2. **Ready-up system** - Prevents players from missing reveals or starting before everyone is prepared
+3. **Smart prompt caching** - Avoids repeating prompts within a game session
+4. **Real-time status updates** - Players see live answer/vote counts
+5. **Web player feature parity** - JavaScript client matches Godot functionality
+6. **Author protection** - Authors see "This is YOUR answer!" and can't vote on themselves
+7. **Early advancement** - Game progresses immediately when all answers/votes are in rather than waiting for timer
+
+### Potential Issues
+
+#### 1. ~~No Answer Character Limit~~ (Resolved)
+250-character limit enforced in both Godot and web player. A live character countdown (e.g., "120 / 250") is shown during writing, with color changes at 50 and 25 characters remaining.
+
+#### 2. ~~Author ID Exposed in Network Messages~~ (Resolved - Not Yet Tested)
+`author_id` removed from `whosaid_vote_start` broadcast. Clients now detect authorship by comparing the displayed answer text to their own submitted answer. Requires manual testing with multiple players to verify.
+
+#### 3. ~~Speed Bonus Not Implemented~~ (Resolved)
+Removed from scoring table to match implementation.
+
+#### 4. ~~Timer Expiry with No Answer~~ (Resolved)
+Auto-submits a random funny placeholder from `TIMEOUT_ANSWERS` when a player doesn't submit before the timer expires.
+
+#### 5. ~~Tie Score Handling~~ (Resolved)
+Ties now display a random funny message from `TIE_MESSAGES` instead of picking an arbitrary single winner.
+
+#### 6. ~~Answer Index Not Shown in Godot Client~~ (Resolved)
+Godot client now shows "VOTE  X / Y" in the phase label during voting. `answer_total` is included in the `whosaid_vote_start` broadcast.
+
+### Enhancement Suggestions
+
+#### High Priority
+
+1. **Skip/Pass Option for Uncomfortable Prompts**
+   - Some prompts ("most embarrassing moment") may make players uncomfortable
+   - Add a "Skip" button that auto-submits "I'll pass on this one"
+   - Track skips to prevent abuse (max 1 skip per game?)
+
+2. **Answer Preview Before Submit**
+   - Show a confirmation: "Your answer: [text] - Submit?"
+   - Prevents accidental submissions or typos
+
+3. **Category Indicator**
+   - Show which category the prompt is from (hypothetical, personal, etc.)
+   - Helps players understand the expected tone
+
+#### Medium Priority
+
+4. **Show Vote Distribution in Reveal**
+   - Currently only shows correct/fooled
+   - Could show: "Alice voted Bob, Bob voted Carol, Dave voted Carol"
+   - Adds discussion value and fun
+
+5. **"Reroll Prompt" for Host**
+   - Let host request a different prompt if the current one isn't good
+   - Limited uses (1 per round) to prevent abuse
+
+6. **Sound Effects**
+   - Submit answer: satisfying "whoosh"
+   - Vote cast: quick click
+   - Reveal: dramatic sting
+   - Correct guess: positive chime
+   - Fooled someone: sneaky sound
+
+7. **Score Change Animations**
+   - Show "+50" floating up from player avatar when points awarded
+   - Visual feedback makes scoring more exciting
+
+#### Low Priority
+
+8. **Custom Prompts Mode**
+   - Let players submit their own prompts during a "prompt collection" phase
+   - Great for themed parties or inside jokes
+
+9. **"Favorite Answer" Voting**
+   - After regular voting, let everyone vote for funniest answer
+   - Bonus points for most-liked answer
+
+10. **Themed Prompt Packs**
+	- Holiday themes, movie references, workplace edition
+	- Stored as separate JSON files, selectable by host
+
+11. **Abstain from Voting**
+	- "I don't know" option that neither awards nor penalizes
+	- Useful when you genuinely can't guess
+
+### Code Quality Notes
+
+1. **Consistent error handling** - `GameManager.players.get(player_id, {"name": "Unknown"})` is good defensive coding
+2. **Virtual keyboard support** - Nice touch for mobile compatibility
+3. **Timer color coding** - Good UX with yellow → orange → red progression
+4. **Clean separation** - `_apply_*` for receiving, `_handle_*` for host processing
+
+### Testing Recommendations
+
+1. **Network latency testing** - Test with simulated lag to ensure messages arrive in order
+2. **Rapid submission testing** - What happens if two players submit simultaneously?
+3. **Long answer stress test** - Submit 1000+ character answers to check UI
+4. **Unicode/emoji testing** - Ensure answers with emojis render correctly
+5. **Player disconnect mid-game** - Verify graceful handling
+
+### Documentation Updates Needed
+
+1. ~~Remove "Speed Bonus: +10" from scoring table (not implemented)~~ Done
+2. Update background color reference (scene uses `#1a1f13`, docs say `#1a1a2e`)
+3. Clarify that players CAN vote for the author (that's the correct answer!)
+
+---

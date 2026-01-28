@@ -99,6 +99,13 @@ theme_override_font_sizes/font_size = 18
 placeholder_text = "Your answer..."
 wrap_mode = 1
 
+[node name="CharCounter" type="Label" parent="VBox/WritingSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "0 / 250"
+horizontal_alignment = 2
+
 [node name="SubmitButton" type="Button" parent="VBox/WritingSection"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2

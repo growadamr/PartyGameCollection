@@ -13,6 +13,7 @@ extends Control
 @onready var writing_section: VBoxContainer = $VBox/WritingSection
 @onready var answer_input: TextEdit = $VBox/WritingSection/AnswerInput
 @onready var submit_button: Button = $VBox/WritingSection/SubmitButton
+@onready var char_counter: Label = $VBox/WritingSection/CharCounter
 @onready var answers_status: Label = $VBox/WritingSection/AnswersStatus
 
 # UI References - Voting Section
@@ -45,6 +46,20 @@ const WRITING_TIME: int = 60
 const VOTING_TIME: int = 30
 const REVEAL_TIME: int = 5
 const MIN_PLAYERS: int = 3
+const MAX_ANSWER_LENGTH: int = 250
+const TIMEOUT_ANSWERS: Array = [
+	"I fell asleep on my phone",
+	"My dog ate my answer",
+	"¯\\_(ツ)_/¯",
+	"*crickets*",
+	"I plead the fifth",
+]
+const TIE_MESSAGES: Array = [
+	"It's a tie! Blame the judges!",
+	"Dead heat! Friendship wins... this time.",
+	"Tied! You're all equally suspicious.",
+	"A tie! Nobody out-tricked anybody!",
+]
 
 # Game State
 enum GamePhase { WAITING, PRE_ROUND, WRITING, VOTING, REVEAL, CONTINUE, ROUND_END, GAME_END }
@@ -70,6 +85,7 @@ var used_prompts: Array = []
 
 var time_remaining: int = 0
 var has_submitted_answer: bool = false
+var my_submitted_answer: String = ""
 var has_voted: bool = false
 var is_ready: bool = false
 
@@ -106,11 +122,20 @@ func _connect_signals() -> void:
 	submit_button.pressed.connect(_on_submit_pressed)
 	ready_button.pressed.connect(_on_ready_pressed)
 	answer_input.focus_entered.connect(_on_input_focus)
+	answer_input.text_changed.connect(_on_answer_text_changed)
 
 
 func _on_input_focus() -> void:
 	if DisplayServer.has_feature(DisplayServer.FEATURE_VIRTUAL_KEYBOARD):
 		DisplayServer.virtual_keyboard_show(answer_input.text, Rect2())
+
+
+func _on_answer_text_changed() -> void:
+	if answer_input.text.length() > MAX_ANSWER_LENGTH:
+		answer_input.text = answer_input.text.substr(0, MAX_ANSWER_LENGTH)
+		answer_input.set_caret_column(MAX_ANSWER_LENGTH)
+		answer_input.set_caret_line(answer_input.get_line_count() - 1)
+	_update_char_counter()
 
 
 func _setup_timers() -> void:
@@ -194,6 +219,7 @@ func _start_round() -> void:
 func _start_writing_phase() -> void:
 	current_phase = GamePhase.WRITING
 	has_submitted_answer = false
+	my_submitted_answer = ""
 
 	var data = {
 		"type": "whosaid_prompt",
@@ -236,8 +262,8 @@ func _show_next_answer_for_voting() -> void:
 	var data = {
 		"type": "whosaid_vote_start",
 		"answer_index": current_answer_index,
+		"answer_total": shuffled_answers.size(),
 		"answer_text": answer_data.answer_text,
-		"author_id": author_id,
 		"voters": voters,
 		"time_limit": VOTING_TIME
 	}
@@ -322,7 +348,17 @@ func _end_game() -> void:
 			highest_score = player_scores[player_id]
 			winner_id = player_id
 
-	var winner_name = GameManager.players[winner_id].name if winner_id in GameManager.players else "Nobody"
+	# Check for ties
+	var winners = []
+	for player_id in player_scores:
+		if player_scores[player_id] == highest_score:
+			winners.append(player_id)
+
+	var winner_name: String
+	if winners.size() > 1:
+		winner_name = TIE_MESSAGES[randi() % TIE_MESSAGES.size()]
+	else:
+		winner_name = GameManager.players[winner_id].name if winner_id in GameManager.players else "Nobody"
 
 	for player_id in player_scores:
 		GameManager.update_score(player_id, player_scores[player_id])
@@ -370,6 +406,7 @@ func _show_writing_ui() -> void:
 	answer_input.editable = true
 	submit_button.disabled = false
 	answers_status.text = "0/%d answers received" % player_order.size()
+	_update_char_counter()
 	phase_label.text = "WRITE"
 	round_label.text = "Round %d/%d" % [current_round, total_rounds]
 
@@ -377,14 +414,26 @@ func _show_writing_ui() -> void:
 	_update_players_display()
 
 
-func _show_voting_ui(answer_data: Dictionary, author_id: String) -> void:
+func _update_char_counter() -> void:
+	var remaining = MAX_ANSWER_LENGTH - answer_input.text.length()
+	char_counter.text = "%d / %d" % [answer_input.text.length(), MAX_ANSWER_LENGTH]
+	if remaining <= 25:
+		char_counter.add_theme_color_override("font_color", Color(1, 0.3, 0.3, 1))
+	elif remaining <= 50:
+		char_counter.add_theme_color_override("font_color", Color(1, 0.6, 0.2, 1))
+	else:
+		char_counter.add_theme_color_override("font_color", Color(0.6, 0.6, 0.6, 1))
+
+
+func _show_voting_ui(answer_data: Dictionary, is_author: bool, answer_total: int = 0) -> void:
 	_hide_all_sections()
 	voting_section.visible = true
 
 	answer_display.text = '"%s"' % answer_data.answer_text
-	phase_label.text = "VOTE"
-
-	var is_author = (author_id == GameManager.local_player_id)
+	if answer_total > 0:
+		phase_label.text = "VOTE  %d / %d" % [current_answer_index + 1, answer_total]
+	else:
+		phase_label.text = "VOTE"
 
 	if is_author:
 		your_answer_label.visible = true
@@ -554,6 +603,9 @@ func _on_phase_timeout() -> void:
 	match current_phase:
 		GamePhase.WRITING:
 			if GameManager.is_host:
+				for player_id in player_order:
+					if player_id not in player_answers:
+						player_answers[player_id] = TIMEOUT_ANSWERS[randi() % TIMEOUT_ANSWERS.size()]
 				_start_voting_phase()
 		GamePhase.VOTING:
 			if GameManager.is_host:
@@ -569,8 +621,11 @@ func _on_submit_pressed() -> void:
 	var answer = answer_input.text.strip_edges()
 	if answer.is_empty():
 		return
+	if answer.length() > MAX_ANSWER_LENGTH:
+		answer = answer.substr(0, MAX_ANSWER_LENGTH)
 
 	has_submitted_answer = true
+	my_submitted_answer = answer
 	submit_button.disabled = true
 	answer_input.editable = false
 
@@ -778,10 +833,12 @@ func _apply_answer_status(data: Dictionary) -> void:
 
 func _apply_vote_start(data: Dictionary) -> void:
 	current_answer_index = data.get("answer_index", 0)
-	var author_id = data.get("author_id", "")
-	var answer_data = {"answer_text": data.get("answer_text", ""), "author_id": author_id}
+	var answer_total = data.get("answer_total", 0)
+	var answer_text = data.get("answer_text", "")
+	var is_author = (answer_text == my_submitted_answer)
+	var answer_data = {"answer_text": answer_text}
 	has_voted = false
-	_show_voting_ui(answer_data, author_id)
+	_show_voting_ui(answer_data, is_author, answer_total)
 
 
 func _handle_vote(data: Dictionary) -> void:
