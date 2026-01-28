@@ -36,14 +36,15 @@ func _start_server() -> void:
 		var ws_port = NetworkManager.DEFAULT_PORT
 
 		# Generate connection info for QR code
-		# Players scan this to get the host IP address
-		var join_info = "%s:%d" % [ip, ws_port]
+		# Players scan this to open the web player with connection params
+		var web_player_url = "https://growadamr.github.io/PartyGameCollection/?host=%s&port=%d" % [ip, ws_port]
 
 		print("Server running on port: ", ws_port)
-		print("Join info for QR code: ", join_info)
+		print("Local IP: ", ip)
+		print("Web player URL: ", web_player_url)
 
 		# Generate and display QR code
-		_display_qr_code(join_info, ip)
+		_display_qr_code(web_player_url, ip)
 	else:
 		qr_text.text = "Server\nError"
 		push_error("Failed to start server")
