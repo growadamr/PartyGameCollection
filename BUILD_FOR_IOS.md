@@ -26,9 +26,19 @@ This guide explains how to build and deploy the Godot host app to your iPhone.
 
 1. **Xcode** (already installed ✓)
 2. **Godot 4.5** with iOS export templates
-3. **Apple Developer Account** (free or paid)
+3. **Apple ID** (free - just your iCloud account, NO $99 payment needed!)
 4. **iPhone** connected via USB
 5. All devices on **same WiFi network**
+
+### Important: You DON'T Need a Paid Developer Account!
+
+A **free Apple ID** works perfectly for testing:
+- ✅ Deploy to your own iPhone
+- ✅ Full game functionality
+- ✅ Friends connect via Safari (no app install for players!)
+- ⏰ Apps expire after 7 days (just rebuild in Xcode)
+
+The **$99 paid account** is only needed for App Store publishing.
 
 ## Step 1: Install Godot iOS Export Templates
 
@@ -85,7 +95,7 @@ open PartyGames.xcodeproj
 
 Or double-click `PartyGames.xcodeproj` in Finder.
 
-## Step 5: Configure Code Signing
+## Step 5: Configure Code Signing (FREE - No Payment Required!)
 
 This is the most important step!
 
@@ -93,16 +103,19 @@ This is the most important step!
 2. Select the **PartyGames** target
 3. Go to **Signing & Capabilities** tab
 
-### For Free Apple Account (Personal Team):
+### Using Your Free Apple ID:
 
 1. Click **Team** dropdown
 2. Click **Add Account...**
-3. Sign in with your Apple ID
-4. Select your Personal Team (Your Name)
-5. Bundle Identifier should auto-populate
-6. Check: **Automatically manage signing** ✓
+3. Sign in with your **regular Apple ID** (your iCloud email - it's free!)
+4. After signing in, select **"Your Name (Personal Team)"** from the Team dropdown
+5. Bundle Identifier should auto-populate: `com.adamgrow.partygames`
+6. ✓ Check: **Automatically manage signing**
+7. Xcode will automatically create a free signing certificate
 
-**Note:** Free accounts can only deploy to your own devices for 7 days at a time.
+**That's it!** No payment required, no enrollment needed.
+
+**Note:** Apps signed with free accounts expire after 7 days. Just reconnect your iPhone and press Play in Xcode to rebuild - takes ~30 seconds.
 
 ### Trust Your Developer Certificate on iPhone:
 
@@ -243,7 +256,21 @@ Select iPhone device → Press ▶️ (Cmd+R)
 
 ## Notes
 
-- Free Apple Developer accounts: Apps expire after 7 days (just rebuild)
-- Paid Developer accounts: Apps work for 1 year
-- For App Store release, you need a paid account ($99/year)
-- This is for testing/development only
+### Free vs Paid Apple Developer Account
+
+**FREE (Personal Team):**
+- ✅ Perfect for this party game!
+- ✅ Deploy to your iPhone
+- ✅ All features work
+- ⏰ Apps expire after 7 days (rebuild takes 30 seconds)
+- 📱 Up to 3 devices at a time
+- 🎮 Players use Safari (no install needed!)
+
+**PAID ($99/year):**
+- Only needed if you want to:
+  - Publish to App Store
+  - Use TestFlight for beta testing
+  - Apps that don't expire
+  - Deploy to more than 3 devices
+
+**For testing and playing with friends: FREE account is all you need!**
