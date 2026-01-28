@@ -76,24 +76,18 @@ func _initialize_game() -> void:
 
 	# Send personalized role data to each player
 	for player_id in player_ids:
+		var peer_id = _get_peer_id_for_player(player_id)
 		var is_player_imposter = player_id in imposters
+
 		player_roles[player_id] = is_player_imposter
 
-		var role_data = {
+		NetworkManager.send_to_client(peer_id, {
 			"type": "imposter_role",
 			"is_imposter": is_player_imposter,
 			"word": "" if is_player_imposter else current_word,
 			"imposter_count": imposter_count,
 			"total_players": total_players
-		}
-
-		# If this is the host's own player, apply role data locally
-		if player_id == GameManager.local_player_id:
-			_apply_role_data(role_data)
-		else:
-			# Send to remote client
-			var peer_id = _get_peer_id_for_player(player_id)
-			NetworkManager.send_to_client(peer_id, role_data)
+		})
 
 	# Broadcast discussion phase start
 	NetworkManager.broadcast({
