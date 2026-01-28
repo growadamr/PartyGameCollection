@@ -37,23 +37,33 @@ A mobile party game collection where one player hosts a session, others join via
 
 ### Network Model
 ```
-┌─────────────────┐
-│   HOST DEVICE   │  ← Game state, display, QR generation
-│   (WebSocket    │
-│    Server)      │
-└────────┬────────┘
-         │
-    ┌────┴────┬─────────┬─────────┐
-    ▼         ▼         ▼         ▼
-┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐
-│Player1│ │Player2│ │Player3│ │Player4│  ← Personal screens, input
-└───────┘ └───────┘ └───────┘ └───────┘
+┌────────────────────────────────┐
+│   HOST DEVICE (iPhone)         │
+│   ┌─────────────────────────┐  │
+│   │ Godot App               │  │
+│   │ ├─ HTTP Server :8000   │  │  ← Serves web player HTML/CSS/JS
+│   │ │  (offline hosting)    │  │
+│   │ └─ WebSocket :8080      │  │  ← Game state, communication
+│   └─────────────────────────┘  │
+│   QR Code: http://IP:8000      │
+└────────────┬───────────────────┘
+             │ Local WiFi (no internet required)
+    ┌────────┴────┬─────────┬─────────┐
+    ▼             ▼         ▼         ▼
+┌───────┐     ┌───────┐ ┌───────┐ ┌───────┐
+│Player1│     │Player2│ │Player3│ │Player4│  ← Safari browsers
+│(Safari│     │(Safari│ │(Safari│ │(Safari│     Load from HTTP :8000
+│  Web) │     │  Web) │ │  Web) │ │  Web) │     Connect via WS :8080
+└───────┘     └───────┘ └───────┘ └───────┘
 ```
 
 ### Technology Stack
-- **Networking:** Godot's built-in WebSocket or WebRTC
-- **QR Generation:** GDScript QR library or native plugin
-- **Local Discovery:** mDNS/Bonjour for same-network joining
+- **Platform:** iOS (iPhone/iPad) - Godot 4.5 export
+- **HTTP Server:** Built-in TCPServer serving web player files (port 8000)
+- **WebSocket Server:** Godot's built-in WebSocket for game communication (port 8080)
+- **QR Generation:** Pure GDScript QR code generator
+- **Web Player:** HTML/CSS/JavaScript (Safari browser)
+- **Local Network:** iOS Bonjour services for network discovery
 - **State Management:** Centralized on host, synced to players
 
 ---
@@ -330,6 +340,7 @@ mcp__pixellab__get_character(character_id="CHARACTER_ID")
 res://
 ├── project.godot
 ├── PLAN.md
+├── BUILD_FOR_IOS.md      # iOS deployment guide
 │
 ├── assets/
 │   ├── characters/           # PixelLab generated
@@ -367,7 +378,8 @@ res://
 ├── scripts/
 │   ├── autoload/
 │   │   ├── game_manager.gd   # Global game state
-│   │   ├── network_manager.gd
+│   │   ├── network_manager.gd # WebSocket server/client
+│   │   ├── http_server.gd    # HTTP server for web player files
 │   │   └── audio_manager.gd
 │   ├── networking/
 │   │   ├── websocket_server.gd
@@ -386,17 +398,37 @@ res://
 │       ├── qr_generator.gd
 │       └── word_bank.gd
 │
-└── data/
-	├── prompts/
-	│   ├── quick_draw_words.json
-	│   ├── charades_prompts.json
-	│   ├── imposter_words.json
-	│   ├── fibbage_questions.json
-	│   ├── letter_combos.json
-	│   ├── who_said_prompts.json
-	│   └── trivia_questions.json
-	└── settings/
-		└── default_settings.json
+├── data/
+│   ├── prompts/
+│   │   ├── quick_draw_words.json
+│   │   ├── charades_prompts.json
+│   │   ├── imposter_words.json
+│   │   ├── fibbage_questions.json
+│   │   ├── letter_combos.json
+│   │   ├── who_said_prompts.json
+│   │   └── trivia_questions.json
+│   └── settings/
+│       └── default_settings.json
+│
+├── web-player/           # Web player files (served by HTTP server)
+│   ├── index.html
+│   ├── css/
+│   │   └── styles.css
+│   └── js/
+│       ├── app.js
+│       ├── websocket.js
+│       └── games/
+│           ├── charades.js
+│           ├── word_bomb.js
+│           ├── quick_draw.js
+│           ├── imposter.js
+│           ├── who_said_it.js
+│           ├── fibbage.js
+│           └── trivia.js
+│
+└── builds/               # Xcode export output (gitignored)
+    └── ios/
+        └── PartyGames/
 ```
 
 ---
@@ -474,15 +506,26 @@ res://
 - [x] Trivia Showdown web player interface
 - [x] Character sprites display in lobby (waiting_lobby, player_waiting screens)
 - [x] Character sprites display in all 7 games (replaced color blocks with actual sprites)
+- [x] iOS export configuration (bundle ID, Team ID, code signing)
+- [x] Built-in HTTP server (serves web player files from iPhone)
+- [x] iOS local network permissions (NSLocalNetworkUsageDescription, Bonjour services)
+- [x] Imposter game auto-voting (10-second timer after role assignment)
+- [x] Debug logging for Imposter voting phase (tracking player data flow)
+- [x] Complete offline support (no internet required, local WiFi only)
 
 ### In Progress
-- [ ] Cross-device multiplayer testing (iPhone + macOS)
+- [x] iOS deployment setup (complete - see BUILD_FOR_IOS.md)
+- [x] Built-in HTTP server for offline web player hosting
+- [x] Imposter game auto-voting after 10-second discussion phase
+- [ ] iOS local network testing (iPhone + iPhone multiplayer)
+- [ ] Imposter game voting screen debug (empty voting list issue)
 - [ ] Remaining 3 character sprites (Yellow Bard, Orange Monk, Teal Robot) - pending PixelLab generation
 
 ### Next Steps
-1. Complete remaining character downloads when PixelLab finishes
-2. Cross-device multiplayer testing for all 7 games
-3. Add sound effects and polish
+1. Test on real iOS devices (grant Local Network permission)
+2. Debug Imposter voting screen on iOS Safari
+3. Complete remaining character downloads when PixelLab finishes
+4. Add sound effects and polish
 
 ### Character Assets Status
 | Character | Status | Sprite Path |
@@ -502,18 +545,67 @@ res://
 
 ### Design Decisions
 - **Mobile-first:** UI optimized for phone screens, large touch targets
-- **Host as server:** Simplifies NAT traversal, host phone runs game logic
+- **Host as server:** iPhone runs both HTTP (web player) and WebSocket (game logic) servers
+- **Offline-capable:** Built-in HTTP server serves web player files directly from iPhone
+- **Local WiFi only:** No internet connection required - all communication on local network
 - **WebSocket over WebRTC:** Simpler implementation, sufficient for turn-based/low-latency needs
 - **JSON prompts:** Easy to extend/modify word banks without code changes
+- **Free Apple Developer Account:** Works with free Apple ID (apps expire after 7 days, just rebuild)
 
 ### Resolved Questions
 - Maximum player count: 2-8 players
 - Session timeout: Not yet implemented
+- Web player hosting: Built-in HTTP server (offline, no external hosting needed)
+- iOS deployment: Free Apple Developer account works (no $99 payment required)
+- Network permissions: NSLocalNetworkUsageDescription required for iOS server functionality
 
 ### Open Questions
-- WebSocket connectivity across different networks (NAT traversal)
 - Reconnection handling for dropped connections
+- Imposter voting screen showing empty player list (under investigation)
+- Session persistence when app backgrounded on iPhone
+
+### Known Issues
+- **Imposter game voting:** Player names not appearing in voting list after 10-second discussion phase
+  - Debug logs added to track data flow
+  - Testing required on iOS Safari to diagnose
+- **iOS Local Network Permission:** Must be granted on first launch for servers to work
 
 ---
 
-*Last Updated: 2026-01-28 (All 7 games complete; Imposter game role assignment bugs fixed)*
+## iOS Deployment
+
+### Setup Complete
+- ✅ Export preset configured (`com.adamgrow.partygames`)
+- ✅ Free Apple Developer account (Personal Team: PR2B6TA46W)
+- ✅ Xcode project export working
+- ✅ Code signing configured
+- ✅ Local network permissions added to Info.plist
+- ✅ Bonjour services declared (_http._tcp, _ws._tcp)
+
+### Build Process
+1. **Godot:** Project → Export → iOS → Export Project
+2. **Xcode:** Open `builds/ios/PartyGames/*.xcodeproj`
+3. **Xcode:** Select iPhone device, press Play ▶️
+4. **iPhone:** Grant "Local Network" permission when prompted
+5. **Test:** Create lobby, scan QR from another iPhone
+
+### Architecture
+- **HTTP Server (port 8000):** Serves web player files (HTML/CSS/JS)
+- **WebSocket Server (port 8080):** Game communication and state management
+- **QR Code:** Points to `http://LOCAL_IP:8000` for players to join
+- **Completely offline:** No internet required, works on local WiFi only
+
+### Testing Status
+- **Host App:** Deploys successfully to iPhone
+- **HTTP Server:** Configured with local network permissions (testing in progress)
+- **Web Player:** All 7 games implemented and ready for testing
+- **Multiplayer:** Pending iOS device testing
+
+### Documentation
+- **BUILD_FOR_IOS.md:** Complete guide for Xcode deployment
+- **export_presets.cfg:** iOS export configuration
+- **scripts/autoload/http_server.gd:** Built-in HTTP file server
+
+---
+
+*Last Updated: 2026-01-28 (iOS deployment configured; HTTP server added for offline web player hosting; Imposter auto-voting implemented)*
