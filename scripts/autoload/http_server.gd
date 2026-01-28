@@ -61,12 +61,13 @@ func _process(_delta: float) -> void:
 
 func start_server() -> Error:
 	_tcp_server = TCPServer.new()
-	var err = _tcp_server.listen(HTTP_PORT)
+	# Bind to all network interfaces ("*") to accept connections from other devices
+	var err = _tcp_server.listen(HTTP_PORT, "*")
 	if err != OK:
-		push_error("Failed to start HTTP server on port %d" % HTTP_PORT)
+		push_error("Failed to start HTTP server on port %d: %s" % [HTTP_PORT, error_string(err)])
 		return err
 
-	print("HTTP server started on port ", HTTP_PORT)
+	print("HTTP server started on port ", HTTP_PORT, " (listening on all interfaces)")
 	return OK
 
 func stop_server() -> void:
