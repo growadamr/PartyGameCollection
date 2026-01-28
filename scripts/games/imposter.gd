@@ -100,6 +100,10 @@ func _initialize_game() -> void:
 	_show_discussion_phase()
 	_update_players_display()
 
+	# Wait 10 seconds for discussion, then auto-start voting
+	await get_tree().create_timer(10.0).timeout
+	start_voting()
+
 func _get_imposter_count(player_count: int) -> int:
 	if player_count >= 6:
 		return 2
@@ -222,11 +226,18 @@ func start_voting() -> void:
 			"eliminated": player_id in eliminated_players
 		})
 
+	print("Starting voting with player_list: ", player_list)
+	print("Total players in list: ", player_list.size())
+
 	NetworkManager.broadcast({
 		"type": "voting_started",
 		"players": player_list,
 		"eliminated": eliminated_players
 	})
+
+	# Update host UI
+	instruction_label.text = "Voting in progress! Players are selecting who to eliminate."
+	instruction_label.add_theme_color_override("font_color", Color(1, 0.8, 0.2, 1))
 
 func _can_vote(voter_id: String) -> bool:
 	return voter_id not in eliminated_players and current_state in [State.VOTING, State.CONSENSUS_WARNING]
@@ -471,7 +482,10 @@ func _return_to_lobby() -> void:
 
 func _apply_voting_started(data: Dictionary) -> void:
 	current_state = State.VOTING
-	# UI update will be handled by web player
+
+	# Update host UI to show voting is active
+	instruction_label.text = "Voting in progress! Players are selecting who to eliminate."
+	instruction_label.add_theme_color_override("font_color", Color(1, 0.8, 0.2, 1))
 
 func _apply_vote_update(data: Dictionary) -> void:
 	votes = data.get("votes", {})

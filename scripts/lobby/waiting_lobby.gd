@@ -29,24 +29,32 @@ func _ready() -> void:
 	_update_start_button()
 
 func _start_server() -> void:
-	var err = NetworkManager.start_server()
-	if err == OK:
+	# Start WebSocket server for game communication
+	var ws_err = NetworkManager.start_server()
+
+	# Start HTTP server for serving web player files
+	var http_err = HTTPServer.start_server()
+
+	if ws_err == OK and http_err == OK:
 		server_started = true
 		var ip = NetworkManager.get_local_ip()
+		var http_port = 8000  # HTTPServer.HTTP_PORT
 		var ws_port = NetworkManager.DEFAULT_PORT
 
-		# Generate connection info for QR code
-		# Players scan this to get the host IP address
-		var join_info = "%s:%d" % [ip, ws_port]
+		# Generate web player URL that points to our local HTTP server
+		# Players scan this to load the web player from the iPhone
+		var web_player_url = "http://%s:%d" % [ip, http_port]
 
-		print("Server running on port: ", ws_port)
-		print("Join info for QR code: ", join_info)
+		print("HTTP server running on port: ", http_port, " (serves web player)")
+		print("WebSocket server running on port: ", ws_port, " (game communication)")
+		print("Local IP: ", ip)
+		print("Web player URL: ", web_player_url)
 
 		# Generate and display QR code
-		_display_qr_code(join_info, ip)
+		_display_qr_code(web_player_url, ip)
 	else:
 		qr_text.text = "Server\nError"
-		push_error("Failed to start server")
+		push_error("Failed to start servers (WS: %s, HTTP: %s)" % [ws_err, http_err])
 
 func _display_qr_code(connection_info: String, ip: String) -> void:
 	# Try to generate QR code image
@@ -200,5 +208,6 @@ func _on_start_pressed() -> void:
 func _on_back_pressed() -> void:
 	if server_started:
 		NetworkManager.stop_server()
+		HTTPServer.stop_server()
 	GameManager.reset_session()
 	get_tree().change_scene_to_file("res://scenes/main.tscn")

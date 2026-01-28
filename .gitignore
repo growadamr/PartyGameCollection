@@ -48,3 +48,6 @@ export_presets.cfg
 
 # Godot UID files
 *.uid
+
+# Build outputs
+builds/

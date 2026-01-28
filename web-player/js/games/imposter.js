@@ -287,10 +287,15 @@ class ImposterGame {
 
     // Voting handlers
     handleVotingStarted(data) {
+        console.log('Voting started, data:', data);
+        console.log('Players array:', data.players);
+
         this.currentState = 'voting';
         this.votes = data.votes || {};
         this.tallies = data.tallies || {};
         this.players = data.players || [];
+
+        console.log('this.players after assignment:', this.players);
 
         if (this.isEliminated) {
             this.showSpectatorView();
@@ -315,14 +320,24 @@ class ImposterGame {
     }
 
     renderVoteList(containerId, interactive) {
+        console.log('renderVoteList called:', containerId, 'interactive:', interactive);
+        console.log('this.players:', this.players);
+
         const container = document.getElementById(containerId);
-        if (!container) return;
+        if (!container) {
+            console.error('Container not found:', containerId);
+            return;
+        }
 
         container.innerHTML = '';
 
         this.players.forEach(player => {
+            console.log('Rendering player:', player);
             // Skip eliminated players in vote list
-            if (player.eliminated) return;
+            if (player.eliminated) {
+                console.log('Skipping eliminated player:', player.name);
+                return;
+            }
 
             const div = document.createElement('div');
             div.className = 'vote-option';
