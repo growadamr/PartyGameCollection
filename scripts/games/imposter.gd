@@ -76,18 +76,24 @@ func _initialize_game() -> void:
 
 	# Send personalized role data to each player
 	for player_id in player_ids:
-		var peer_id = _get_peer_id_for_player(player_id)
 		var is_player_imposter = player_id in imposters
-
 		player_roles[player_id] = is_player_imposter
 
-		NetworkManager.send_to_client(peer_id, {
+		var role_data = {
 			"type": "imposter_role",
 			"is_imposter": is_player_imposter,
 			"word": "" if is_player_imposter else current_word,
 			"imposter_count": imposter_count,
 			"total_players": total_players
-		})
+		}
+
+		# Send to remote players via WebSocket
+		if player_id.begins_with("peer_"):
+			var peer_id = _get_peer_id_for_player(player_id)
+			NetworkManager.send_to_client(peer_id, role_data)
+		# Send to host (local player) via message signal
+		elif player_id == GameManager.local_player_id:
+			_apply_role_data(role_data)
 
 	# Broadcast discussion phase start
 	NetworkManager.broadcast({
@@ -115,7 +121,7 @@ func _get_imposter_count(player_count: int) -> int:
 func _get_peer_id_for_player(player_id: String) -> int:
 	return int(player_id.substr(5))
 
-func _on_message_received(_peer_id: int, data: Dictionary) -> void:
+func _on_message_received(peer_id: int, data: Dictionary) -> void:
 	var msg_type = data.get("type", "")
 
 	match msg_type:
@@ -125,11 +131,11 @@ func _on_message_received(_peer_id: int, data: Dictionary) -> void:
 			_show_discussion_phase()
 		"vote_cast":
 			if GameManager.is_host:
-				var voter_id = "peer_%d" % _peer_id
+				var voter_id = "peer_%d" % peer_id
 				_process_vote(voter_id, data.get("target_id", ""))
 		"word_guess":
 			if GameManager.is_host:
-				var guesser_id = "peer_%d" % _peer_id
+				var guesser_id = "peer_%d" % peer_id
 				_process_word_guess(guesser_id, data.get("guess", ""))
 		"start_voting":
 			if GameManager.is_host:

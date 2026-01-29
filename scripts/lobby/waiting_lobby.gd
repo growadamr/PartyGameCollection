@@ -46,8 +46,8 @@ func _start_server() -> void:
 		var ws_port = NetworkManager.DEFAULT_PORT
 
 		# Generate web player URL that points to our local HTTP server
-		# Players scan this to load the web player from the iPhone
-		var web_player_url = "http://%s:%d" % [ip, http_port]
+		# Include WebSocket connection parameters so web player knows where to connect
+		var web_player_url = "http://%s:%d?host=%s&port=%d" % [ip, http_port, ip, ws_port]
 
 		print("[WaitingLobby] ✓ Both servers started successfully")
 		print("[WaitingLobby] HTTP server running on port: ", http_port, " (serves web player)")

@@ -168,7 +168,7 @@ class ImposterGame {
         const guess = input.value.trim();
         if (guess === '') return;
 
-        gameSocket.send('word_guess', { guess: guess });
+        gameSocket.send({ type: 'word_guess', guess: guess });
         input.value = '';
     }
 
@@ -366,7 +366,7 @@ class ImposterGame {
 
     castVote(targetId) {
         this.myVote = targetId;
-        gameSocket.send('vote_cast', { target_id: targetId });
+        gameSocket.send({ type: 'vote_cast', target_id: targetId });
         this.updateVoteHighlight();
     }
 

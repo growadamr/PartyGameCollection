@@ -26,7 +26,6 @@ HTTPServer="*res://scripts/autoload/http_server.gd"
 window/size/viewport_width=480
 window/size/viewport_height=800
 window/stretch/mode="viewport"
-window/stretch/aspect="keep"
 window/handheld/orientation="portrait"
 
 [input_devices]
